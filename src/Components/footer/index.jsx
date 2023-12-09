@@ -11,9 +11,13 @@ import { NavLink } from "react-router-dom";
 export default function Footer() {
   const menuItems = [
     { name: "Inicio", path: "/", activeClassName: "text-blue" },
-    { name: "Quienes somos", path: "/acercadenosotros", activeClassName: "text-blue" },
+    {
+      name: "Quienes somos",
+      path: "/acercadenosotros",
+      activeClassName: "text-blue",
+    },
     { name: "Servicios", path: "/servicios", activeClassName: "text-blue" },
-    { name: "Contacto", path: "/contacto", activeClassName: "text-blue" },    
+    { name: "Contacto", path: "/contacto", activeClassName: "text-blue" },
     { name: "Blog", path: "/blog", activeClassName: "text-blue" },
     { name: "CELLVI", path: "/cellvi", activeClassName: "text-blue" },
     { name: "Legalidad", path: "/legalidad", activeClassName: "text-blue" },
@@ -122,7 +126,6 @@ export default function Footer() {
               >
                 <p className="text-reset">{menuItems[3].name}</p>
               </NavLink>
-
             </MDBCol>
 
             <MDBCol md="3" lg="2" xl="2" className="mx-auto mb-4">
@@ -170,7 +173,6 @@ export default function Footer() {
               <p>
                 <MDBIcon icon="phone" className="me-3" /> +57 3155870498
               </p>
-
             </MDBCol>
           </MDBRow>
         </MDBContainer>
@@ -180,9 +182,10 @@ export default function Footer() {
         className="text-center p-4 bg-dark text-white"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
       >
-        © 2023 Copyright:
+        DERECHOS DE AUTOR © 2023 Copyright: Derechos de
+        autor y propiedad industrial e intelectual 
         <a className="text-reset fw-bold" href="https://www.asegurar.com.co/">
-          Asegurar limitada
+           Asegurar limitada
         </a>
       </div>
     </MDBFooter>

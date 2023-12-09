@@ -22,7 +22,7 @@ export default function Services() {
   ]);
 
   let info = {
-    title: "Nuestros Servicios",
+    title: "Portafolio de Servicios",
     titleDescription: "",
   };
 
@@ -115,7 +115,6 @@ export default function Services() {
                 {info.titleDescription}
               </h3>
               <div className="d-flex gap-3 justify-content-center lead fw-normal">
-                <p>Servicios prestados por Asegurar LTDA</p>
               </div>
             </div>
           </div>

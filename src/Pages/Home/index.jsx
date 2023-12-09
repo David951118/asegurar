@@ -210,7 +210,7 @@ export default function Home() {
                     <hr />
                     <h5 className="card-title">{item.cargo}</h5>
                     <p
-                      className="card-text link"
+                      className="pointer link card-text hand custom-pointer"
                       onClick={() => handleEmailClick(item.email)}
                     >
                       {item.email}
@@ -237,7 +237,12 @@ export default function Home() {
                     <h4 className="card-title">{item.name}</h4>
                     <hr />
                     <h5 className="card-title">{item.cargo}</h5>
-                    <p className="card-text link">{item.email}</p>
+                    <p
+                      className="pointer link card-text hand custom-pointer"
+                      onClick={() => handleEmailClick(item.email)}
+                    >
+                      {item.email}
+                    </p>
                   </div>
                 </div>
               </div>

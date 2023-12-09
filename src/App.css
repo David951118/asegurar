@@ -74,3 +74,7 @@
   background-repeat: repeat; /* o repeat-x o repeat-y según tus preferencias */
   background-attachment: fixed; /* Esto fija la imagen de fondo */
 }
+
+.custom-pointer{
+  cursor: pointer;
+}
