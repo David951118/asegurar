@@ -31,7 +31,7 @@ export default function Contact() {
     level: "h2",
   };
   const titleSecond = {
-    title: "Como llegar",
+    title: "Cómo llegar?",
     font: "48px", // Tamaño de fuente personalizado
     color: "grey", // Color de texto personalizado
     level: "h2",

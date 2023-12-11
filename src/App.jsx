@@ -19,7 +19,7 @@ import WhatsAppButton from "./Components/whatsapButon";
 
 const AppRoutes = () => {
   let routes = useRoutes([
-    { path: "/", element: <Home /> },
+    { path: "/", element: <Home />, exact: true },
     { path: "/acercadenosotros", element: <AboutUs /> },
     { path: "/contacto", element: <Contact /> },
     { path: "/servicios", element: <Services /> },
@@ -40,7 +40,10 @@ const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Verificar si window y window.scrollTo están definidos
+    if (typeof window !== 'undefined' && window.scrollTo) {
+      window.scrollTo(0, 0);
+    }
   }, [pathname]);
 
   return null;

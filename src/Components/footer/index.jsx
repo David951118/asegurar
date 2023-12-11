@@ -183,7 +183,7 @@ export default function Footer() {
         style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
       >
         DERECHOS DE AUTOR © 2023 Copyright: Derechos de
-        autor y propiedad industrial e intelectual 
+        autor y propiedad industrial e intelectual :
         <a className="text-reset fw-bold" href="https://www.asegurar.com.co/">
            Asegurar limitada
         </a>

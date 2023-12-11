@@ -95,7 +95,7 @@ export default function Legality() {
                   headerTitle={item.title}
                   key={index}
                 >
-                  {item.subTitle ? <h5>{item.subTitle}</h5> : <></>}
+                  {item.subTitle ? <div><h2>{item.subTitle}</h2></div> : null}
                   {item.content}
                 </MDBAccordionItem>
               ))}

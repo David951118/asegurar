@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { AsegurarContext } from "../../Context";
 import { NavLink } from "react-router-dom";
-import image from "../../Assets/LogoPNG2.001.png"; //todo premio liderazgo decha
+import image from "../../Assets/LogoPNG2.001.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -81,7 +81,7 @@ const Navbar = () => {
             <div className="custom-ml-auto">
               <button type="button" className="btn btn-primary me-3">
                 <NavLink to="/cellvi" className="nav-link" onClick={closeMenu}>
-                  LOGIN CELVI
+                  LOGIN CELLVI
                 </NavLink>
               </button>
             </div>

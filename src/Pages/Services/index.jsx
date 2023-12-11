@@ -29,7 +29,7 @@ export default function Services() {
   const services = [
     {
       title: "Monitoreo de",
-      title2: "Activos Moviles",
+      title2: "activos moviles",
       foto: sercicio1,
       description: "descripcion",
       mensaje:
@@ -39,7 +39,7 @@ export default function Services() {
     },
     {
       title: "Monitoreo de",
-      title2: "Activos Fijos",
+      title2: "activos fijos",
       foto: sercicio2,
       description: "descripcion",
       mensaje:
@@ -49,7 +49,7 @@ export default function Services() {
     },
     {
       title: "Monitoreo de",
-      title2: "Maquinaria Amarilla",
+      title2: "maquinaria amarilla",
       foto: sercicio3,
       description: "descripcion",
       mensaje:
@@ -58,8 +58,8 @@ export default function Services() {
         "En desarrollo del programa Presidencial de Lucha contra la Minería Ilegal, somos proveedores autorizados por la Dirección de Telemática de la Policía Nacional de Colombia de sistemas GPS para maquinaria autopropulsada de construcción (amarilla) y, agrícola industrial (verde), ejecutamos las normas emitidas por los Ministerios de Comercio, Industria y Turismo, de Transportes y, la Dirección General de la Policía Nacional; somos proveedores de servicios para la Concesión RUNT.",
     },
     {
-      title: "Central de Monitoreo",
-      title2: "Especializada 24 Horas",
+      title: "Central de monitoreo",
+      title2: "especializada 24 Horas",
       foto: sercicio4,
       description: "descripcion",
       mensaje:
@@ -68,8 +68,8 @@ export default function Services() {
         "La central especializada de monitoreo funciona las 24 horas del día, los 365 días del año, acompaña a nuestros clientes en lo relacionado con el suministro de información de posición geográfica, control de puntos de paso y geocercas, suministro de claves corporativas a generadoras de carga, acompañamiento en casos de siniestros por piratería terrestre, mantenemos un contacto y coordinación permanente con las autoridades de policía de carreteras en todo el país. Somos su ángel guardián de día y de noche en los movimientos de sus activos fijos y móviles",
     },
     {
-      title: "Monitoreo Internacional",
-      title2: "de Activos Moviles",
+      title: "Monitoreo internacional",
+      title2: "de activos moviles",
       foto: sercicio5,
       description: "descripcion",
       mensaje:
@@ -78,12 +78,12 @@ export default function Services() {
         "Prestamos servicio de monitoreo internacional mediante el empleo de micro chip especiales que se conectan con cualquier operador de telefonía móvil en todo el territorio del continente sur americano, contamos con una sucursal internacional sobre territorio de la Republica del Ecuador, con enlaces permanentes hacia el Perú y Bolivia.",
     },
     {
-      title: "Asesoria y consultoria",
-      title2: "en seguridad electronica",
+      title: "Asesoria y consultoría",
+      title2: "en seguridad electrónica",
       foto: sercicio6,
       description: "descripcion",
       mensaje:
-      "Necesito asesoria sobre el servicio de Asesoria y consultoria en seguridad electronica",
+      "Necesito asesoria sobre el servicio de Asesoria y consultoria en seguridad electrónica",
       parragrahp:
         "Asesoramos a nuestros clientes y suscriptores y, al público en general, dentro de los más altos estándares de confidencialidad, acerca de las mejores opciones en el campo de la seguridad electrónica con tecnología de punta, que abarca desde sencillas cámaras de visión, alarmas digitales, hasta complejos sistemas de visión con programas avanzados de video analítica y reconocimiento facial; sistemas de controles de acceso y perimétricos; combinados la tecnología IP, con la Inteligencia Artificial y, equipos electrónicos de alta gama.",
     },
