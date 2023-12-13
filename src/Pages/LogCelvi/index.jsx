@@ -9,7 +9,8 @@ export default function LogCelvi() {
   const videoContacto = "https://youtu.be/anZdB5xSGWY?si=nLihplX2q-_kZjzJ.";
   let info = {
     title: "Login CELLVI",
-    titleDescription: "Plataforma CELLVI: Central Especializada de Logistica y, Localizacion Vehicular Internacional ",
+    titleDescription:
+      "Plataforma CELLVI: Central Especializada de Logistica y, Localizacion Vehicular Internacional ",
   };
   const imageHeaderStyle = {
     height: "auto",
@@ -61,7 +62,7 @@ export default function LogCelvi() {
               <div className="col-md-6 py-4 p-3 mb-5 bg-body rounded">
                 <div className="card">
                   <div className="card-body p-4">
-                    <ul className="nav nav-pills nav-fill mb-3">
+                    {/* <ul className="nav nav-pills nav-fill mb-3">
                       <li
                         className="nav-item"
                         role="presentation"
@@ -132,7 +133,13 @@ export default function LogCelvi() {
                           Iniciar Sesión
                         </button>
                       </div>
-                    </div>
+                    </div> */}
+                    <iframe
+                      title="Login Cellvi"
+                      src="https://cellviweb.asegurar.com.co"
+                      width="100%"
+                      height="400"
+                    />
                   </div>
                 </div>
               </div>

@@ -6,7 +6,7 @@ import fotografiapost from "../../Assets/Foto Portada/WhatsApp Image 2023-11-11 
 import miniFotoPost from "../../Assets/Foto Portada/WhatsApp Image 2023-11-09 at 2.45.28 PM.jpeg";
 import fotoCliente1 from "../../Assets/iconsEnter/Coopsetrans.png";
 import fotoCliente2 from "../../Assets/iconsEnter/Samy-Salud-png.png";
-import fotoCliente3 from "../../Assets/iconsEnter/Lacteos Santa Maria png.png"
+import fotoCliente3 from "../../Assets/iconsEnter/Lacteos Santa Maria png.png";
 
 export default function Blog() {
   const noticias = [
@@ -37,20 +37,23 @@ export default function Blog() {
   const comentarios = [
     {
       nombreCliente: "COOPSETRANS",
-      comentario: "Para COOPSETRANS contar con el apoyo incondicional de ASEGURAR Ltda., ha sido fundamental, desde el momento de nuestra vinculación.  La plataforma de monitoreo satelital CELLVI que utiliza nos ha permitido el control de nuestra flota y el cumplimiento oportuno de los reportes a los diferentes entes de control que nos supervisan.",
+      comentario:
+        "Para COOPSETRANS contar con el apoyo incondicional de ASEGURAR Ltda., ha sido fundamental, desde el momento de nuestra vinculación.  La plataforma de monitoreo satelital CELLVI que utiliza nos ha permitido el control de nuestra flota y el cumplimiento oportuno de los reportes a los diferentes entes de control que nos supervisan.",
       foto: fotoCliente1,
     },
     {
       nombreCliente: "IPS SAMYSALUD SAS",
-      comentario: "ASEGURAR presta excelente servicio con responsabilidad y confianza",
+      comentario:
+        "ASEGURAR presta excelente servicio con responsabilidad y confianza",
       foto: fotoCliente2,
     },
     {
       nombreCliente: "Lácteos Santa María",
-      comentario: "En referencia al concepto de su empresa: ASEGURAR nos permite viajar seguros, con un servicio eficiente y efectivo",
+      comentario:
+        "En referencia al concepto de su empresa: ASEGURAR nos permite viajar seguros, con un servicio eficiente y efectivo",
       foto: fotoCliente3,
-    }
-  ]
+    },
+  ];
   return (
     <div>
       <BackgroundGradient color1="#fff" color2="#fff">
@@ -160,16 +163,20 @@ export default function Blog() {
                   <a href="Creador"> Valentina Ledesma</a>
                 </p>
                 {noticias[0].p.map((item, index) => (
-                  <p key={index} >{item}</p>
+                  <p key={index}>{item}</p>
                 ))}
                 <h4>{noticias[0].title2}</h4>
                 <ul>
-                  <li >{noticias[0].p2[0]}</li>
-                  <li >{noticias[0].p2[1]}</li>
-                  <li >{noticias[0].p2[2]}</li>
+                  <li>{noticias[0].p2[0]}</li>
+                  <li>{noticias[0].p2[1]}</li>
+                  <li>{noticias[0].p2[2]}</li>
                 </ul>
                 <p>{noticias[0].p3}</p>
-                <img src={noticias[0].foto1} alt={noticias[0].title}  className="img img-fluid"/>
+                <img
+                  src={noticias[0].foto1}
+                  alt={noticias[0].title}
+                  className="img img-fluid"
+                />
               </article>
               <hr />
               {/* <article className="blog-post">
@@ -278,31 +285,28 @@ export default function Blog() {
                     Comentarios de nuestros clientes
                   </h4>
                   <ul className="list-unstyled">
-                  {comentarios.map((item, index) => (
-                    <li key={index}>
-                    <a
-                      href={item.nombreCliente}
-                      className="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
-                    >
-                      <div className="col-lg-4"> 
-                        <img
-                        alt="Post"
-                        className="img img-fluid"
-                        src={item.foto}
-                      />
-                      </div>                     
-                      <div className="col-lg-8">
-                        <h5>
-                          {item.nombreCliente}
-                        </h5>
-                        <h6 className="mb-0">{item.comentario}</h6>
-                        <small className="text-body-secondary">
-                          Noviembre 29 del 2023
-                        </small>
+                    {comentarios.map((item, index) => (
+                      <div key={index}>
+                        <div
+                          className="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
+                        >
+                          <div className="col-lg-4">
+                            <img
+                              alt="Post"
+                              className="img img-fluid"
+                              src={item.foto}
+                            />
+                          </div>
+                          <div className="col-lg-8">
+                            <h5>{item.nombreCliente}</h5>
+                            <h6 className="mb-0">{item.comentario}</h6>
+                            <small className="text-body-secondary">
+                              Noviembre 29 del 2023
+                            </small>
+                          </div>
+                        </div>
                       </div>
-                    </a>
-                  </li>
-                  ))}
+                    ))}
                   </ul>
                 </div>
                 {/* <div className="p-4">

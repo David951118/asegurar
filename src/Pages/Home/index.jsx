@@ -88,7 +88,7 @@ export default function Home() {
     level: "h2",
   };
   const titleTeam = {
-    title: "Conoce al equipo",
+    title: "Conoce nuestro equipo de trabajo",
     font: "45px", // Tamaño de fuente personalizado
     color: "grey", // Color de texto personalizado
     level: "h2",
@@ -136,25 +136,25 @@ export default function Home() {
   const empleados = [
     {
       name: "Pedro Andrés Valencia Medina",
-      cargo: "Jefe de Red V.A.T.",
+      cargo: "Administrador Plataforma de Monitoreo CELLVI.",
       email: "jefatura.red.asegurar@gmail.com",
       foto: equipoFoto1,
     },
     {
       name: "David Sebastian Montes Zarama",
-      cargo: "Jefe de desarrollos tecnologicos",
+      cargo: "Jefe de Desarrollos Tecnologicos",
       email: "dsmontes95@gmail.com",
       foto: equipoFoto2,
     },
     {
       name: "Johanna Yamile Guzmán Gaviria",
-      cargo: "Asistene de Gerencia",
+      cargo: "Asistente de Gerencia",
       email: "asistenteasegurar@gmail.com",
       foto: equipoFoto3,
     },
     {
       name: "Jeffer Sebastian Almeida Figueroa",
-      cargo: "Comunicador Social",
+      cargo: "Creador de Contenido",
       email: "saf.comsocial@gmail.com",
       foto: equipoFoto4,
     },

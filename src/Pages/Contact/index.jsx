@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Title from "../../Components/title";
 import BackgroundGradient from "../../Components/background";
 import Footer from "../../Components/footer";
@@ -11,11 +11,65 @@ import planImage3 from "../../Assets/Planes/3.jpg";
 import planImage4 from "../../Assets/Planes/4.jpg";
 import planImage5 from "../../Assets/Planes/5.jpg";
 import planImage6 from "../../Assets/Planes/6.jpg";
-import imageDescription from "../../Assets/Foto Portada/1.jpg"; //todo marca de agua falta enviaro
+import imageDescription from "../../Assets/Foto Portada/1.jpg";
+import $ from "jquery";
 
 export default function Contact() {
-  const videoContacto =
-    "https://www.youtube.com/watch?v=mgg9wt_Pll0&ab_channel=ASEGURARLTDA.";
+  const [formData, setFormData] = useState({
+    name: "",
+    emailAddress: "",
+    message: "",
+  });
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Obtener valores de los campos
+    const name = $("#name").val();
+    const email = $("#emailAddress").val();
+    const message = $("#message").val();
+
+    // Validar que todos los campos estén llenos
+    if (!name || !email || !message) {
+      setError("Todos los campos son obligatorios");
+      setSuccessMessage(null);
+      return;
+    }
+
+    // Enviar el formulario (aquí puedes realizar tu lógica de envío)
+    $.ajax({
+      type: "POST",
+      url: "http://cellviapi.asegurar.com.co/cellvi/correo/contacto",
+      data: { name, email, message },
+      success: function (data) {
+        if (data.result === "success") {
+          setSuccessMessage("¡Tu mensaje fue enviado correctamente!");
+          setError(null);
+          // Puedes limpiar los campos del formulario aquí si es necesario
+        } else {
+          setError(
+            "Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo."
+          );
+          setSuccessMessage(null);
+        }
+      },
+      error: function () {
+        setError(
+          "Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo."
+        );
+        setSuccessMessage(null);
+      },
+      dataType: "json",
+    });
+  };
+
+  const videoContacto = "https://youtu.be/FMLjZqb8oJI?si=uMhs3sjxEfeBNdfB";
   let info = {
     title: "Contacto",
     titleDescription:
@@ -61,7 +115,7 @@ export default function Contact() {
       src: planImage3,
       title: "PLAN CON EQUIPO EN COMODATO",
       description:
-        "ASEGURAR LTDA, suministra equipo de transmisión de datos en comodato, mano obra, accesorios de instalación y año de servicio prepago.",
+        "ASEGURAR LTDA, suministra equipo de transmisión de datos en comodato, mano de obra, accesorios de instalación y año de servicio prepago.",
       mensaje: "Necesito asesoria sobre el Plan con equipo en comodato",
     },
     {
@@ -83,8 +137,7 @@ export default function Contact() {
       src: planImage6,
       title: "Contacta con nuestro asesor",
       description: "Click para informacion de los planes",
-      mensaje:
-        "Necesito hablar con un asesor",
+      mensaje: "Necesito hablar con un asesor",
     },
   ];
 
@@ -162,6 +215,13 @@ export default function Contact() {
                 <form id="contactForm" className="shadow p-3">
                   <Title item={titlethirt} />
                   <div className="mb-3">
+                    {error && <div className="alert alert-danger">{error}</div>}
+                    {successMessage && (
+                      <div className="alert alert-success">
+                        {successMessage}
+                      </div>
+                    )}
+
                     <label className="form-label" htmlFor="name">
                       Nombre
                     </label>
@@ -169,6 +229,9 @@ export default function Contact() {
                       className="form-control"
                       id="name"
                       type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
                       placeholder="Nombre"
                     />
                   </div>
@@ -181,11 +244,14 @@ export default function Contact() {
                       className="form-control"
                       id="emailAddress"
                       type="email"
+                      name="emailAddress"
+                      value={formData.emailAddress}
+                      onChange={handleInputChange}
                       placeholder="Email"
                     />
                   </div>
 
-                  <div className="mb-3 ">
+                  <div className="mb-3">
                     <label className="form-label text-start" htmlFor="message">
                       Mensaje
                     </label>
@@ -193,13 +259,19 @@ export default function Contact() {
                       className="form-control"
                       id="message"
                       type="text"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
                       placeholder="Mensaje"
                       style={{ height: "10rem" }}
                     ></textarea>
                   </div>
 
                   <div className="d-grid">
-                    <button className="btn btn-primary btn-lg" type="submit">
+                    <button
+                      className="btn btn-primary btn-lg"
+                      onClick={handleSubmit}
+                    >
                       Enviar
                     </button>
                   </div>

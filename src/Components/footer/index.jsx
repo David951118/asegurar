@@ -21,7 +21,8 @@ export default function Footer() {
     { name: "Blog", path: "/blog", activeClassName: "text-blue" },
     { name: "CELLVI", path: "/cellvi", activeClassName: "text-blue" },
     { name: "Legalidad", path: "/legalidad", activeClassName: "text-blue" },
-    { name: "Login admin", path: "/admin-login", activeClassName: "text-blue" },
+    // { name: "Login admin", path: "/admin-login", activeClassName: "text-blue" },
+    { name: "Logeo adminis", path: "/cellvi", activeClassName: "text-blue" },
     {
       name: "Portal de Pagos",
       path: "/portaldepagos",
@@ -92,7 +93,7 @@ export default function Footer() {
                 Asegurar Limitada
               </h6>
               <p>
-                Empresa nariñense autorizada por el ministerio de comunicaciones
+                Empresa nariñense autorizada por el Ministerio de Comunicaciones
                 de Colombia para operar nuestra red de telecomunicaciones
               </p>
             </MDBCol>
@@ -164,14 +165,17 @@ export default function Footer() {
               <h6 className="text-uppercase fw-bold mb-4">Contacto</h6>
               <p>
                 <MDBIcon icon="home" className="me-2" />
-                Pasto Car 19 No 27 - 41
+                Pasto Call 19 No 27 - 41
               </p>
               <p>
                 <MDBIcon icon="envelope" className="me-3" />
-                info@asegurar.com.co
+                asegurar.limitada@gmail.com
               </p>
               <p>
                 <MDBIcon icon="phone" className="me-3" /> +57 3155870498
+              </p>
+              <p>
+                <MDBIcon icon="phone" className="me-3" /> +57 3187500962
               </p>
             </MDBCol>
           </MDBRow>

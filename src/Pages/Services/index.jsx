@@ -23,7 +23,7 @@ export default function Services() {
 
   let info = {
     title: "Portafolio de Servicios",
-    titleDescription: "",
+    titleDescription: "Conocer mas",
   };
 
   const services = [
@@ -35,7 +35,7 @@ export default function Services() {
       mensaje:
         "Necesito asesoria sobre el servicio de Monitoreo de Activos Moviles",
       parragrahp:
-        "Servicios de tele acción: Mediante el equipamiento de pequeños dispositivos terminales de datos que envían información a través de las redes de telefonía móvil celular y/o satélites de orbita baja a nuestros servidores, los cuales decodifican y transforman esos datos en mapas vectorizados, digitalizados y georreferenciados, monitoreamos remotamente sus vehículos, personas, activos y, mercancías; colocando a su servicio la posición geográfica en tiempo real desde su PC, su dispositivo móvil Android o IOS o, a través de la central de monitoreo.",
+        "Servicios de tele acción: Mediante el equipamiento de pequeños dispositivos terminales de datos que envían información a través de las redes de telefonía móvil celular y/o satélites de orbita baja a nuestros servidores, los cuales decodifican y transforman esos datos en mapas vectorizados, digitalizados y georeferenciados, monitoreamos remotamente sus vehículos, personas, activos y, mercancías; colocando a su servicio la posición geográfica en tiempo real desde su PC, su dispositivo móvil Android o IOS o, a través de la central de monitoreo.",
     },
     {
       title: "Monitoreo de",
@@ -65,7 +65,7 @@ export default function Services() {
       mensaje:
         "Necesito asesoria sobre el servicio de Central de Monitoreo Especializada 24 Horas",
       parragrahp:
-        "La central especializada de monitoreo funciona las 24 horas del día, los 365 días del año, acompaña a nuestros clientes en lo relacionado con el suministro de información de posición geográfica, control de puntos de paso y geocercas, suministro de claves corporativas a generadoras de carga, acompañamiento en casos de siniestros por piratería terrestre, mantenemos un contacto y coordinación permanente con las autoridades de policía de carreteras en todo el país. Somos su ángel guardián de día y de noche en los movimientos de sus activos fijos y móviles",
+        "La central especializada de monitoreo funciona las 24 horas del día, los 365 días del año, acompaña a nuestros clientes en lo relacionado con el suministro de información de posición geográfica, control de puntos de paso y geocercas, suministro de claves corporativas a generadoras de carga, acompañamiento en casos de siniestros por piratería terrestre, mantenemos un contacto y coordinación permanente con las Autoridades de Policía de Carreteras en todo el país. Somos su ángel guardián de día y de noche en los movimientos de sus activos fijos y móviles",
     },
     {
       title: "Monitoreo internacional",
@@ -115,6 +115,7 @@ export default function Services() {
                 {info.titleDescription}
               </h3>
               <div className="d-flex gap-3 justify-content-center lead fw-normal">
+
               </div>
             </div>
           </div>
@@ -159,7 +160,7 @@ export default function Services() {
                           className="btn btn-primary"
                           onClick={() => handleWhatsAppClick(item.mensaje)}
                         >
-                          Pedir Asesoría del servicio
+                          Solicitar Asesoría del servicio
                         </button>
                       </div>
                     )}
