@@ -8,7 +8,7 @@ export default function Legality() {
   let info = {
     title: "Legalidad",
     titleDescription:
-      "Asegurar limitada se encuentra legalizada por los organismos publicos del estado Colombiano que normatizan y supervisan su actividad comercial, así:.",
+      "Los organismos publicos del estado Colombiano que normatizan y supervisan la actividad comercial de Asegurar LTDA, son:",
   };
   const imageHeaderStyle = {
     height: "auto",

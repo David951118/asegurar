@@ -23,7 +23,7 @@ export default function Services() {
 
   let info = {
     title: "Portafolio de Servicios",
-    titleDescription: "Conocer mas",
+    titleDescription: "",
   };
 
   const services = [
@@ -136,7 +136,7 @@ export default function Services() {
                         className="btn btn-secondary"
                         onClick={() => handleCardClick(index)}
                       >
-                        {expandedIndex[index] ? "Cerrar" : "Saber mas"}
+                        {expandedIndex[index] ? "Cerrar" : "Conocer Mas"}
                       </button>
                     </div>
                     <div

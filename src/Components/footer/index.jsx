@@ -5,7 +5,7 @@ import {
   MDBRow,
   MDBCol,
   MDBIcon,
-} from "mdb-react-ui-kit"; //falta los href fondo degradado
+} from "mdb-react-ui-kit"; //ToDO dsireccion en 2 renglones 
 import { NavLink } from "react-router-dom";
 
 export default function Footer() {
@@ -93,8 +93,8 @@ export default function Footer() {
                 Asegurar Limitada
               </h6>
               <p>
-                Empresa nariñense autorizada por el Ministerio de Comunicaciones
-                de Colombia para operar nuestra red de telecomunicaciones
+                Empresa Nariñense autorizada por el Ministerio de Comunicaciones
+                de Colombia para operar nuestra red de telecomunicaciones.
               </p>
             </MDBCol>
 
@@ -165,7 +165,7 @@ export default function Footer() {
               <h6 className="text-uppercase fw-bold mb-4">Contacto</h6>
               <p>
                 <MDBIcon icon="home" className="me-2" />
-                Pasto Call 19 No 27 - 41
+                Calle 19 No 27 - 41 Piso 2 Oficina 202 Edificio Merlopa, Pasto-Nariño-Colombia
               </p>
               <p>
                 <MDBIcon icon="envelope" className="me-3" />
