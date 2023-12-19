@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import BackgroundGradient from "../../Components/background";
 import Footer from "../../Components/footer";
 import Vision from "../../Assets/aboutUs/Politicas.jpg";
+import BlogAsegurar from "../../Assets/BlogProvicional.png";
 import fotografiapost from "../../Assets/Foto Portada/WhatsApp Image 2023-11-11 at 10.47.56 AM.jpeg";
 import miniFotoPost from "../../Assets/Foto Portada/WhatsApp Image 2023-11-09 at 2.45.28 PM.jpeg";
 import fotoCliente1 from "../../Assets/iconsEnter/Coopsetrans.png";
@@ -9,7 +10,36 @@ import fotoCliente2 from "../../Assets/iconsEnter/Samy-Salud-png.png";
 import fotoCliente3 from "../../Assets/iconsEnter/Lacteos Santa Maria png.png";
 
 export default function Blog() {
+  const [blog, setBlog] = useState(0);
+  const colMd8Ref = useRef(null);
+  const handleButtonClick = (blogId) => {
+    setBlog(blogId);
+
+    // Desplazar la pantalla al inicio de col-md-8
+    colMd8Ref.current.scrollIntoView({ behavior: "smooth" });
+  };
   const noticias = [
+    {
+      title: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
+      titleLevel2: "¡Bienvenidos a la Nueva Era: Ahora en React!",
+      p: [
+        "Estimada comunidad de ASEGURAR LTDA",
+        "Es un placer para nosotros anunciar un emocionante cambio en nuestra presencia en línea. ¡Hemos dado un salto importante y nos hemos actualizado a React! Después de años de compromiso con una versión estática en HTML, hemos decidido llevar la experiencia de usuario de nuestra página web al siguiente nivel.",
+      ],
+      title2: "¿Qué significa esto para ti?",
+      p2: [
+        "Experiencia de Usuario Mejorada: La transición a React nos permite ofrecer una navegación más suave y un rendimiento más rápido, lo que se traduce en una experiencia de usuario mejorada.",
+        "Interactividad Avanzada: Ahora podemos implementar características interactivas y dinámicas de manera más eficiente, brindándote contenido de alta calidad de una manera más atractiva.",
+        "Mantenimiento Eficiente: React simplifica el mantenimiento del código, lo que nos permite responder rápidamente a los comentarios y asegurarnos de que nuestro sitio web esté siempre actualizado.",
+      ],
+      p3: "Te invitamos a explorar la nueva pagina web!",
+      foto1: BlogAsegurar,
+      fecha: "18 Diciembre 2023",
+      resumen1:
+        "En este blog ecuentras informacion, sobre las actualizaciones de la pagina web",
+      minifoto: Vision,
+      creador: "Ing David Montes",
+    },
     {
       title: "SG-SST ASEGURAR LTDA",
       titleLevel2: "Seguridad y salud en el trabajo",
@@ -32,6 +62,7 @@ export default function Blog() {
       resumen1:
         "En este blog ecuentras informacion, sobre las capacitaciones en SG-SST",
       minifoto: miniFotoPost,
+      creador: "valentina Ledesma",
     },
   ];
   const comentarios = [
@@ -85,7 +116,10 @@ export default function Blog() {
           </div>
           <div className="row mb-2">
             <div className="col-md-6">
-              <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+              <div
+                className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative custom-pointer"
+                onClick={() => handleButtonClick(0)}
+              >
                 <div className="col p-4 d-flex flex-column position-static">
                   <strong className="d-inline-block mb-2 text-primary-emphasis">
                     Empresarial
@@ -95,15 +129,6 @@ export default function Blog() {
                     {noticias[0].fecha}
                   </div>
                   <p className="card-text mb-auto">{noticias[0].resumen1}</p>
-                  <a
-                    href="Nocitia"
-                    className="icon-link gap-1 icon-link-hover stretched-link"
-                  >
-                    Continue leyendo
-                    <svg className="bi">
-                      <use href="#chevron-right"></use>
-                    </svg>
-                  </a>
                 </div>
                 <div className="col-auto d-none d-lg-block">
                   <img
@@ -117,30 +142,24 @@ export default function Blog() {
               </div>
             </div>
             <div className="col-md-6">
-              <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+              <div
+                className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative custom-pointer"
+                onClick={() => handleButtonClick(1)}
+              >
                 <div className="col p-4 d-flex flex-column position-static">
                   <strong className="d-inline-block mb-2 text-primary-emphasis">
                     Empresarial
                   </strong>
-                  <h3 className="mb-0">Proximas Novedades</h3>
-                  <div className="mb-1 text-body-secondary">Nov 29</div>
-                  <p className="card-text mb-auto">
-                    Lanzamiento oficial de la nueva pagina web ASEGURAR
-                  </p>
-                  <a
-                    href="Nocitia"
-                    className="icon-link gap-1 icon-link-hover stretched-link"
-                  >
-                    Continue leyendo
-                    <svg className="bi">
-                      <use href="#chevron-right"></use>
-                    </svg>
-                  </a>
+                  <h3 className="mb-0">{noticias[1].title}</h3>
+                  <div className="mb-1 text-body-secondary">
+                    {noticias[1].fecha}
+                  </div>
+                  <p className="card-text mb-auto">{noticias[1].resumen1}</p>
                 </div>
                 <div className="col-auto d-none d-lg-block">
                   <img
-                    src={Vision}
                     alt="Thumbnail"
+                    src={noticias[1].minifoto}
                     width="200"
                     height="200"
                     className="bd-placeholder-img m-4 border"
@@ -150,36 +169,37 @@ export default function Blog() {
             </div>
           </div>
           <div className="row g-5">
-            <div className="col-md-8">
-              <h3 className="pb-4 mb-4 fst-italic border-bottom">
-                {noticias[0].titleLevel2}
-              </h3>
-              <article className="blog-post">
-                <h2 className="display-5 link-body-emphasis mb-1">
-                  {noticias[0].title}
-                </h2>
-                <p className="blog-post-meta">
-                  {noticias[0].fecha} por
-                  <a href="Creador"> Valentina Ledesma</a>
-                </p>
-                {noticias[0].p.map((item, index) => (
-                  <p key={index}>{item}</p>
-                ))}
-                <h4>{noticias[0].title2}</h4>
-                <ul>
-                  <li>{noticias[0].p2[0]}</li>
-                  <li>{noticias[0].p2[1]}</li>
-                  <li>{noticias[0].p2[2]}</li>
-                </ul>
-                <p>{noticias[0].p3}</p>
-                <img
-                  src={noticias[0].foto1}
-                  alt={noticias[0].title}
-                  className="img img-fluid"
-                />
-              </article>
-              <hr />
-              {/* <article className="blog-post">
+            {blog === 0 ? (
+              <div className="col-md-8" ref={colMd8Ref}>
+                <h3 className="pb-4 mb-4 fst-italic border-bottom">
+                  {noticias[0].titleLevel2}
+                </h3>
+                <article className="blog-post">
+                  <h2 className="display-5 link-body-emphasis mb-1">
+                    {noticias[0].title}
+                  </h2>
+                  <p className="blog-post-meta">
+                    {noticias[0].fecha} por
+                    <strong> {noticias[0].creador}</strong>
+                  </p>
+                  {noticias[0].p.map((item, index) => (
+                    <p key={index}>{item}</p>
+                  ))}
+                  <h4>{noticias[0].title2}</h4>
+                  <ul>
+                    <li>{noticias[0].p2[0]}</li>
+                    <li>{noticias[0].p2[1]}</li>
+                    <li>{noticias[0].p2[2]}</li>
+                  </ul>
+                  <p>{noticias[0].p3}</p>
+                  <img
+                    src={noticias[0].foto1}
+                    alt={noticias[0].title}
+                    className="img img-fluid"
+                  />
+                </article>
+                <hr />
+                {/* <article className="blog-post">
                 <h2 className="display-5 link-body-emphasis mb-1">
                   Ejemplo de post tipo 2
                 </h2>
@@ -252,22 +272,95 @@ export default function Blog() {
                   list:DESPEDIDA DEL BLOG
                 </p>
               </article> */}
-              <nav className="blog-pagination" aria-label="Paination">
-                <a
-                  className="btn btn-outline-primary rounded-pill m-2"
-                  href="Anterior"
-                >
-                  Antigua
-                </a>
-                <a
-                  className="btn btn-outline-secondary rounded-pill m-2"
-                  aria-disabled="false"
-                  href="Nueva"
-                >
-                  Nueva
-                </a>
-              </nav>
-            </div>
+                <div className="d-flex  mb-2">
+                  <button
+                    type="button"
+                    className={`btn btn-outline-primary rounded-pill mx-2 ${
+                      blog === 0 ? "active" : ""
+                    }`}
+                    onClick={() => handleButtonClick(0)}
+                  >
+                    Antigua
+                  </button>
+                  <button
+                    type="button"
+                    className={`btn btn-outline-secondary rounded-pill mx-2 ${
+                      blog === 1 ? "active" : ""
+                    }`}
+                    onClick={() => handleButtonClick(1)}
+                  >
+                    Nueva
+                  </button>
+                </div>
+                {/* <nav className="blog-pagination" aria-label="Paination">
+                  <a
+                    className="btn btn-outline-primary rounded-pill m-2"
+                    href="Anterior"
+                  >
+                    Antigua
+                  </a>
+                  <a
+                    className="btn btn-outline-secondary rounded-pill m-2"
+                    aria-disabled="false"
+                    href="Nueva"
+                  >
+                    Nueva
+                  </a>
+                </nav> */}
+              </div>
+            ) : (
+              <div className="col-md-8" ref={colMd8Ref}>
+                <h3 className="pb-4 mb-4 fst-italic border-bottom">
+                  {noticias[1].titleLevel2}
+                </h3>
+                <article className="blog-post">
+                  <h2 className="display-5 link-body-emphasis mb-1">
+                    {noticias[1].title}
+                  </h2>
+                  <p className="blog-post-meta">
+                    {noticias[1].fecha} por
+                    <strong> {noticias[1].creador}</strong>
+                  </p>
+                  {noticias[1].p.map((item, index) => (
+                    <p key={index}>{item}</p>
+                  ))}
+                  <h4>{noticias[1].title2}</h4>
+                  <ul>
+                    <li>{noticias[1].p2[0]}</li>
+                    <li>{noticias[1].p2[1]}</li>
+                    <li>{noticias[1].p2[2]}</li>
+                  </ul>
+                  <p>{noticias[1].p3}</p>
+                  <img
+                    src={noticias[1].foto1}
+                    alt={noticias[1].title}
+                    className="img img-fluid"
+                  />
+                </article>
+                <hr />
+                <div className="d-flex  mb-2">
+                  <button
+                    type="button"
+                    className={`btn btn-outline-primary rounded-pill mx-2 ${
+                      blog === 0 ? "active" : ""
+                    }`}
+                    onClick={() => handleButtonClick(0)}
+                  >
+                    Antigua
+                  </button>
+                  <button
+                    type="button"
+                    className={`btn btn-outline-secondary rounded-pill mx-2 ${
+                      blog === 1 ? "active" : ""
+                    }`}
+                    onClick={() => handleButtonClick(1)}
+                  >
+                    Nueva
+                  </button>
+                </div>
+              </div>
+            )}
+
             <div className="col-md-4">
               <div className="position-sticky" style={{ top: "2rem" }}>
                 <div className="p-4 mb-3 bg-body-tertiary rounded">
@@ -287,9 +380,7 @@ export default function Blog() {
                   <ul className="list-unstyled">
                     {comentarios.map((item, index) => (
                       <div key={index}>
-                        <div
-                          className="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
-                        >
+                        <div className="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top">
                           <div className="col-lg-4">
                             <img
                               alt="Post"
