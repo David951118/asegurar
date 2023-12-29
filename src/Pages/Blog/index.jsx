@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import BackgroundGradient from "../../Components/background";
 import Footer from "../../Components/footer";
-import Vision from "../../Assets/aboutUs/Politicas.jpg";
+import Vision from "../../Assets/Mision Vision/POLITICAS.jpg";
 import BlogAsegurar from "../../Assets/BlogProvicional.png";
 import fotografiapost from "../../Assets/Foto Portada/WhatsApp Image 2023-11-11 at 10.47.56 AM.jpeg";
 import miniFotoPost from "../../Assets/Foto Portada/WhatsApp Image 2023-11-09 at 2.45.28 PM.jpeg";
