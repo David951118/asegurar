@@ -81,7 +81,7 @@ const Navbar = () => {
             <div className="custom-ml-auto">
               <button type="button" className="btn btn-primary me-3">
                 <NavLink to="/cellvi" className="nav-link" onClick={closeMenu}>
-                  LOGIN CELLVI
+                  Rastrea tu activo
                 </NavLink>
               </button>
             </div>

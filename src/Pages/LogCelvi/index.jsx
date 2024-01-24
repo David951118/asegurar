@@ -3,7 +3,7 @@ import Title from "../../Components/title";
 import BackgroundGradient from "../../Components/background";
 import Footer from "../../Components/footer";
 import YouTubePlayer from "../../Components/youtubePlayer";
-import imageDescription from "../../Assets/Foto Portada/Aniversario 24-11-2023.jpg";
+import imageDescription from "../../Assets/Foto Portada/cellvi.jpg";
 
 export default function LogCelvi() {
   const videoContacto = "https://youtu.be/anZdB5xSGWY?si=nLihplX2q-_kZjzJ.";
@@ -134,6 +134,7 @@ export default function LogCelvi() {
                         </button>
                       </div>
                     </div> */}
+                    <p>Ingresa aqui</p>
                     <iframe
                       title="Login Cellvi"
                       src="https://cellviweb.asegurar.com.co"
