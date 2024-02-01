@@ -71,10 +71,39 @@
 
 .miniaqua--marker{
   background-image: url('./Assets/Marcadeagua/Tirilla\ Marca\ de\ agua\ Asegurar\ LTDA\ \(PARA\ DIVISIONES\ \).jpg');
-  background-repeat: repeat; /* o repeat-x o repeat-y según tus preferencias */
-  background-attachment: fixed; /* Esto fija la imagen de fondo */
+  background-repeat: repeat; 
+  background-attachment: fixed;
 }
 
 .custom-pointer{
   cursor: pointer;
+}
+
+.letra-circle {
+  background-color: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  font-weight: bold;
+  margin-right: 10px;
+  color: #02468e;
+  transition: box-shadow 0.3s ease;
+}
+
+.letra-circle.selected {
+  text-shadow: 0 3px 5px rgba(6, 8, 10, 0.5);
+  text-decoration: underline yellow;
+}
+
+.letra-carta-texto {
+  font-size: 45px;
+  font-weight: bold;
+  color: #00254c;
+}
+
+.letra-carta-titulo {
+  font-size: 58px;
+  font-weight: bold;
+  color: #02468e;
 }
