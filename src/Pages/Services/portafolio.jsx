@@ -9,6 +9,7 @@ import sercicio5 from "../../Assets/Tarjetas de servicios/5.jpg";
 import sercicio6 from "../../Assets/Tarjetas de servicios/6.jpg";
 import { AsegurarContext } from "../../Context";
 import watermark from "../../Assets/Marca de agua 2.jpg"; //todo cambiar doble parrafo
+import Carrusel from "./Carrusel";
 
 export default function Portafolio() {
   const { handleWhatsAppClick } = useContext(AsegurarContext);
@@ -108,13 +109,15 @@ export default function Portafolio() {
     <div>
       <BackgroundGradient color1="#fff" color2="#fff">
         <div className="w-100">
-          <div className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center aqua--marker">
-            <div className="col-md-6 p-lg-5 mx-auto my-5 text-center">
+          <div className="position-relative overflow-hidden  text-center aqua--marker">
+            <div className="col-md-8 p-lg-5 mx-auto text-center">
               <h1 className="display-3 fw-bold text-center">{info.title}</h1>
-              <h3 className="fw-normal text-muted mb-3 text-center">
+              <h3 className="fw-normal text-muted text-center">
                 {info.titleDescription}
               </h3>
-              <div className="d-flex gap-3 justify-content-center lead fw-normal"></div>
+              <div className="">
+                <Carrusel />
+              </div>
             </div>
           </div>
           <div className="d-md-flex flex-md-equal w-100 my-md-3 ps-md-2">

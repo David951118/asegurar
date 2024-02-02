@@ -69,6 +69,12 @@
   background-attachment: fixed; /* Esto fija la imagen de fondo */
 }
 
+.aqua--marker-services{
+  background-image: url('./Assets/Marcadeagua/3.jpg');
+  background-repeat: repeat; /* o repeat-x o repeat-y según tus preferencias */
+  background-attachment: fixed; /* Esto fija la imagen de fondo */
+}
+
 .miniaqua--marker{
   background-image: url('./Assets/Marcadeagua/Tirilla\ Marca\ de\ agua\ Asegurar\ LTDA\ \(PARA\ DIVISIONES\ \).jpg');
   background-repeat: repeat; 
@@ -106,4 +112,9 @@
   font-size: 58px;
   font-weight: bold;
   color: #02468e;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%);
 }
