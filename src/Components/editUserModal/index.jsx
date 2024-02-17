@@ -1,12 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
+const EditUserModal = ({
+  user,
+  showEditModal,
+  handleCloseEditModal,
+  handleEditUser,
+}) => {
   const [name, setName] = useState("");
   const [cedula, setCedula] = useState(0);
   const [celular, setCelular] = useState(0);
   const [email, setEmail] = useState("");
   const [direccion, setDireccion] = useState("");
   const [ciudad, setCiudad] = useState("");
+
+  // Utilizamos useEffect para actualizar el estado local cuando la prop user cambie
+  useEffect(() => {
+    setName(user.name);
+    setCedula(user.cedula);
+    setCelular(user.celular);
+    setEmail(user.email);
+    setDireccion(user.direccion);
+    setCiudad(user.ciudad);
+  }, [user]); // Esta función se ejecutará cada vez que la prop user cambie
 
   const handleCreateUserClick = () => {
     const newUser = {
@@ -17,26 +32,26 @@ const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
       direccion: direccion,
       ciudad: ciudad,
     };
-    handleCreateUser(newUser);
+    handleEditUser(newUser);
   };
 
   return (
     <div
-      className={`modal fade ${showModal ? "show" : ""}`}
+      className={`modal fade ${showEditModal ? "show" : ""}`}
       tabIndex="-1"
       style={{
-        display: showModal ? "block" : "none",
+        display: showEditModal ? "block" : "none",
         zIndex: "1050",
       }}
     >
       <div className="modal-dialog modal-dialog-centered modal-dialog-scrollabled">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Crear un nuevo usuario</h5>
+            <h5 className="modal-title">Editar Usuario</h5>
             <button
               type="button"
               className="btn-close"
-              onClick={handleCloseModal}
+              onClick={handleCloseEditModal}
             ></button>
           </div>
           <div className="modal-body">
@@ -49,6 +64,7 @@ const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
                   type="text"
                   className="form-control"
                   id="name"
+                  value={name} // Utilizamos el valor del estado local
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
@@ -60,6 +76,7 @@ const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
                   type="number"
                   className="form-control"
                   id="cedula"
+                  value={cedula} // Utilizamos el valor del estado local
                   onChange={(e) => setCedula(e.target.value)}
                 />
               </div>
@@ -70,6 +87,7 @@ const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
                 <input
                   type="number"
                   className="form-control"
+                  value={celular}
                   id="celular"
                   onChange={(e) => setCelular(e.target.value)}
                 />
@@ -81,6 +99,7 @@ const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
                 <input
                   type="email"
                   className="form-control"
+                  value={email}
                   id="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -92,6 +111,7 @@ const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
                 <input
                   type="text"
                   className="form-control"
+                  value={direccion}
                   id="direccion"
                   onChange={(e) => setDireccion(e.target.value)}
                 />
@@ -103,6 +123,7 @@ const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
                 <input
                   type="text"
                   className="form-control"
+                  value={ciudad}
                   id="Ciudad"
                   onChange={(e) => setCiudad(e.target.value)}
                 />
@@ -113,16 +134,16 @@ const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
             <button
               type="button"
               className="btn btn-outline-success"
-              onClick={handleCloseModal}
+              onClick={handleCloseEditModal}
             >
               Cerrar
             </button>
             <button
               type="button"
               className="btn btn-success"
-              onClick={handleCreateUserClick} // Llamando a la función para crear el usuario
+              onClick={handleCreateUserClick}
             >
-              Crear usuario
+              Guardar
             </button>
           </div>
         </div>
@@ -131,4 +152,4 @@ const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
   );
 };
 
-export default CreateUserModal;
+export default EditUserModal;

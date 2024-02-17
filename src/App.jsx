@@ -15,7 +15,10 @@ import AdminDashboard from "./Pages/Admin";
 import AdminLogin from "./Pages/Admin/login";
 import Adminusers from "./Pages/Admin/usuarios";
 import OopsPage from "./Pages/oops";
+import Placas from "./Pages/Admin/placas";
 import WhatsAppButton from "./Components/whatsapButon";
+import Ubicacion from "./Pages/Ubicacion";
+import UbicacionDetalle from "./Pages/Ubicacion/UbicacionDetalle";
 
 const AppRoutes = () => {
   let routes = useRoutes([
@@ -30,6 +33,9 @@ const AppRoutes = () => {
     { path: "/admin-login", element: <AdminLogin /> },
     { path: "/admin", element: <AdminDashboard /> },
     { path: "/admin/users", element: <Adminusers /> },
+    { path: "/admin/placas", element: <Placas /> },
+    { path: "/ubicacion", element: <Ubicacion /> },
+    { path: "/ubicacion/:coords", element: <UbicacionDetalle /> },
     { path: "/*", element: <OopsPage /> },
   ]);
 
@@ -41,7 +47,7 @@ const ScrollToTop = () => {
 
   useEffect(() => {
     // Verificar si window y window.scrollTo están definidos
-    if (typeof window !== 'undefined' && window.scrollTo) {
+    if (typeof window !== "undefined" && window.scrollTo) {
       window.scrollTo(0, 0);
     }
   }, [pathname]);

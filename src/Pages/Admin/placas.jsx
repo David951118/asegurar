@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
-import CreateUserModal from "../../Components/createUserModal";
+import CreatePlacaModal from "../../Components/createPlacaModal";
 import EditUserModal from "../../Components/editUserModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-const Adminusers = () => {
-  const [showModal, setShowModal] = useState(false);
+export default function Placas() {
+  const [showPlacaModal, setShowPlacaModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [placas, setPlacas] = useState([]);
+  const [placaEditable, setPlacaEditable] = useState([]);
   const [users, setUsers] = useState([]);
   const [userEditable, setUserEditable] = useState([]);
 
   useEffect(() => {
-    const storedUsers = localStorage.getItem("users");
-    if (storedUsers) {
-      setUsers(JSON.parse(storedUsers));
+    const storedPlacas = localStorage.getItem("placas");
+    if (storedPlacas) {
+      setPlacas(JSON.parse(storedPlacas));
     }
   }, []);
 
-  const openUserModal = () => {
-    setShowModal(true);
+  const openPlacaModal = () => {
+    setShowPlacaModal(true);
   };
 
   const openEditModal = (user) => {
@@ -28,17 +30,17 @@ const Adminusers = () => {
   };
 
   const handleCloseModal = () => {
-    setShowModal(false);
+    setShowPlacaModal(false);
   };
 
   const handleCloseEditModal = () => {
     setShowEditModal(false);
   };
 
-  const handleCreateUser = (user) => {
-    const updatedUsers = [...users, user];
-    setUsers(updatedUsers);
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
+  const handleCreatePlaca = (placa) => {
+    const updatedplacas = [...placas, placa];
+    setUsers(updatedplacas);
+    localStorage.setItem("placas", JSON.stringify(updatedplacas));
     handleCloseModal();
   };
 
@@ -61,9 +63,11 @@ const Adminusers = () => {
     <>
       <div className="container text-center p-5">
         <div className="row mb-3 align-items-center">
-          <h1 className="col-md-8">Panel de Administración de usuarios</h1>
+          <h1 className="col-md-8">
+            Adminstracion de placa y asignación de pagos
+          </h1>
           <div className="col-md-4 d-flex justify-content-end align-items-center">
-            <button className="btn btn-primary mx-3" onClick={openUserModal}>
+            <button className="btn btn-primary mx-3" onClick={openPlacaModal}>
               Agregar
             </button>
             <Link to="/admin" className="btn btn-success">
@@ -75,28 +79,22 @@ const Adminusers = () => {
           <table className="table table-striped table-hover">
             <thead>
               <tr className="table-primary">
-                <th>No</th>
-                <th>Nombre</th>
-                <th>Cédula</th>
-                <th>Placas</th>
+                <th>Placa</th>
+                <th>Usuario asignado</th>
+                <th>Tipo de vehículo</th>
+                <th>Tipo de Plan</th>
+                <th>Fin del plan</th>
+                <th>Fecha de pago</th>
+                <th>Estado</th>
                 <th>Opciones</th>
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => (
+              {placas.map((user, index) => (
                 <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{user.name}</td>
-                  <td>{user.cedula}</td>
-                  <td>
-                    {user.placas &&
-                      user.placas.map((placa, placaIndex) => (
-                        <div key={placaIndex}>
-                          <strong>{placa.placa}</strong>:{" "}
-                          {/* Dejamos temporalmente vacías las facturas */}
-                        </div>
-                      ))}
-                  </td>
+                  <td>{user.placa}</td>
+                  <td>{user.usuario}</td>
+                  <td>{user.usuario}</td>
                   <td>
                     <button
                       className="btn btn-warning btn-sm mr-2 m-1"
@@ -117,10 +115,11 @@ const Adminusers = () => {
           </table>
         </div>
       </div>
-      <CreateUserModal
-        showModal={showModal}
+      <CreatePlacaModal
+        showModal={showPlacaModal}
         handleCloseModal={handleCloseModal}
-        handleCreateUser={handleCreateUser}
+        handleCreateUser={handleCreatePlaca}
+        users={1}
       />
       <EditUserModal
         user={userEditable}
@@ -130,6 +129,4 @@ const Adminusers = () => {
       />
     </>
   );
-};
-
-export default Adminusers;
+}

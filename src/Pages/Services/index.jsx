@@ -25,10 +25,10 @@ export default function Services() {
     {
       letra: "E",
       color: "#fff",
-      titulo: "Experiencia",
+      titulo: "Equipo de trabajo",
       foto: "https://cdn-icons-png.flaticon.com/512/4814/4814852.png",
       descripcion:
-        "Creamos una experiencia única para cada cliente, garantizando momentos memorables en cada interacción.",
+        "Somos un equipo de trabajo, que trabaja en equipo, para la consecucion de nuestros objetivos estrategicos.",
     },
     {
       letra: "G",

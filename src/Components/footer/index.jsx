@@ -22,7 +22,7 @@ export default function Footer() {
     { name: "CELLVI", path: "/cellvi", activeClassName: "text-blue" },
     { name: "Legalidad", path: "/legalidad", activeClassName: "text-blue" },
     // { name: "Login admin", path: "/admin-login", activeClassName: "text-blue" },
-    { name: "Logeo adminis", path: "/cellvi", activeClassName: "text-blue" },
+    { name: "COMPARTE TU UBICACION", path: "/ubicacion", activeClassName: "text-blue" },
     {
       name: "Portal de Pagos",
       path: "/portaldepagos",
