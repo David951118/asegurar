@@ -1,3 +1,5 @@
+
+
 .App {
   text-align: center;
 }
@@ -117,4 +119,26 @@
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   filter: invert(100%);
+}
+
+.img-container--service {
+  position: relative; /* Establecer posición relativa para que el elemento ::after sea relativo a este contenedor */
+}
+
+.img-container--service::after {
+  content: ""; /* Agregar contenido pseudo-elemento */
+  position: absolute; /* Establecer posición absoluta para que se superponga a la imagen */
+  top: 0;
+  right: 0; /* Colocar el gradiente en el lado derecho */
+  bottom: 0;
+  width: 7%; /* Ancho del área difuminada (ajústalo según sea necesario) */
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(144, 142, 142, 0.333)); /* Gradiente transparente a blanco */
+  pointer-events: none; /* Permitir que los eventos pasen a través del pseudo-elemento */
+}
+
+
+.img-fluid--service {
+  width: 100%; /* Para asegurarse de que la imagen ocupe todo el ancho del contenedor */
+  height: 100%; /* Para asegurarse de que la imagen ocupe todo el alto del contenedor */
+  object-fit: cover; /* Para recortar la imagen manteniendo su relación de aspecto */
 }

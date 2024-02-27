@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
-import Portafolio from "./portafolio"; //todo cambar la p por P
+import Portafolio from "./Portafolio";
+import AtencionImg from "../../Assets/Tarjetas de servicios/atencion.jpg";
+import ServicioImg from "../../Assets/Tarjetas de servicios/servicio.jpg";
+import EquipoImg from "../../Assets/Tarjetas de servicios/equipo.jpg";
+import GarantiaImg from "../../Assets/Tarjetas de servicios/garantia.jpg";
+import UniversalidadImg from "../../Assets/Tarjetas de servicios/universalidad.png";
+import ResponsabilidadImg from "../../Assets/Tarjetas de servicios/responsabilidad.jpg";
+import AmabilidadImg from "../../Assets/Tarjetas de servicios/amabilidad.jpg";
+import RapidezImg from "../../Assets/Tarjetas de servicios/rapidez.jpg";
 
 export default function Services() {
   const [expandedBar, setExpandedBar] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 425);
+  const [autoChange, setAutoChange] = useState(true);
 
   const barsData = [
     {
       letra: "A",
       color: "#fff",
       titulo: "Atención",
-      foto: "https://cdn.pixabay.com/photo/2022/08/09/03/10/call-center-7374023_640.png",
+      foto: AtencionImg,
       descripcion:
         "Brindamos atención personalizada y dedicada a cada cliente, asegurándonos de satisfacer sus necesidades de manera excepcional.",
     },
@@ -18,7 +27,7 @@ export default function Services() {
       letra: "S",
       color: "#0051a8",
       titulo: "Servicio",
-      foto: "https://media.licdn.com/dms/image/C4E12AQE7YmyCussFTg/article-cover_image-shrink_600_2000/0/1531828200432?e=2147483647&v=beta&t=EbzglSexGNFoVwQUsgds0PPPi6H0HdlVrP7RccvZN5I",
+      foto: ServicioImg,
       descripcion:
         "Nuestros servicios están diseñados para superar las expectativas, ofreciendo soluciones eficientes y de alta calidad.",
     },
@@ -26,7 +35,7 @@ export default function Services() {
       letra: "E",
       color: "#fff",
       titulo: "Equipo de trabajo",
-      foto: "https://cdn-icons-png.flaticon.com/512/4814/4814852.png",
+      foto: EquipoImg,
       descripcion:
         "Somos un equipo de trabajo, que trabaja en equipo, para la consecucion de nuestros objetivos estrategicos.",
     },
@@ -34,23 +43,23 @@ export default function Services() {
       letra: "G",
       color: "#fff",
       titulo: "Garantía",
-      foto: "https://static.vecteezy.com/system/resources/previews/011/654/817/original/warranty-icon-transparent-warranty-free-png.png",
+      foto: GarantiaImg,
       descripcion:
-        "Ofrecemos garantías sólidas para brindar tranquilidad a nuestros clientes, respaldando la calidad de nuestros productos y servicios.",
+        "Ofrecemos garantías sólidas para brindar tranquilidad a los usuarios, respaldando la calidad de nuestros productos y servicios.",
     },
     {
       letra: "U",
       color: "#fff",
       titulo: "Universalidad",
-      foto: "https://cdn-icons-png.flaticon.com/512/2051/2051943.png",
+      foto: UniversalidadImg,
       descripcion:
-        "Nos esforzamos por ser universalmente accesibles, proporcionando soluciones que benefician a diversos públicos.",
+        "Nos esforzamos por ser universalmente accesibles, proporcionando soluciones que satisfagan las necesidades de los usuarios.",
     },
     {
       letra: "R",
       color: "#fff",
       titulo: "Responsabilidad",
-      foto: "https://cdn-icons-png.flaticon.com/512/2654/2654572.png",
+      foto: ResponsabilidadImg,
       descripcion:
         "Nos comprometemos con la responsabilidad en todas nuestras acciones y decisiones, guiados por la transparencia y la ética empresarial.",
     },
@@ -58,7 +67,7 @@ export default function Services() {
       letra: "A",
       color: "#fff",
       titulo: "Amabilidad",
-      foto: "https://images.vexels.com/media/users/3/158040/isolated/preview/ceb5cf4a02d45fa49dc671e7d2014c32-icono-de-trazo-de-apreton-de-manos.png",
+      foto: AmabilidadImg,
       descripcion:
         "La amabilidad está en el corazón de nuestra empresa, creando un ambiente cálido y acogedor para nuestros clientes.",
     },
@@ -66,24 +75,11 @@ export default function Services() {
       letra: "R",
       color: "#fff",
       titulo: "Rapidez",
-      foto: "https://images.vexels.com/media/users/3/205237/isolated/preview/ed7b0a564fc695b0b91c4ac1276c661d-icono-de-trazo-de-servicio-al-cliente.png",
+      foto: RapidezImg,
       descripcion:
-        "Nos destacamos por nuestra rapidez en proporcionar soluciones eficientes, ahorrando tiempo valioso a nuestros clientes.",
+        "Nos destacamos por nuestra rapidez y oportunidad para proporcionar soluciones eficientes, ahorrando tiempo valioso a nuestros clientes.",
     },
   ];
-
-  const handleBarClick = (index) => {
-    setExpandedBar(index);
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Cambiar automáticamente cada 5 segundos
-      setExpandedBar((prevIndex) => (prevIndex + 1) % barsData.length);
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, [barsData.length]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -96,6 +92,24 @@ export default function Services() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handleBarClick = (index) => {
+    setExpandedBar(index);
+    setAutoChange(false); // Detener el cambio automático cuando el usuario interactúa
+    setTimeout(() => {
+      setAutoChange(true); // Reiniciar el cambio automático después de 5 segundos
+    }, 5000);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (autoChange) {
+        setExpandedBar((prevIndex) => (prevIndex + 1) % barsData.length);
+      }
+    }, 5000); // Cambiar automáticamente cada 5 segundos
+
+    return () => clearInterval(interval);
+  }, [autoChange, barsData.length]);
 
   return !isMobile ? (
     <div>
@@ -125,16 +139,16 @@ export default function Services() {
         <div className="container d-flex p-1">
           <div className="card mb-3 bg-transparent">
             <div className="row g-0">
-              <div className="col-md-4 p-4">
+              <div className="col-md-4 img-container--service">
                 <img
                   src={barsData[expandedBar].foto}
                   alt={barsData[expandedBar].titulo}
-                  className="img-fluid rounded-start"
+                  className="img-fluid--service rounded-start"
                 />
               </div>
               <div className="col-md-8">
-                <div className="aling-items-center">
-                  <p className="letra-carta-titulo text-center mb-4">
+                <div className="aling-items-center m-3">
+                  <p className="letra-carta-titulo text-center">
                     {barsData[expandedBar].titulo}
                   </p>
                   <p className="letra-carta-texto">

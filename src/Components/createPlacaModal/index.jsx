@@ -5,9 +5,10 @@ import "react-datepicker/dist/react-datepicker.css";
 const CreatePlacaModal = ({
   showModal,
   handleCloseModal,
-  handleCreateUser,
+  handleCreatePlaca,
   users,
 }) => {
+  console.log(users);
   const [placa, setPlaca] = useState("");
   const [user, setUser] = useState("");
   const [tipo, setTipo] = useState("");
@@ -43,7 +44,7 @@ const CreatePlacaModal = ({
   };
 
   const handleCreatePlacaClick = () => {
-    const newUser = {
+    const newPlaca = {
       placa: placa,
       user: user,
       tipo: tipo,
@@ -52,7 +53,7 @@ const CreatePlacaModal = ({
       fechaPago: fechaPago,
       estado: estado,
     };
-    handleCreateUser(newUser);
+    handleCreatePlaca(newPlaca);
   };
 
   return (

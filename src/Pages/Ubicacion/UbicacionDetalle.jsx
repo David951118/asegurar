@@ -1,78 +1,117 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
+import { useParams, Link } from "react-router-dom";
 import BackgroundGradient from "../../Components/background";
 import Footer from "../../Components/footer";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+
+const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 const UbicacionDetalle = () => {
+  const containerStyle = {
+    width: "100%",
+    height: "400px",
+  };
   const { coords } = useParams();
-  const [latitud, longitud, placa] = coords.split("&");
+  const [latitud, longitud, placa, ubicacion, velocidad, fechaMaximaApertura] =
+    coords.split("|");
 
-  let info = {
-    title: "Visualización de ubicación",
-    titleDescription: `El vehículo con placa ${placa} se encuentra en Latitud: ${latitud} y Longitud: ${longitud}`,
-  };
+  const isEnlaceValido = React.useCallback(() => {
+    const ahora = new Date().getTime();
+    return ahora < Date.parse(fechaMaximaApertura);
+  }, [fechaMaximaApertura]);
 
-  useEffect(() => {
-    const initMap = () => {
-      const map = new window.google.maps.Map(document.getElementById("map"), {
-        center: { lat: parseFloat(latitud), lng: parseFloat(longitud) },
-        zoom: 13,
-      });
+  const center = { lat: parseFloat(latitud), lng: parseFloat(longitud) };
 
-      // Agregar marcador
-      new window.google.maps.Marker({
-        position: { lat: parseFloat(latitud), lng: parseFloat(longitud) },
-        map,
-      });
-    };
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: apiKey,
+  });
 
-    // Verificar si la API de Google Maps ya está cargada
-    if (!window.google) {
-      const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyC6quxArYbSqYysx-9lSnga5roPbelHxj4&callback=initMap`;
-      script.async = true;
-      script.defer = true;
-      script.onload = initMap;
-      document.head.appendChild(script);
-    } else {
-      // Si la API ya está cargada, inicializar el mapa directamente
-      initMap();
-    }
-  }, [latitud, longitud]); // Agregar initMap al array de dependencias
+  // eslint-disable-next-line
+  const [map, setMap] = React.useState(null);
 
-  const initMap = () => {
-    const map = new window.google.maps.Map(document.getElementById("map"), {
-      center: { lat: parseFloat(latitud), lng: parseFloat(longitud) },
-      zoom: 13,
-    });
+  const onLoad = React.useCallback(function callback(map) {
+    setMap(map);
+  }, []);
 
-    // Agregar marcador
-    new window.google.maps.Marker({
-      position: { lat: parseFloat(latitud), lng: parseFloat(longitud) },
-      map,
-    });
-  };
+  const onUnmount = React.useCallback(function callback(map) {
+    setMap(null);
+  }, []);
 
-  return (
+  return isLoaded ? (
     <div>
       <BackgroundGradient color1="#fff" color2="#fff">
-        <div className="w-100 m-2">
+        <div className="w-100 m-2 aqua--marker">
           <div className="container-fluid w-100 container position-relative overflow-hidden text-center">
             <div className="row container">
-              <div className="p-3 container justify-content-center">
+              <div className="container justify-content-center">
                 <div className="p-lg-5 mx-auto text-center row">
-                  <h1 className="display-3 fw-bold text-center">
-                    {info.title}
-                  </h1>
-                  <h3 className="fw-normal text-muted mb-3 text-center">
-                    {info.titleDescription}
-                  </h3>
+                  {isEnlaceValido() ? (
+                    <>
+                      <h1 className="display-3 fw-bold text-center">
+                        Visualización de ubicación
+                      </h1>
+                      <table className="table table-striped table-hover table-bordered">
+                        <thead className="table-dark">
+                          <tr>
+                            <td>Clase</td>
+                            <td>Informacion</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="">
+                            <td>Placa del vehículo:</td>
+                            <td>{placa}</td>
+                          </tr>
+                          <tr>
+                            <td>Latitud:</td>
+                            <td>{latitud}</td>
+                          </tr>
+                          <tr>
+                            <td>Longitud:</td>
+                            <td>{longitud}</td>
+                          </tr>
+                          <tr>
+                            <td>Ubicación:</td>
+                            <td>{ubicacion}</td>
+                          </tr>
+                          <tr>
+                            <td>Velocidad:</td>
+                            <td>{velocidad}</td>
+                          </tr>
+                          <tr>
+                            <td>Fecha máxima de apertura del enlace:</td>
+                            <td>
+                              {new Date(
+                                Date.parse(fechaMaximaApertura)
+                              ).toLocaleString()}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div className="col-md-12">
+                        <GoogleMap
+                          mapContainerStyle={containerStyle}
+                          center={center}
+                          zoom={15}
+                          onLoad={onLoad}
+                          onUnmount={onUnmount}
+                        >
+                          <Marker position={center} />
+                        </GoogleMap>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="alert alert-danger" role="alert">
+                      El enlace ha expirado.
+                    </div>
+                  )}
+                  <div className="mt-3">
+                    <Link to="/" className="btn btn-primary">
+                      Volver al inicio
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="row container">
-              <div className="col-md-12">
-                <div id="map" style={{ height: "400px", width: "100%" }}></div>
               </div>
             </div>
           </div>
@@ -80,7 +119,7 @@ const UbicacionDetalle = () => {
       </BackgroundGradient>
       <Footer />
     </div>
-  );
+  ) : null;
 };
 
 export default UbicacionDetalle;
