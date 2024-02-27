@@ -13,10 +13,11 @@ import carruseFoto5 from "../../Assets/Carrusel con fotos/5.jpg";
 import carruseFoto6 from "../../Assets/Carrusel con fotos/6.jpg";
 import jefeFoto from "../../Assets/Equipo Asegurar LTDA/Presidente.jpg";
 import getenteFoto from "../../Assets/Equipo Asegurar LTDA/Gerencia.jpg";
+import ejecutivoFoto from "../../Assets/Equipo Asegurar LTDA/pedro.JPG";
 import equipoFoto1 from "../../Assets/Equipo Asegurar LTDA/Jefatura-de-Red.jpg";
 import equipoFoto2 from "../../Assets/Equipo Asegurar LTDA/Ingeniero-David.jpg";
 import equipoFoto3 from "../../Assets/Equipo Asegurar LTDA/Asistente.jpg";
-import equipoFoto4 from "../../Assets/Equipo Asegurar LTDA/Sebastian.jpg";
+import equipoFoto4 from "../../Assets/Equipo Asegurar LTDA/omar.JPG";
 import equipoFoto5 from "../../Assets/Equipo Asegurar LTDA/Operador.jpg";
 import equipoFoto6 from "../../Assets/Equipo Asegurar LTDA/Operadoa.jpg";
 import lactiosSantaMaria from "../../Assets/iconsEnter/Lacteos Santa Maria png.png";
@@ -132,6 +133,12 @@ export default function Home() {
       email: "asegurar.limitada@gmail.com",
       foto: getenteFoto,
     },
+    {
+      name: "Pedro Pablo Benavides Benavides",
+      cargo: "Ejecutivo Comercial Bogota",
+      email: "pablo.benavidesb@gmail.com",
+      foto: ejecutivoFoto,
+    },
   ];
   const empleados = [
     {
@@ -153,16 +160,16 @@ export default function Home() {
       foto: equipoFoto3,
     },
     {
-      name: "Jeffer Sebastian Almeida Figueroa",
-      cargo: "Creador de Contenido",
-      email: "saf.comsocial@gmail.com",
-      foto: equipoFoto4,
-    },
-    {
       name: "Jose Rafael Agreda España",
       cargo: "Operador de Medios Tecnologicos",
       email: "centralmasegurar@gmail.com",
       foto: equipoFoto5,
+    },
+    {
+      name: "Omar Agusto Espitia Quevedo",
+      cargo: "Director Comercial",
+      email: "omarespitia028@gmail.com",
+      foto: equipoFoto4,
     },
     {
       name: "Sandra Patricia Cuchala Andrade",
@@ -194,7 +201,7 @@ export default function Home() {
           </div>
           <div className="row align-items-center justify-content-center">
             {jefes.map((item, index) => (
-              <div className="col-md-6 p-3" key={index}>
+              <div className="col-md-4 p-3" key={index}>
                 <div
                   className="card text-center mx-auto"
                   style={{ width: "18rem" }}

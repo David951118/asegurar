@@ -11,12 +11,15 @@ export default function Placas() {
   const [placas, setPlacas] = useState([]);
   const [placaEditable, setPlacaEditable] = useState([]);
   const [users, setUsers] = useState([]);
-  const [userEditable, setUserEditable] = useState([]);
 
   useEffect(() => {
     const storedPlacas = localStorage.getItem("placas");
     if (storedPlacas) {
       setPlacas(JSON.parse(storedPlacas));
+    }
+    const storedUsers = localStorage.getItem("users");
+    if (storedUsers) {
+      setUsers(JSON.parse(storedUsers));
     }
   }, []);
 
@@ -24,8 +27,8 @@ export default function Placas() {
     setShowPlacaModal(true);
   };
 
-  const openEditModal = (user) => {
-    setUserEditable(user);
+  const openEditModal = (placa) => {
+    setPlacaEditable(placa);
     setShowEditModal(true);
   };
 
@@ -90,21 +93,25 @@ export default function Placas() {
               </tr>
             </thead>
             <tbody>
-              {placas.map((user, index) => (
+              {placas.map((placa, index) => (
                 <tr key={index}>
-                  <td>{user.placa}</td>
-                  <td>{user.usuario}</td>
-                  <td>{user.usuario}</td>
+                  <td>{placa.placa}</td>
+                  <td>{placa.user}</td>
+                  <td>{placa.tipo}</td>
+                  <td>{placa.plan}</td>
+                  <td>{placa.finPlan}</td>
+                  <td>{placa.fechaPago}</td>
+                  <td>{placa.estado}</td>
                   <td>
                     <button
                       className="btn btn-warning btn-sm mr-2 m-1"
-                      onClick={() => openEditModal(user)}
+                      onClick={() => openEditModal(placa)}
                     >
                       <FontAwesomeIcon icon={faEdit} className="mr-1" />
                     </button>
                     <button
                       className="btn btn-danger btn-sm m-1"
-                      onClick={() => handleDeleteUser(user.cedula)}
+                      onClick={() => handleDeleteUser(placa.cedula)}
                     >
                       <FontAwesomeIcon icon={faTrashAlt} className="mr-1" />
                     </button>
@@ -119,10 +126,10 @@ export default function Placas() {
         showModal={showPlacaModal}
         handleCloseModal={handleCloseModal}
         handleCreateUser={handleCreatePlaca}
-        users={1}
+        users={users}
       />
       <EditUserModal
-        user={userEditable}
+        user={placaEditable}
         showEditModal={showEditModal}
         handleCloseEditModal={handleCloseEditModal}
         handleEditUser={handleEditUser}
