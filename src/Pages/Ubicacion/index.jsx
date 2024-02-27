@@ -73,7 +73,7 @@ export default function Ubicacion() {
         `${latitud}|${longitud}|${placa}|${ubicacion}|${velocidad}|${fechaMaximaApertura.toISOString()}`
       );
 
-      setResultado(`http://localhost:3000/ubicacion/${parametrosCodificados}`);
+      setResultado(`https://www.asegurar.com.co/ubicacion/${parametrosCodificados}`);
     } else {
       setResultado("No se encontraron coordenadas para la placa seleccionada.");
     }
