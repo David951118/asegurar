@@ -24,6 +24,7 @@ import lactiosSantaMaria from "../../Assets/iconsEnter/Lacteos Santa Maria png.p
 import coopsetrans from "../../Assets/iconsEnter/Coopsetrans.png";
 import nuevoMilenio from "../../Assets/iconsEnter/Nuevo Milenio.png";
 import sammiSaludsas from "../../Assets/iconsEnter/Samy-Salud-png.png";
+import noticia from "../../Assets/WhatsApp Image 2024-03-07 at 12.50.23 PM.jpeg";
 
 export default function Home() {
   const handleEmailClick = (email) => {
@@ -81,6 +82,13 @@ export default function Home() {
       descrip:
         "Mantenemos en operación una central de monitoreo 24/7 los 365 días del año.",
     },
+    // {
+    //   id: 8,
+    //   image: noticia,
+    //   title: "MONITOREO PERMANENTE",
+    //   descrip:
+    //     "Mantenemos en operación una central de monitoreo 24/7 los 365 días del año.",
+    // },
   ];
   const title = {
     title: "Algunos de nuestros clientes",
@@ -183,9 +191,30 @@ export default function Home() {
     width: "90%",
   };
 
+  const noticias = [
+    {
+      id: 1,
+      titulo: "Mantenimiento preventivo",
+      imagen: noticia,
+      contenido:
+        "Informamos a nuestros clientes que el día viernes 8 de marzo del presente año, se realizará mantenimiento a nuestra plataforma, por tanto, no tendremos funcionamiento desde las 7 p.m. hasta las 10 p.m. Agradecemos su comprensión.",
+    },
+  ];
+
   return (
     <div>
       <BackgroundGradient color1="#fff" color2="#fff ">
+        <div className="container p-4 text-center">
+          <BackgroundGradient color1="#ff0" color2="#fff ">
+            <h1 className="mb-4">Notificación Urgente</h1>
+            {noticias.map((noticia) => (
+              <div key={noticia.id} className="mb-4">
+                <h3 className="mb-2">{noticia.titulo}</h3>
+                <p className="mb-2">{noticia.contenido}</p>
+              </div>
+            ))}
+          </BackgroundGradient>
+        </div>
         <div className="">
           <Carousel item={carouselItem} />
         </div>
