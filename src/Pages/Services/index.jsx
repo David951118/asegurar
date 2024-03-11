@@ -8,6 +8,7 @@ import UniversalidadImg from "../../Assets/Tarjetas de servicios/universalidad.p
 import ResponsabilidadImg from "../../Assets/Tarjetas de servicios/responsabilidad.jpg";
 import AmabilidadImg from "../../Assets/Tarjetas de servicios/amabilidad.jpg";
 import RapidezImg from "../../Assets/Tarjetas de servicios/rapidez.jpg";
+// Ajustar fotos del carrusel
 
 export default function Services() {
   const [expandedBar, setExpandedBar] = useState(0);
