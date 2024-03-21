@@ -190,7 +190,7 @@ export default function Home() {
           <div className="error-message">
             <div className="error-content">
               <h2>Alerta!</h2>
-              <p className="h3">
+              <p className="h4">
                 Se informa a todos nuestros usuarios y suscriptores que por
                 cambio de Tecnología, la Plataforma CELLVI estará fuera del aire
                 hasta las 06:00 p.m. Presentamos disculpas por los
