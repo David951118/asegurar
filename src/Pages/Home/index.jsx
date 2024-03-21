@@ -193,7 +193,8 @@ export default function Home() {
               <p className="h3">
                 Se informa a todos nuestros usuarios y suscriptores que por
                 cambio de Tecnología, la Plataforma CELLVI estará fuera del aire
-                hasta las 06:00 p.m.
+                hasta las 06:00 p.m. Presentamos disculpas por los
+                inconvenientes generados.
               </p>
             </div>
           </div>
