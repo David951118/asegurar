@@ -11,10 +11,7 @@ import RapidezImg from "../../Assets/Tarjetas de servicios/rapidez.jpg";
 // Ajustar fotos del carrusel
 
 export default function Services() {
-  const [expandedBar, setExpandedBar] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 425);
-  const [autoChange, setAutoChange] = useState(true);
-
   const barsData = [
     {
       letra: "A",
@@ -93,74 +90,19 @@ export default function Services() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  const handleBarClick = (index) => {
-    setExpandedBar(index);
-    setAutoChange(false); // Detener el cambio automático cuando el usuario interactúa
-    setTimeout(() => {
-      setAutoChange(true); // Reiniciar el cambio automático después de 5 segundos
-    }, 5000);
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (autoChange) {
-        setExpandedBar((prevIndex) => (prevIndex + 1) % barsData.length);
-      }
-    }, 5000); // Cambiar automáticamente cada 5 segundos
-
-    return () => clearInterval(interval);
-  }, [autoChange, barsData.length]);
-
   return !isMobile ? (
-    <div>
-      <div className="aqua--marker">
-        <div className="container align-items-center d-flex custom-pointer p-5">
-          {barsData.map((bar, index) => (
-            <div
-              key={index}
-              className="col"
-              onClick={() => handleBarClick(index)}
-            >
-              <div className="w-100 d-flex align-items-center">
-                <div className="letra-circle-container">
-                  <div
-                    className={`letra-circle ${
-                      expandedBar === index ? "selected" : ""
-                    }`}
-                  >
-                    {bar.letra}
-                  </div>
-                </div>
-              </div>
+    <div className="aqua--marker">
+      {/* <div className="container text-center">
+        <div className="container--service-prop">
+          {barsData.map((item, idx) => (
+            <div className="service--prop-item" key={idx}>
+              <span className="letter">{item.letra}</span>
+              <div className="title--service">{item.titulo}</div>
+              <div className="description--service">{item.descripcion}</div>
             </div>
           ))}
         </div>
-
-        <div className="container d-flex p-1">
-          <div className="card mb-3 bg-transparent">
-            <div className="row g-0">
-              <div className="col-md-4 img-container--service">
-                <img
-                  src={barsData[expandedBar].foto}
-                  alt={barsData[expandedBar].titulo}
-                  className="img-fluid--service rounded-start"
-                />
-              </div>
-              <div className="col-md-8">
-                <div className="aling-items-center m-3">
-                  <p className="letra-carta-titulo text-center">
-                    {barsData[expandedBar].titulo}
-                  </p>
-                  <p className="letra-carta-texto">
-                    {barsData[expandedBar].descripcion}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      </div> */}
       <Portafolio />
     </div>
   ) : (
