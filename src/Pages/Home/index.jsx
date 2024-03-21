@@ -186,9 +186,22 @@ export default function Home() {
   return (
     <div>
       <BackgroundGradient color1="#fff" color2="#fff ">
+        <div className="container-lg">
+          <div className="error-message">
+            <div className="error-content">
+              <h2>Alerta!</h2>
+              <p className="h3">
+                Se informa a todos nuestros usuarios y suscriptores que por
+                cambio de Tecnología, la Plataforma CELLVI estará fuera del aire
+                hasta las 06:00 p.m.
+              </p>
+            </div>
+          </div>
+        </div>
         <div className="">
           <Carousel item={carouselItem} />
         </div>
+
         <div className="container">
           <div className="m-3 shadow-sm p-2 text-center">
             <Title item={titleTeam} />

@@ -142,3 +142,65 @@
   height: 100%; /* Para asegurarse de que la imagen ocupe todo el alto del contenedor */
   object-fit: cover; /* Para recortar la imagen manteniendo su relación de aspecto */
 }
+
+.container--service-prop {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.service--prop-item {
+  position: relative;
+  margin: 10px;
+  width: 80px; /* Ajustar el tamaño del recuadro según sea necesario */
+  height: 100px; /* Ajustar el tamaño del recuadro según sea necesario */
+  border: 2px solid rgba(203, 203, 203, 0.091);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all ease 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title--service,
+.description--service {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.4s; /* Transición para suavizar la aparición */
+}
+
+.service--prop-item:hover .title--service,
+.service--prop-item:hover .description--service {
+  opacity: 1; /* Mostrar título y descripción al pasar el mouse */
+}
+
+.letter {
+  font-size: 58px;
+  font-weight: bold;
+  color: #02468e;
+  transition: all ease 0.4s; /* Agregar transición para una animación suave */
+}
+
+.service--prop-item:hover {
+  width: 400px; /* Expandir el recuadro al pasar el mouse */
+  height: 300px;
+}
+
+.error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  
+}
+
+.error-content {
+  text-align: center;
+  background-color: #f8d7da; /* Rojo suave para el fondo */
+  border: 1px solid #f5c6cb; /* Borde rojo */
+  width: 100%;
+  height: 20vh;
+}
