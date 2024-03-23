@@ -186,7 +186,7 @@ export default function Home() {
   return (
     <div>
       <BackgroundGradient color1="#fff" color2="#fff ">
-        <div className="container-lg">
+        {/* <div className="container-lg">
           <div className="error-message">
             <div className="error-content">
               <h2>Alerta!</h2>
@@ -198,7 +198,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-        </div>
+        </div> mensaje de error, descomentar y poner mensaje requerido 23/03/2024*/}
         <div className="">
           <Carousel item={carouselItem} />
         </div>
