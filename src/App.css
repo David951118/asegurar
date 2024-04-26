@@ -1,5 +1,3 @@
-
-
 .App {
   text-align: center;
 }
@@ -42,7 +40,7 @@
 .centered-card {
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
 }
 .content {
   margin-top: 70px; /* Ajusta el valor según la altura de tu barra de navegación */
@@ -59,31 +57,31 @@
   transform: rotate(30deg);
 }
 .shadow-sm {
-  box-shadow: var(--bs-box-shadow-sm)!important;
+  box-shadow: var(--bs-box-shadow-sm) !important;
 }
 .bg-card {
   background: linear-gradient(to top left, #ffffff, #d0f2fc);
 }
 
-.aqua--marker{
-  background-image: url('./Assets/Marca\ de\ agua\ 2.jpg');
+.aqua--marker {
+  background-image: url("./Assets/Marca\ de\ agua\ 2.jpg");
   background-repeat: repeat; /* o repeat-x o repeat-y según tus preferencias */
   background-attachment: fixed; /* Esto fija la imagen de fondo */
 }
 
-.aqua--marker-services{
-  background-image: url('./Assets/Marcadeagua/3.jpg');
+.aqua--marker-services {
+  background-image: url("./Assets/Marcadeagua/3.jpg");
   background-repeat: repeat; /* o repeat-x o repeat-y según tus preferencias */
   background-attachment: fixed; /* Esto fija la imagen de fondo */
 }
 
-.miniaqua--marker{
-  background-image: url('./Assets/Marcadeagua/Tirilla\ Marca\ de\ agua\ Asegurar\ LTDA\ \(PARA\ DIVISIONES\ \).jpg');
-  background-repeat: repeat; 
+.miniaqua--marker {
+  background-image: url("./Assets/Marcadeagua/Tirilla\ Marca\ de\ agua\ Asegurar\ LTDA\ \(PARA\ DIVISIONES\ \).jpg");
+  background-repeat: repeat;
   background-attachment: fixed;
 }
 
-.custom-pointer{
+.custom-pointer {
   cursor: pointer;
 }
 
@@ -132,10 +130,13 @@
   right: 0; /* Colocar el gradiente en el lado derecho */
   bottom: 0;
   width: 7%; /* Ancho del área difuminada (ajústalo según sea necesario) */
-  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(144, 142, 142, 0.333)); /* Gradiente transparente a blanco */
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(144, 142, 142, 0.333)
+  ); /* Gradiente transparente a blanco */
   pointer-events: none; /* Permitir que los eventos pasen a través del pseudo-elemento */
 }
-
 
 .img-fluid--service {
   width: 100%; /* Para asegurarse de que la imagen ocupe todo el ancho del contenedor */
@@ -193,8 +194,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  
 }
 
 .error-content {
@@ -203,4 +202,150 @@
   border: 1px solid #f5c6cb; /* Borde rojo */
   width: 100%;
   height: 20vh;
+}
+
+.body--card-profile {
+  position: relative;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  align-items: center;
+  width: 100%;
+  background: linear-gradient(to right, 
+    #0f3057 0%, 
+    #185b9d 4.35%, 
+    #1a69b0 8.7%, 
+    #1c77c2 13.05%, 
+    #1e85d4 17.4%, 
+    #2193e7 21.75%, 
+    #36a2ec 26.1%, 
+    #4cb2f1 30.45%, 
+    #63c1f6 34.8%, 
+    #79d1fb 39.15%, 
+    #90e0ff 43.5%, 
+    #a6efff 47.85%, 
+    #bdfefe 52.2%, 
+    #90e0ff 56.55%, 
+    #79d1fb 60.9%, 
+    #63c1f6 65.25%, 
+    #4cb2f1 69.6%, 
+    #36a2ec 73.95%, 
+    #2193e7 78.3%, 
+    #1e85d4 82.65%, 
+    #1c77c2 87%, 
+    #1a69b0 91.35%, 
+    #185b9d 95.7%, 
+    #0f3057 100%
+  );
+  background-size: 2300% auto; /* Incrementamos el tamaño del gradiente para asegurar una transición suave */
+  animation: animateBackground 30s linear infinite; /* Ajustamos la duración de la animación para que sea más lenta */
+}
+
+@keyframes animateBackground {
+  0% {
+    background-position: 0 50%;
+  } /* Comienza desde la posición inicial */
+  100% {
+    background-position: 100% 50%;
+  } /* Termina en la misma posición que el inicio */
+}
+
+.p--profile {
+  margin: 10px;
+  font-weight: auto;
+}
+
+.profile--card {
+  display: inline-block;
+  perspective: 1000px;
+  width: 100%; /* Cambiar el ancho a 100% */
+  max-width: 300px; /* Establecer un ancho máximo */
+  height: 500px; /* Cambiar la altura a automática */
+  margin-bottom: 20px; /* Agregar un margen inferior */
+}
+
+.profile--card .profile--card-front header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  margin-bottom: 15px;
+}
+
+.profile--card .profile--card-back header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  margin-bottom: 5px;
+}
+
+.profile--card img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile--card .profile--card-front,
+.profile--card .profile--card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  padding: 25px;
+  transition: transform 0.6s;
+  background: linear-gradient(to bottom left, #fff 50%, #f4cd2d 50%);
+}
+
+.profile--card-back {
+  transform: rotateY(180deg);
+}
+
+.flip-arrowed ~ .profile--card {
+  transform: rotateY(-180deg);
+}
+
+.flip-arrow {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.profile--card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.profile--card.flipped .profile--card-inner {
+  transform: rotateY(180deg);
+}
+
+.profile--card-front,
+.profile--card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.flip-arrow--front {
+  position: absolute;
+  bottom: 0px;
+  right: 30px; /* Ajusta el valor según sea necesario */
+  cursor: pointer;
+}
+
+.flip-arrow--back {
+  position: absolute;
+  bottom: 0px;
+  left: 30px; /* Ajusta el valor según sea necesario */
+  cursor: pointer;
 }

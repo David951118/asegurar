@@ -13,23 +13,19 @@ import carruseFoto5 from "../../Assets/Carrusel con fotos/5.jpg";
 import carruseFoto6 from "../../Assets/Carrusel con fotos/6.jpg";
 import jefeFoto from "../../Assets/Equipo Asegurar LTDA/Presidente.jpg";
 import getenteFoto from "../../Assets/Equipo Asegurar LTDA/Gerencia.jpg";
-import ejecutivoFoto from "../../Assets/Equipo Asegurar LTDA/pedro.JPG";
 import equipoFoto1 from "../../Assets/Equipo Asegurar LTDA/Jefatura-de-Red.jpg";
 import equipoFoto2 from "../../Assets/Equipo Asegurar LTDA/Ingeniero-David.jpg";
 import equipoFoto3 from "../../Assets/Equipo Asegurar LTDA/Asistente.jpg";
-import equipoFoto4 from "../../Assets/Equipo Asegurar LTDA/omar.JPG";
 import equipoFoto5 from "../../Assets/Equipo Asegurar LTDA/Operador.jpg";
 import equipoFoto6 from "../../Assets/Equipo Asegurar LTDA/Operadoa.jpg";
+import equipoFoto4 from "../../Assets/Equipo Asegurar LTDA/cristian.jpeg";
 import lactiosSantaMaria from "../../Assets/iconsEnter/Lacteos Santa Maria png.png";
 import coopsetrans from "../../Assets/iconsEnter/Coopsetrans.png";
 import nuevoMilenio from "../../Assets/iconsEnter/Nuevo Milenio.png";
 import sammiSaludsas from "../../Assets/iconsEnter/Samy-Salud-png.png";
+import ProfileCard from "../../Components/profileCard";
 
 export default function Home() {
-  const handleEmailClick = (email) => {
-    window.location.href = `mailto:${email}`;
-  };
-
   const carouselItem = [
     //objeto con informacion para incluir en el carrusel.+
     {
@@ -120,68 +116,72 @@ export default function Home() {
       description: "Descripcion empresa",
     },
   ];
-  const jefes = [
+
+  const empleados = [
     {
       name: "Rómulo Exmeling Bolaños Escobar",
       cargo: "Presidente",
       email: "romulo.bolanose@gmail.com",
       foto: jefeFoto,
+      descript:
+        "Administrador de Empresas, Profesional en Ciencias Militares. Asesor en Seguridad.",
     },
     {
       name: "Deyanira López Solarte",
       cargo: "Gerente General",
       email: "asegurar.limitada@gmail.com",
       foto: getenteFoto,
+      descript:
+        "Administradora de Empresas, 20 años de experiencia en manejo de personal y finanzas.",
     },
-    {
-      name: "Pedro Pablo Benavides Benavides",
-      cargo: "Ejecutivo Comercial Bogota",
-      email: "pablo.benavidesb@gmail.com",
-      foto: ejecutivoFoto,
-    },
-  ];
-  const empleados = [
     {
       name: "Pedro Andrés Valencia Medina",
       cargo: "Administrador Plataforma de Monitoreo CELLVI.",
       email: "jefatura.red.asegurar@gmail.com",
       foto: equipoFoto1,
+      descript:
+        "Licenciado en informatica de la Universidad de Nariño. 15 Años de experiencia en administracion de plataformas tecnologicas de monitoreo remoto de vehiculos.",
     },
     {
       name: "David Sebastian Montes Zarama",
       cargo: "Jefe de Desarrollos Tecnologicos",
       email: "dsmontes95@gmail.com",
       foto: equipoFoto2,
+      descript: "Ingeniero Electronico de la Universidad de Nariño. Desarrollador FullStack",
     },
     {
       name: "Johanna Yamile Guzmán Gaviria",
       cargo: "Asistente de Gerencia",
       email: "asistenteasegurar@gmail.com",
       foto: equipoFoto3,
+      descript:
+        "Secretaria ejecutiva, especilista en manejo de paquetes contables SIIGO, y administracion de cartera de clientes.",
     },
     {
       name: "Jose Rafael Agreda España",
       cargo: "Operador de Medios Tecnologicos",
       email: "centralmasegurar@gmail.com",
       foto: equipoFoto5,
-    },
-    {
-      name: "Omar Agusto Espitia Quevedo",
-      cargo: "Director Comercial",
-      email: "omarespitia028@gmail.com",
-      foto: equipoFoto4,
+      descript:
+        "Tecnologo en sistemas, especializados en manejo y control de flotas, desde centrales de monitoreo remotas.",
     },
     {
       name: "Sandra Patricia Cuchala Andrade",
       cargo: "Operadora de Medios Tecnologicos",
       email: "centralmasegurar@gmail.com",
       foto: equipoFoto6,
+      descript:
+        "Tecnologo en sistemas, especializados en manejo y control de flotas, desde centrales de monitoreo remotas.",
+    },
+    {
+      name: "Cristian Javier Ojeda Bolaños",
+      cargo: "Operadora de Medios Tecnologicos",
+      email: "centralmasegurar@gmail.com",
+      foto: equipoFoto4,
+      descript:
+        "Tecnologo en sistemas, especializados en manejo y control de flotas, desde centrales de monitoreo remotas.",
     },
   ];
-  const imgStyle = {
-    height: "265px",
-    width: "90%",
-  };
 
   return (
     <div>
@@ -213,62 +213,9 @@ export default function Home() {
               la tecnología de punta.
             </p>
           </div>
-          <div className="row align-items-center justify-content-center">
-            {jefes.map((item, index) => (
-              <div className="col-md-4 p-3" key={index}>
-                <div
-                  className="card text-center mx-auto"
-                  style={{ width: "18rem" }}
-                >
-                  <img
-                    src={item.foto}
-                    alt={item.name}
-                    className="img-fluid mx-auto p-3"
-                    style={imgStyle}
-                  />
-                  <div className="card-body">
-                    <h4 className="card-title">{item.name}</h4>
-                    <hr />
-                    <h5 className="card-title">{item.cargo}</h5>
-                    <p
-                      className="pointer link card-text hand custom-pointer"
-                      onClick={() => handleEmailClick(item.email)}
-                    >
-                      {item.email}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="row align-items-center justify-content-center">
-            {empleados.map((item, index) => (
-              <div className="col-md-4 pb-3" key={index}>
-                <div
-                  className="card text-center mx-auto"
-                  style={{ width: "18rem" }}
-                >
-                  <img
-                    src={item.foto}
-                    alt={item.name}
-                    className="img-fluid mx-auto p-3"
-                    style={imgStyle}
-                  />
-                  <div className="card-body">
-                    <h4 className="card-title">{item.name}</h4>
-                    <hr />
-                    <h5 className="card-title">{item.cargo}</h5>
-                    <p
-                      className="pointer link card-text hand custom-pointer"
-                      onClick={() => handleEmailClick(item.email)}
-                    >
-                      {item.email}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        </div>
+        <div className="">
+          <ProfileCard cards={empleados} />
         </div>
         <div className="mt-3 container-fluid">
           <Title item={title} />
