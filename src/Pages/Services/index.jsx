@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Portafolio from "./portafolio";
+import Portafolio from "./Portafolio";
 import AtencionImg from "../../Assets/Tarjetas de servicios/atencion.jpg";
 import ServicioImg from "../../Assets/Tarjetas de servicios/servicio.jpg";
 import EquipoImg from "../../Assets/Tarjetas de servicios/equipo.jpg";
