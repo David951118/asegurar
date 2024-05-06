@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import BackgroundGradient from "../../Components/background";
 import Footer from "../../Components/footer";
+import Noticia from "./noticia";
 import Vision from "../../Assets/Mision Vision/POLITICAS.jpg";
 import BlogAsegurar from "../../Assets/BlogProvicional.png";
 import fotografiapost from "../../Assets/Foto Portada/WhatsApp Image 2023-11-11 at 10.47.56 AM.jpeg";
@@ -10,7 +11,7 @@ import fotoCliente2 from "../../Assets/iconsEnter/Samy-Salud-png.png";
 import fotoCliente3 from "../../Assets/iconsEnter/Lacteos Santa Maria png.png";
 
 export default function Blog() {
-  const [blog, setBlog] = useState(0);
+  const [blog, setBlog] = useState(null);
   const colMd8Ref = useRef(null);
   const handleButtonClick = (blogId) => {
     setBlog(blogId);
@@ -18,6 +19,108 @@ export default function Blog() {
     // Desplazar la pantalla al inicio de col-md-8
     colMd8Ref.current.scrollIntoView({ behavior: "smooth" });
   };
+  const noticia = [
+    {
+      titulo: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
+      titulo2: "¡Bienvenidos a la Nueva Era: Ahora en React!",
+      fecha: "18 Diciembre 2023",
+      resumen1:
+        "En este blog ecuentras informacion, sobre las actualizaciones de la pagina web",
+      minifoto: Vision,
+      creador: "Ing David Montes",
+      contenido: [
+        { tipo: "parrafo", texto: "Estimada comunidad de ASEGURAR LTDA" },
+        {
+          tipo: "parrafo",
+          texto:
+            "Es un placer para nosotros anunciar un emocionante cambio en nuestra presencia en línea. ¡Hemos dado un salto importante y nos hemos actualizado a React! Después de años de compromiso con una versión estática en HTML, hemos decidido llevar la experiencia de usuario de nuestra página web al siguiente nivel.",
+        },
+        { tipo: "titulo", texto: "¿Qué significa esto para ti?" },
+        {
+          tipo: "lista",
+          textos: [
+            "Experiencia de Usuario Mejorada: La transición a React nos permite ofrecer una navegación más suave y un rendimiento más rápido, lo que se traduce en una experiencia de usuario mejorada.",
+            "Interactividad Avanzada: Ahora podemos implementar características interactivas y dinámicas de manera más eficiente, brindándote contenido de alta calidad de una manera más atractiva.",
+            "Mantenimiento Eficiente: React simplifica el mantenimiento del código, lo que nos permite responder rápidamente a los comentarios y asegurarnos de que nuestro sitio web esté siempre actualizado.",
+          ],
+        },
+        {
+          tipo: "parrafo",
+          texto: "Te invitamos a explorar la nueva pagina web!",
+        },
+        {
+          tipo: "imagen",
+          url: BlogAsegurar,
+          alt: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
+        },
+        {
+          tipo: "minifoto",
+          url: Vision,
+          alt: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
+        },
+      ],
+    },
+    {
+      titulo: "SG-SST ASEGURAR LTDA",
+      titulo2: "Seguridad y salud en el trabajo!",
+      fecha: "18 Diciembre 2023",
+      resumen1:
+        "En este blog ecuentras informacion, sobre las actualizaciones de la pagina web",
+      minifoto: miniFotoPost,
+      creador: "valentina Ledesma",
+      contenido: [
+        {
+          tipo: "parrafo",
+          texto:
+            "ASEGURAR LTDA trabaja por la protección de sus trabajadores, la promoción de la salud y seguridad en el desarrollo de sus operaciones, reconociendo el desempeño ejemplar en materia de seguridad y salud en el trabajo, generando las directrices bajo las cuales ASEGURAR LTDA, desarrollará la estrategias por medio de procesos, mediante la implementación de controles para los peligros identificados, riesgos valorados, el cumplimiento de la legislación aplicable y actividades de implementación, mantenimiento, control y mejoramiento continuo, que conlleve a la preservación de la salud orgánica y mental de nuestros colaboradores, ofreciendo lugares de trabajo seguros evitando así la ocurrencia de incidentes, accidentes y enfermedades laborales",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Seguridad y Salud en el Trabajo de ASEGURAR LTDA genera interés en el desarrollo integral de sus diferentes dimensiones: física, mental, social y espiritual, a través de 3 principios:",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Principio de Reconocimiento: Dirigido a identificar los peligros, evaluar, valorar los riesgos y definir controles, basados en los conceptos técnicos y cumpliendo los lineamientos legales de nuestro País.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Principio de Construcción: Orientado al desarrollo de estrategias para acompañar a los grupos de interés a ser conscientes de la prevención y protección de su salud y seguridad.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Principio de Progreso: Nos impulsa a asumir los retos, cambios y necesidades que se van presentando en pro de la mejora continua del SG-SST.",
+        },
+        { tipo: "titulo", texto: "IMPORTANCIA DE CONTAR CON UN SG-SST" },
+        {
+          tipo: "lista",
+          textos: [
+            "Principio de Reconocimiento: Dirigido a identificar los peligros, evaluar, valorar los riesgos y definir controles, basados en los conceptos técnicos y cumpliendo los lineamientos legales de nuestro País.",
+            "Principio de Construcción: Orientado al desarrollo de estrategias para acompañar a los grupos de interés a ser conscientes de la prevención y protección de su salud y seguridad.",
+            "Principio de Progreso: Nos impulsa a asumir los retos, cambios y necesidades que se van presentando en pro de la mejora continua del SG-SST.",
+          ],
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Una correcta ejecución e implementación de un SG-SST, aportara a la empresa una buena imagen corporativa y plasmara un ambiente de bienestar laboral, en vista de la disminución de accidentes laborales, enfermedades e incapacidades, lo cual hace que en la empresa el trabajo sea más fluido y de calidad.",
+        },
+        {
+          tipo: "imagen",
+          url: fotografiapost,
+          alt: "SG-SST ASEGURAR LTDA",
+        },
+        {
+          tipo: "minifoto",
+          url: miniFotoPost,
+          alt: "SG-SST ASEGURAR LTDA",
+        },
+      ],
+    },
+  ];
   const noticias = [
     {
       title: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
@@ -85,6 +188,22 @@ export default function Blog() {
       foto: fotoCliente3,
     },
   ];
+  const infoRobo = {
+    imagen: "Imagen",
+    parrafo1:
+      "En un acto de colaboración entre la Policía Nacional y el Ejército Nacional de Colombia, se logró un importante hito en la lucha contra la piratería terrestre el pasado 23 de marzo de 2024. El vehículo identificado con las placas SVP 210, que había sido asaltado en la ruta de Pasto a Tumaco - Nariño, en el sector de CHUCUNES, vereda San Isidro, fue recuperado exitosamente.",
+    parrafo2:
+      "El asalto a vehículos en estas rutas ha sido una preocupación creciente en la región, afectando tanto a comerciantes como a ciudadanos comunes que transitan por estas vías con el objetivo de llevar a cabo sus actividades diarias. Este tipo de actos no solo representan una amenaza para la seguridad de los individuos, sino que también tienen un impacto negativo en la economía local y nacional.",
+    parrafo3:
+      "El trabajo conjunto entre las fuerzas de seguridad colombianas fue fundamental para el éxito de esta operación. La rápida respuesta y coordinación entre la Policía Nacional y el Ejército Nacional permitió la ubicación y recuperación del vehículo en tiempo récord. Este logro no solo representa un golpe contra la piratería terrestre, sino que también envía un mensaje claro de que las autoridades están comprometidas con la seguridad de los ciudadanos y con la lucha contra el crimen organizado en todas sus formas.",
+    parrafo4:
+      "La recuperación del vehículo SVP 210 es un ejemplo tangible de los esfuerzos continuos que se están realizando para garantizar la seguridad en las carreteras colombianas. Sin embargo, queda claro que aún queda mucho trabajo por hacer. Es necesario seguir fortaleciendo las estrategias de seguridad, así como fomentar la cooperación ciudadana para prevenir y enfrentar este tipo de incidentes.",
+    parrafo5:
+      "Este éxito debe servir como un recordatorio de la importancia de la colaboración entre las autoridades y la comunidad en la construcción de entornos seguros y libres de violencia. Solo a través de un esfuerzo conjunto y continuo podremos enfrentar eficazmente los desafíos de la piratería terrestre y otros tipos de delitos que afectan a nuestra sociedad.",
+    parrafo6:
+      "La recuperación del vehículo SVP 210 es un paso adelante en la dirección correcta, pero debemos mantenernos vigilantes y comprometidos en nuestra lucha por la seguridad y la justicia en nuestras carreteras y comunidades.",
+    parrafo7: "¡Sigamos adelante juntos en esta importante tarea!",
+  };
   return (
     <div>
       <BackgroundGradient color1="#fff" color2="#fff">
@@ -199,79 +318,6 @@ export default function Blog() {
                   />
                 </article>
                 <hr />
-                {/* <article className="blog-post">
-                <h2 className="display-5 link-body-emphasis mb-1">
-                  Ejemplo de post tipo 2
-                </h2>
-                <p className="blog-post-meta">
-                  Noviembre 1 del 2023 por
-                  <a href="Creador"> David</a>
-                </p>
-                <p>
-                  En este nuevo artículo de nuestro blog de viajes, te llevamos
-                  a un emocionante recorrido por las calles de Kyoto, una ciudad
-                  que emana historia, cultura y belleza en cada esquina.
-                  Descubre los templos antiguos que se alzan majestuosos entre
-                  los cerezos en flor, experimenta la serenidad de los jardines
-                  zen y déjate llevar por la esencia tradicional de la capital
-                  imperial de Japón.DESCRIPCION DEL POST
-                </p>
-                <p>
-                  En este post, te contaremos sobre nuestros lugares favoritos
-                  en Kyoto, desde el icónico Templo Kinkaku-ji con su pabellón
-                  dorado hasta el tranquilo distrito de Gion, famoso por sus
-                  geishas. Además, te proporcionaremos consejos prácticos para
-                  planificar tu propio viaje a esta ciudad única, desde cómo
-                  moverte en tren hasta dónde disfrutar de la deliciosa
-                  gastronomía local.PARRAFO PLACEHOLDER, INVITACION A LEER
-                </p>
-                <h3>Ejemplo de tabla</h3>
-                <p>Ejemplo de tabla</p>
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Ventas</th>
-                      <th scope="col">Negocios</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Mark</td>
-                      <td>12</td>
-                      <td>333</td>
-                    </tr>
-                    <tr>
-                      <td>Mark</td>
-                      <td>12</td>
-                      <td>333</td>
-                    </tr>
-                    <tr>
-                      <td>Mark</td>
-                      <td>12</td>
-                      <td>333</td>
-                    </tr>
-                    <tr>
-                      <td>Mark</td>
-                      <td>12</td>
-                      <td>333</td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th scope="row">Total</th>
-                      <td>999</td>
-                      <td>999</td>
-                    </tr>
-                  </tfoot>
-                </table>
-                <p>
-                  This is some additional paragraph placeholder content. It's a
-                  slightly shorter version of the other highly repetitive body
-                  text used throughout. This is an example unordered
-                  list:DESPEDIDA DEL BLOG
-                </p>
-              </article> */}
                 <div className="d-flex  mb-2">
                   <button
                     type="button"
@@ -292,21 +338,6 @@ export default function Blog() {
                     Nueva
                   </button>
                 </div>
-                {/* <nav className="blog-pagination" aria-label="Paination">
-                  <a
-                    className="btn btn-outline-primary rounded-pill m-2"
-                    href="Anterior"
-                  >
-                    Antigua
-                  </a>
-                  <a
-                    className="btn btn-outline-secondary rounded-pill m-2"
-                    aria-disabled="false"
-                    href="Nueva"
-                  >
-                    Nueva
-                  </a>
-                </nav> */}
               </div>
             ) : (
               <div className="col-md-8" ref={colMd8Ref}>
@@ -360,6 +391,36 @@ export default function Blog() {
                 </div>
               </div>
             )}
+            {noticia.map((noticia, index) => (
+              <div>
+                <Noticia
+                  key={index}
+                  noticia={noticia}
+                  onClick={() => handleButtonClick(index)}
+                  ref={colMd8Ref}
+                />
+                <div className="d-flex  mb-2">
+                  <button
+                    type="button"
+                    className={`btn btn-outline-primary rounded-pill mx-2 ${
+                      blog === 0 ? "active" : ""
+                    }`}
+                    onClick={() => handleButtonClick(index)}
+                  >
+                    Antigua
+                  </button>
+                  <button
+                    type="button"
+                    className={`btn btn-outline-secondary rounded-pill mx-2 ${
+                      blog === 1 ? "active" : ""
+                    }`}
+                    onClick={() => handleButtonClick(index)}
+                  >
+                    Nueva
+                  </button>
+                </div>
+              </div>
+            ))}
 
             <div className="col-md-4">
               <div className="position-sticky" style={{ top: "2rem" }}>
