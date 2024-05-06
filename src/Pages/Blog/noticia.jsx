@@ -26,7 +26,7 @@ export default function Noticia({ noticia, onClick }) {
   };
 
   return (
-    <div className="col-md-8" onClick={onClick}>
+    <div onClick={onClick}>
       <h3 className="pb-4 mb-4 fst-italic border-bottom">{noticia.titulo2}</h3>
       <article className="blog-post">
         <h2 className="display-5 link-body-emphasis mb-1">{noticia.titulo}</h2>

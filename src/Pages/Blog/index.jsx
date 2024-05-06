@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import BackgroundGradient from "../../Components/background";
 import Footer from "../../Components/footer";
 import Noticia from "./noticia";
@@ -9,17 +9,137 @@ import miniFotoPost from "../../Assets/Foto Portada/WhatsApp Image 2023-11-09 at
 import fotoCliente1 from "../../Assets/iconsEnter/Coopsetrans.png";
 import fotoCliente2 from "../../Assets/iconsEnter/Samy-Salud-png.png";
 import fotoCliente3 from "../../Assets/iconsEnter/Lacteos Santa Maria png.png";
+import chucunes from "../../Assets/blog/chucunes.jpeg";
+import chucunesinseguro from "../../Assets/blog/inseguridad_0_1.jpeg";
+import tencnologiaMini from "../../Assets/blog/miniFotoTecnologia.png";
+import tencnologia from "../../Assets/blog/Tecnologia.jpeg";
 
 export default function Blog() {
-  const [blog, setBlog] = useState(null);
-  const colMd8Ref = useRef(null);
-  const handleButtonClick = (blogId) => {
-    setBlog(blogId);
+  const [blog, setBlog] = useState(0);
+  const [colMd8Ref, setColMd8Ref] = useState(null);
+  const [scrollToRef, setScrollToRef] = useState(false);
 
-    // Desplazar la pantalla al inicio de col-md-8
-    colMd8Ref.current.scrollIntoView({ behavior: "smooth" });
+  useEffect(() => {
+    if (scrollToRef && colMd8Ref) {
+      colMd8Ref.scrollIntoView({ behavior: "smooth" });
+      setScrollToRef(false);
+    }
+  }, [scrollToRef, colMd8Ref]);
+
+  const handleButtonClick = (newBlogId) => {
+    if (newBlogId >= 0 && newBlogId < noticia.length) {
+      setBlog(newBlogId);
+      setScrollToRef(true);
+    }
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (document.readyState === "complete") {
+        setScrollToRef(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const noticia = [
+    {
+      titulo: "EFECTIVIDAD DE ASEGURAR",
+      titulo2: "¡Acciones inmediatas y efectivas!",
+      fecha: "5 Mayo 2024",
+      resumen1:
+        "Noticia importante sobre un caso de efectividad en nuestro servicio",
+      minifoto: chucunes,
+      creador: "Ing David Montes",
+      contenido: [
+        {
+          tipo: "parrafo",
+          texto:
+            "En un acto de colaboración entre la Policía Nacional , el Ejército Nacional de Colombia y nuestra empresa Asegurar LTDA, se logró un importante hito en la lucha contra la piratería terrestre el pasado 23 de marzo de 2024. El vehículo identificado con las placas S** 2**, que había sido asaltado en la ruta de Pasto a Tumaco - Nariño, en el sector de CHUCUNES, vereda San Isidro, fue recuperado exitosamente.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "El asalto a vehículos en estas rutas ha sido una preocupación creciente en la región, afectando tanto a comerciantes como a ciudadanos comunes que transitan por estas vías con el objetivo de llevar a cabo sus actividades diarias. Este tipo de actos no solo representan una amenaza para la seguridad de los individuos, sino que también tienen un impacto negativo en la economía local y nacional.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "El trabajo conjunto entre las fuerzas de seguridad colombianas y el personal de ASEGURAR fue fundamental para el éxito de esta operación. La rápida respuesta y coordinación entre los involucrados permitió la ubicación y recuperación del vehículo en tiempo récord. Este logro no solo representa un golpe contra la piratería terrestre, sino que también envía un mensaje claro de que ASEGURAR esta comprometida con la seguridad de sus clientes y la calidad de su servicio.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "La recuperación del vehículo S** 2** es un ejemplo tangible de los esfuerzos continuos que se están realizando para garantizar la seguridad en las carreteras colombianas. Sin embargo, queda claro que aún queda mucho trabajo por hacer. Es necesario seguir fortaleciendo las estrategias de seguridad, así como fomentar la cooperación ciudadana para prevenir y enfrentar este tipo de incidentes.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Este éxito debe servir como un recordatorio de la importancia de la colaboración entre las autoridades y la comunidad en la construcción de entornos seguros y libres de violencia. Solo a través de un esfuerzo conjunto y continuo podremos enfrentar eficazmente los desafíos de la piratería terrestre y otros tipos de delitos que afectan a nuestra sociedad.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "La recuperación del vehículo S** 2** es un paso adelante en la dirección correcta, pero debemos mantenernos vigilantes y comprometidos en nuestra lucha por la seguridad y comodidad de todos los clientes de ASEGURAR.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "¡Sigamos adelante juntos en esta importante tarea! En ASEGURAR siempre estaremos dispuestos a atender todas sus dudas.",
+        },
+        {
+          tipo: "imagen",
+          url: chucunesinseguro,
+          alt: "Chucunes",
+        },
+      ],
+    },
+    {
+      titulo: "Nuevas mejoras en ASEGURAR LTDA.",
+      titulo2: "¡Más eficiencia y seguridad para nuestros clientes!",
+      fecha: "5 Mayo 2024",
+      resumen1:
+        "Últimas actualizaciones en tecnología y servicios de ASEGURAR LTDA.",
+      minifoto: tencnologiaMini,
+      creador: "Ing. David Montes",
+      contenido: [
+        {
+          tipo: "parrafo",
+          texto:
+            "ASEGURAR LTDA. se complace en informar a sus clientes y suscriptores sobre las últimas mejoras implementadas en nuestros servicios tecnológicos. Hemos subido a la plataforma CELLVI una moderna herramienta que permite acceder a las rutas de trazabilidad de sus rodantes en microsegundos.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Esta nueva herramienta representa un avance significativo en nuestra capacidad para monitorear y gestionar la seguridad de sus vehículos de manera más eficiente. La trazabilidad en tiempo real nos permite responder rápidamente ante cualquier incidente y garantizar la integridad de su carga y personal.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Además, en ASEGURAR LTDA. seguimos comprometidos con la mejora continua de nuestros servicios. Estamos desarrollando constantemente más variables de control para satisfacer las necesidades cambiantes de nuestros clientes y ofrecerles una experiencia aún más segura y confiable.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Pero eso no es todo, también queremos informarles que hemos realizado una actualización en la tecnología de nuestro servidor principal. Esta actualización nos ha permitido mejorar significativamente el rendimiento y la estabilidad de nuestros sistemas.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Gracias a estas mejoras, nuestros servicios ahora funcionan mucho mejor que antes, brindándoles a nuestros clientes una experiencia más fluida y confiable en cada interacción con ASEGURAR LTDA.",
+        },
+        {
+          tipo: "imagen",
+          url: tencnologia,
+          alt: "Tecnologia",
+        },
+      ],
+    },
     {
       titulo: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
       titulo2: "¡Bienvenidos a la Nueva Era: Ahora en React!",
@@ -113,59 +233,7 @@ export default function Blog() {
           url: fotografiapost,
           alt: "SG-SST ASEGURAR LTDA",
         },
-        {
-          tipo: "minifoto",
-          url: miniFotoPost,
-          alt: "SG-SST ASEGURAR LTDA",
-        },
       ],
-    },
-  ];
-  const noticias = [
-    {
-      title: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
-      titleLevel2: "¡Bienvenidos a la Nueva Era: Ahora en React!",
-      p: [
-        "Estimada comunidad de ASEGURAR LTDA",
-        "Es un placer para nosotros anunciar un emocionante cambio en nuestra presencia en línea. ¡Hemos dado un salto importante y nos hemos actualizado a React! Después de años de compromiso con una versión estática en HTML, hemos decidido llevar la experiencia de usuario de nuestra página web al siguiente nivel.",
-      ],
-      title2: "¿Qué significa esto para ti?",
-      p2: [
-        "Experiencia de Usuario Mejorada: La transición a React nos permite ofrecer una navegación más suave y un rendimiento más rápido, lo que se traduce en una experiencia de usuario mejorada.",
-        "Interactividad Avanzada: Ahora podemos implementar características interactivas y dinámicas de manera más eficiente, brindándote contenido de alta calidad de una manera más atractiva.",
-        "Mantenimiento Eficiente: React simplifica el mantenimiento del código, lo que nos permite responder rápidamente a los comentarios y asegurarnos de que nuestro sitio web esté siempre actualizado.",
-      ],
-      p3: "Te invitamos a explorar la nueva pagina web!",
-      foto1: BlogAsegurar,
-      fecha: "18 Diciembre 2023",
-      resumen1:
-        "En este blog ecuentras informacion, sobre las actualizaciones de la pagina web",
-      minifoto: Vision,
-      creador: "Ing David Montes",
-    },
-    {
-      title: "SG-SST ASEGURAR LTDA",
-      titleLevel2: "Seguridad y salud en el trabajo",
-      p: [
-        "ASEGURAR LTDA trabaja por la protección de sus trabajadores, la promoción de la salud y seguridad en el desarrollo de sus operaciones, reconociendo el desempeño ejemplar en materia de seguridad y salud en el trabajo, generando las directrices bajo las cuales ASEGURAR LTDA, desarrollará la estrategias por medio de procesos, mediante la implementación de controles para los peligros identificados, riesgos valorados, el cumplimiento de la legislación aplicable y actividades de implementación, mantenimiento, control y mejoramiento continuo, que conlleve a la preservación de la salud orgánica y mental de nuestros colaboradores, ofreciendo lugares de trabajo seguros evitando así la ocurrencia de incidentes, accidentes y enfermedades laborales",
-        "Seguridad y Salud en el Trabajo de ASEGURAR LTDA genera interés en el desarrollo integral de sus diferentes dimensiones: física, mental, social y espiritual, a través de 3 principios:",
-        "Principio de Reconocimiento: Dirigido a identificar los peligros, evaluar, valorar los riesgos y definir controles, basados en los conceptos técnicos y cumpliendo los lineamientos legales de nuestro País.",
-        "Principio de Construcción: Orientado al desarrollo de estrategias para acompañar a los grupos de interés a ser conscientes de la prevención y protección de su salud y seguridad.",
-        "Principio de Progreso: Nos impulsa a asumir los retos, cambios y necesidades que se van presentando en pro de la mejora continua del SG-SST.",
-      ],
-      title2: "IMPORTANCIA DE CONTAR CON UN SG-SST",
-      p2: [
-        "Reducir del ausentismo laboral, mejora en la salud y  hábitos de los trabajadores, traducido en un mayor índice de productividad.",
-        "Mejora de la calidad de vida laboral promoviendo iniciativas que garantizan la salud laboral.",
-        "Mayor productividad y rentabilidad en la empresa, la inversión se triplicará al tener una buena implementación de la seguridad laboral y salud en el trabajo.",
-      ],
-      p3: "Una correcta ejecución e implementación de un SG-SST, aportara a la empresa una buena imagen corporativa y plasmara un ambiente de bienestar laboral, en vista de la disminución de accidentes laborales, enfermedades e incapacidades, lo cual hace que en la empresa el trabajo sea más fluido y de calidad.",
-      foto1: fotografiapost,
-      fecha: "29 Noviembre 2023",
-      resumen1:
-        "En este blog ecuentras informacion, sobre las capacitaciones en SG-SST",
-      minifoto: miniFotoPost,
-      creador: "valentina Ledesma",
     },
   ];
   const comentarios = [
@@ -188,22 +256,6 @@ export default function Blog() {
       foto: fotoCliente3,
     },
   ];
-  const infoRobo = {
-    imagen: "Imagen",
-    parrafo1:
-      "En un acto de colaboración entre la Policía Nacional y el Ejército Nacional de Colombia, se logró un importante hito en la lucha contra la piratería terrestre el pasado 23 de marzo de 2024. El vehículo identificado con las placas SVP 210, que había sido asaltado en la ruta de Pasto a Tumaco - Nariño, en el sector de CHUCUNES, vereda San Isidro, fue recuperado exitosamente.",
-    parrafo2:
-      "El asalto a vehículos en estas rutas ha sido una preocupación creciente en la región, afectando tanto a comerciantes como a ciudadanos comunes que transitan por estas vías con el objetivo de llevar a cabo sus actividades diarias. Este tipo de actos no solo representan una amenaza para la seguridad de los individuos, sino que también tienen un impacto negativo en la economía local y nacional.",
-    parrafo3:
-      "El trabajo conjunto entre las fuerzas de seguridad colombianas fue fundamental para el éxito de esta operación. La rápida respuesta y coordinación entre la Policía Nacional y el Ejército Nacional permitió la ubicación y recuperación del vehículo en tiempo récord. Este logro no solo representa un golpe contra la piratería terrestre, sino que también envía un mensaje claro de que las autoridades están comprometidas con la seguridad de los ciudadanos y con la lucha contra el crimen organizado en todas sus formas.",
-    parrafo4:
-      "La recuperación del vehículo SVP 210 es un ejemplo tangible de los esfuerzos continuos que se están realizando para garantizar la seguridad en las carreteras colombianas. Sin embargo, queda claro que aún queda mucho trabajo por hacer. Es necesario seguir fortaleciendo las estrategias de seguridad, así como fomentar la cooperación ciudadana para prevenir y enfrentar este tipo de incidentes.",
-    parrafo5:
-      "Este éxito debe servir como un recordatorio de la importancia de la colaboración entre las autoridades y la comunidad en la construcción de entornos seguros y libres de violencia. Solo a través de un esfuerzo conjunto y continuo podremos enfrentar eficazmente los desafíos de la piratería terrestre y otros tipos de delitos que afectan a nuestra sociedad.",
-    parrafo6:
-      "La recuperación del vehículo SVP 210 es un paso adelante en la dirección correcta, pero debemos mantenernos vigilantes y comprometidos en nuestra lucha por la seguridad y la justicia en nuestras carreteras y comunidades.",
-    parrafo7: "¡Sigamos adelante juntos en esta importante tarea!",
-  };
   return (
     <div>
       <BackgroundGradient color1="#fff" color2="#fff">
@@ -213,7 +265,7 @@ export default function Blog() {
               <h1 className="display-4 fw-bold mb-3">Asegublog</h1>
               <p className="lead my-3">
                 ASEGUBLOG, es un sitio en la página web de ASEGURAR LTDA., donde
-                publicamos de manera frecuente temas, informaciones y noticias
+                publicamos de manera frecuente temas, informaciones y noticia
                 que queremos compartir con los visitantes a nuestro sitio web y,
                 que son de interés para todos, lo actualizamos periódicamente y,
                 recopilamos cronológicamente temas relacionados con el servicio
@@ -226,178 +278,83 @@ export default function Blog() {
                 realizamos entrevistas y, publicamos las referencias que los
                 clientes deseen realizar acerca de los servicios que prestamos.
               </p>
-              <p className="lead mb-0">
-                <a href="Novedades" className="text-body-emphasis fw-bold">
-                  Ultimas novedades ...
-                </a>
+              <p
+                className="lead mb-0 text-body-emphasis fw-bold custom-pointer"
+                onClick={() => handleButtonClick(0)}
+              >
+                Ultimas novedades ...
               </p>
             </div>
           </div>
           <div className="row mb-2">
             <div className="col-md-6">
-              <div
-                className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative custom-pointer"
-                onClick={() => handleButtonClick(0)}
-              >
-                <div className="col p-4 d-flex flex-column position-static">
-                  <strong className="d-inline-block mb-2 text-primary-emphasis">
-                    Empresarial
-                  </strong>
-                  <h3 className="mb-0">{noticias[0].title}</h3>
-                  <div className="mb-1 text-body-secondary">
-                    {noticias[0].fecha}
+              {noticia.length > 0 && blog < noticia.length && (
+                <div
+                  className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative custom-pointer"
+                  onClick={() => handleButtonClick(0)}
+                >
+                  <div className="col p-4 d-flex flex-column position-static">
+                    <strong className="d-inline-block mb-2 text-primary-emphasis">
+                      Empresarial
+                    </strong>
+                    <h3 className="mb-0">{noticia[blog].titulo}</h3>
+                    <div className="mb-1 text-body-secondary">
+                      {noticia[blog].fecha}
+                    </div>
+                    <p className="card-text mb-auto">
+                      {noticia[blog].resumen1}
+                    </p>
                   </div>
-                  <p className="card-text mb-auto">{noticias[0].resumen1}</p>
+                  <div className="col-auto d-none d-lg-block">
+                    <img
+                      alt="Thumbnail"
+                      src={noticia[blog].minifoto}
+                      width="200"
+                      height="200"
+                      className="bd-placeholder-img m-4 border"
+                    />
+                  </div>
                 </div>
-                <div className="col-auto d-none d-lg-block">
-                  <img
-                    alt="Thumbnail"
-                    src={noticias[0].minifoto}
-                    width="200"
-                    height="200"
-                    className="bd-placeholder-img m-4 border"
-                  />
-                </div>
-              </div>
+              )}
             </div>
             <div className="col-md-6">
-              <div
-                className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative custom-pointer"
-                onClick={() => handleButtonClick(1)}
-              >
-                <div className="col p-4 d-flex flex-column position-static">
-                  <strong className="d-inline-block mb-2 text-primary-emphasis">
-                    Empresarial
-                  </strong>
-                  <h3 className="mb-0">{noticias[1].title}</h3>
-                  <div className="mb-1 text-body-secondary">
-                    {noticias[1].fecha}
+              {noticia.length > 1 && blog + 1 < noticia.length && (
+                <div
+                  className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative custom-pointer"
+                  onClick={() => handleButtonClick(blog + 1)}
+                >
+                  <div className="col p-4 d-flex flex-column position-static">
+                    <strong className="d-inline-block mb-2 text-primary-emphasis">
+                      Empresarial
+                    </strong>
+                    <h3 className="mb-0">{noticia[blog + 1].titulo}</h3>
+                    <div className="mb-1 text-body-secondary">
+                      {noticia[blog].fecha}
+                    </div>
+                    <p className="card-text mb-auto">
+                      {noticia[blog + 1].resumen1}
+                    </p>
                   </div>
-                  <p className="card-text mb-auto">{noticias[1].resumen1}</p>
+                  <div className="col-auto d-none d-lg-block">
+                    <img
+                      alt="Thumbnail"
+                      src={noticia[blog + 1].minifoto}
+                      width="200"
+                      height="200"
+                      className="bd-placeholder-img m-4 border"
+                    />
+                  </div>
                 </div>
-                <div className="col-auto d-none d-lg-block">
-                  <img
-                    alt="Thumbnail"
-                    src={noticias[1].minifoto}
-                    width="200"
-                    height="200"
-                    className="bd-placeholder-img m-4 border"
-                  />
-                </div>
-              </div>
+              )}
             </div>
           </div>
-          <div className="row g-5">
-            {blog === 0 ? (
-              <div className="col-md-8" ref={colMd8Ref}>
-                <h3 className="pb-4 mb-4 fst-italic border-bottom">
-                  {noticias[0].titleLevel2}
-                </h3>
-                <article className="blog-post">
-                  <h2 className="display-5 link-body-emphasis mb-1">
-                    {noticias[0].title}
-                  </h2>
-                  <p className="blog-post-meta">
-                    {noticias[0].fecha} por
-                    <strong> {noticias[0].creador}</strong>
-                  </p>
-                  {noticias[0].p.map((item, index) => (
-                    <p key={index}>{item}</p>
-                  ))}
-                  <h4>{noticias[0].title2}</h4>
-                  <ul>
-                    <li>{noticias[0].p2[0]}</li>
-                    <li>{noticias[0].p2[1]}</li>
-                    <li>{noticias[0].p2[2]}</li>
-                  </ul>
-                  <p>{noticias[0].p3}</p>
-                  <img
-                    src={noticias[0].foto1}
-                    alt={noticias[0].title}
-                    className="img img-fluid"
-                  />
-                </article>
-                <hr />
-                <div className="d-flex  mb-2">
-                  <button
-                    type="button"
-                    className={`btn btn-outline-primary rounded-pill mx-2 ${
-                      blog === 0 ? "active" : ""
-                    }`}
-                    onClick={() => handleButtonClick(0)}
-                  >
-                    Antigua
-                  </button>
-                  <button
-                    type="button"
-                    className={`btn btn-outline-secondary rounded-pill mx-2 ${
-                      blog === 1 ? "active" : ""
-                    }`}
-                    onClick={() => handleButtonClick(1)}
-                  >
-                    Nueva
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="col-md-8" ref={colMd8Ref}>
-                <h3 className="pb-4 mb-4 fst-italic border-bottom">
-                  {noticias[1].titleLevel2}
-                </h3>
-                <article className="blog-post">
-                  <h2 className="display-5 link-body-emphasis mb-1">
-                    {noticias[1].title}
-                  </h2>
-                  <p className="blog-post-meta">
-                    {noticias[1].fecha} por
-                    <strong> {noticias[1].creador}</strong>
-                  </p>
-                  {noticias[1].p.map((item, index) => (
-                    <p key={index}>{item}</p>
-                  ))}
-                  <h4>{noticias[1].title2}</h4>
-                  <ul>
-                    <li>{noticias[1].p2[0]}</li>
-                    <li>{noticias[1].p2[1]}</li>
-                    <li>{noticias[1].p2[2]}</li>
-                  </ul>
-                  <p>{noticias[1].p3}</p>
-                  <img
-                    src={noticias[1].foto1}
-                    alt={noticias[1].title}
-                    className="img img-fluid"
-                  />
-                </article>
-                <hr />
-                <div className="d-flex  mb-2">
-                  <button
-                    type="button"
-                    className={`btn btn-outline-primary rounded-pill mx-2 ${
-                      blog === 0 ? "active" : ""
-                    }`}
-                    onClick={() => handleButtonClick(0)}
-                  >
-                    Antigua
-                  </button>
-                  <button
-                    type="button"
-                    className={`btn btn-outline-secondary rounded-pill mx-2 ${
-                      blog === 1 ? "active" : ""
-                    }`}
-                    onClick={() => handleButtonClick(1)}
-                  >
-                    Nueva
-                  </button>
-                </div>
-              </div>
-            )}
-            {noticia.map((noticia, index) => (
+
+          <div className="row g-5" ref={(ref) => setColMd8Ref(ref)}>
+            <div className="col-md-8">
               <div>
                 <Noticia
-                  key={index}
-                  noticia={noticia}
-                  onClick={() => handleButtonClick(index)}
-                  ref={colMd8Ref}
+                  noticia={noticia[blog]}
+                  onClick={() => handleButtonClick(blog)}
                 />
                 <div className="d-flex  mb-2">
                   <button
@@ -405,23 +362,24 @@ export default function Blog() {
                     className={`btn btn-outline-primary rounded-pill mx-2 ${
                       blog === 0 ? "active" : ""
                     }`}
-                    onClick={() => handleButtonClick(index)}
+                    onClick={() => handleButtonClick(blog - 1)}
+                    disabled={blog === 0} // Deshabilita el botón si ya estás en la primera noticia
                   >
                     Antigua
                   </button>
                   <button
                     type="button"
                     className={`btn btn-outline-secondary rounded-pill mx-2 ${
-                      blog === 1 ? "active" : ""
+                      blog === noticia.length - 1 ? "active" : ""
                     }`}
-                    onClick={() => handleButtonClick(index)}
+                    onClick={() => handleButtonClick(blog + 1)}
+                    disabled={blog === noticia.length - 1} // Deshabilita el botón si ya estás en la última noticia
                   >
                     Nueva
                   </button>
                 </div>
               </div>
-            ))}
-
+            </div>
             <div className="col-md-4">
               <div className="position-sticky" style={{ top: "2rem" }}>
                 <div className="p-4 mb-3 bg-body-tertiary rounded">
@@ -461,32 +419,6 @@ export default function Blog() {
                     ))}
                   </ul>
                 </div>
-                {/* <div className="p-4">
-                  <h4 className="fst-italic">Archives</h4>
-                  <ol className="list-unstyled mb-0">
-                    <li>
-                      <a href="Enero">Enero 2023</a>
-                    </li>
-                    <li>
-                      <a href="Enero">Enero 2023</a>
-                    </li>
-                    <li>
-                      <a href="Enero">Enero 2023</a>
-                    </li>
-                    <li>
-                      <a href="Enero">Enero 2023</a>
-                    </li>
-                    <li>
-                      <a href="Enero">Enero 2023</a>
-                    </li>
-                    <li>
-                      <a href="Enero">Enero 2023</a>
-                    </li>
-                    <li>
-                      <a href="Enero">Enero 2023</a>
-                    </li>
-                  </ol>
-                </div> */}
                 <div className="p-4"></div>
               </div>
             </div>
