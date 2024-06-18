@@ -28,14 +28,14 @@ export default function AboutUs() {
       image: fotoAboutus,
     },
     Mision: {
-      title: "Mision",
+      title: "Misión",
       paragraphs: [
         "Como persona jurídica de derecho privado, presta a sus clientes y, suscriptores servicios de Telecomunicaciones en la modalidad de Valor Agregado y Telemático: (monitoreo remoto de activos fijos y móviles), generando modernas herramientas tecnológicas de control, administración, logística y seguridad; con el objeto de prevenir y disminuir las amenazas que afecten los legítimos derechos sobre los bienes y patrimonio de las personas que reciben nuestros productos y servicios. Para ello, mantenemos una estrecha coordinación con las Autoridades de la República, en todos los aspectos relacionados con la seguridad vial y ciudadana.",
       ],
       image: Mision,
     },
     Vision: {
-      title: "Vision",
+      title: "Visión",
       paragraphs: [
         "Haciendo uso adecuado de las nuevas tecnologías de la Información y las Telecomunicaciones, en el corto, mediano y largo plazo buscara posicionarse a la vanguardia de las empresas del ramo de las Telecomunicaciones a nivel regional, nacional e internacional, suministrando a sus clientes bienes, productos y servicios que cumplan con los más altos estándares de excelencia y calidad total; aprovechando los talentos y capacidades de la Ingeniería Nariñense, la clave para el logro de nuestra visión será rodearnos de gente buena, capacitada, empoderada y, que sienta amor por lo que hace. ",
       ],

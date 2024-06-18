@@ -144,7 +144,7 @@ export default function Home() {
     },
     {
       name: "David Sebastian Montes Zarama",
-      cargo: "Jefe de Desarrollos Tecnologicos",
+      cargo: "Jefe de Desarrollos Tecnológicos",
       email: "dsmontes95@gmail.com",
       foto: equipoFoto2,
       descript: "Ingeniero Electronico de la Universidad de Nariño. Desarrollador FullStack",
@@ -155,11 +155,11 @@ export default function Home() {
       email: "asistenteasegurar@gmail.com",
       foto: equipoFoto3,
       descript:
-        "Secretaria ejecutiva, especialista en manejo de paquetes contables SIIGO, y administracion de cartera de clientes.",
+        "Secretaria ejecutiva, especiaalista en manejo de paquetes contables SIIGO, y administración de cartera de clientes.",
     },
     {
       name: "Jose Rafael Agreda España",
-      cargo: "Operador de Medios Tecnologicos",
+      cargo: "Operador de Medios Tecnológicos",
       email: "centralmasegurar@gmail.com",
       foto: equipoFoto5,
       descript:
@@ -167,7 +167,7 @@ export default function Home() {
     },
     {
       name: "Sandra Patricia Cuchala Andrade",
-      cargo: "Operadora de Medios Tecnologicos",
+      cargo: "Operadora de Medios Tecnólogicos",
       email: "centralmasegurar@gmail.com",
       foto: equipoFoto6,
       descript:
@@ -175,7 +175,7 @@ export default function Home() {
     },
     {
       name: "Cristian Javier Ojeda Bolaños",
-      cargo: "Operadora de Medios Tecnologicos",
+      cargo: "Operadora de Medios Tecnólogicos",
       email: "centralmasegurar@gmail.com",
       foto: equipoFoto4,
       descript:
