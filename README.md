@@ -68,3 +68,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### aditional comments, for owner
+
+This website has been created for commercial purposes for the company ASEGURAR LTDA, using the ReactJS library. It was developed by engineer David Montes (@david951118 on GitHub). Its construction follows the standard guidelines for component preparation; all components and views are contained in their own folder in the src root. For more information, visit the official deployment of the page at https://www.asegurar.com.co. @All rights reserved.
+
