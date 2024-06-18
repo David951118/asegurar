@@ -155,7 +155,7 @@ export default function Home() {
       email: "asistenteasegurar@gmail.com",
       foto: equipoFoto3,
       descript:
-        "Secretaria ejecutiva, especilista en manejo de paquetes contables SIIGO, y administracion de cartera de clientes.",
+        "Secretaria ejecutiva, especialista en manejo de paquetes contables SIIGO, y administracion de cartera de clientes.",
     },
     {
       name: "Jose Rafael Agreda España",

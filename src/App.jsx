@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { useRoutes, BrowserRouter, useLocation } from "react-router-dom";
-import { AsegurarProvider } from "./Context";
+import { AsegurarProvider } from "./Context"; //Contexto de la aplicacion, sirve para tranferir info entre componentes
 import Home from "../src/Pages/Home";
 import AboutUs from "./Pages/AboutUs";
 import Contact from "./Pages/Contact";
@@ -21,7 +21,7 @@ import Ubicacion from "./Pages/Ubicacion";
 import UbicacionDetalle from "./Pages/Ubicacion/UbicacionDetalle";
 
 const AppRoutes = () => {
-  let routes = useRoutes([
+  let routes = useRoutes([ //aqui se realiza el enrutamiento de la aplicacion y la llamda de las vistas
     { path: "/", element: <Home />, exact: true },
     { path: "/acercadenosotros", element: <AboutUs /> },
     { path: "/contacto", element: <Contact /> },
