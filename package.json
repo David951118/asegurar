@@ -14,6 +14,7 @@
     "dotenv": "^8.6.0",
     "jquery": "^3.7.1",
     "mdb-react-ui-kit": "^6.3.0",
+    "primereact": "^10.6.6",
     "react": "^18.2.0",
     "react-datepicker": "^6.1.0",
     "react-dom": "^18.2.0",

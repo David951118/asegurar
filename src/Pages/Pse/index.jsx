@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PSEForm from "../../Components/PSEform";
 import Result from "../../Components/PSEform/Result"; //cobro de wompi es del 2,65 mas 700  +iva
 import image from "../../Assets/Untitled.jpg";
+import Footer from "../../Components/footer";
 
 const Pse = () => {
   const [paymentAmount, setPaymentAmount] = useState(null);
@@ -23,19 +24,26 @@ const Pse = () => {
   };
 
   return (
-    <div className="container-l mt-5 p-4">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          {!paymentAmount ? (
-            <PSEForm onSubmit={handlePayment} />
-          ) : (
-            <Result amount={paymentAmount} />
-          )}
-        </div>
-        <div className="col-md-6 text-center">
-          <img src={image} alt={"imagen"} className="img img-fluid mt-5" />
+    <div>
+      <div className="container mt-5 p-4">
+        <div className="row justify-content-center">
+          <div className="col-md-8">
+            {!paymentAmount ? (
+              <PSEForm onSubmit={handlePayment} />
+            ) : (
+              <Result amount={paymentAmount} />
+            )}
+          </div>
+          <div className="col-md-4 text-center">
+            {!paymentAmount ? (
+              <img src={image} alt={"imagen"} className="img img-fluid mt-5" />
+            ) : (
+              <Result amount={paymentAmount} />
+            )}
+          </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
