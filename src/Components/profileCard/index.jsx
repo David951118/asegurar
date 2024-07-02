@@ -149,11 +149,11 @@ export default function ProfileCard({ cards }) {
   return (
     <div className="body--card-profile continer-lg">
       <div className="row justify-content-center mx-auto pt-4">
-        {cards.slice(0, 2).map((card, index) => (
+        {cards.slice(0, 3).map((card, index) => (
           <label
             key={index}
             id={card.name}
-            className="col-md-6 text-center justify-content-center"
+            className="col-md-4 text-center justify-content-center"
           >
             <div
               className={`profile--card ${
@@ -202,7 +202,7 @@ export default function ProfileCard({ cards }) {
         ))}
       </div>
       <div className="row justify-content-center mx-auto">
-        {cards.slice(2, 5).map((card, index) => (
+        {cards.slice(3, 6).map((card, index) => (
           <label
             key={index}
             id={card.name}
@@ -210,13 +210,13 @@ export default function ProfileCard({ cards }) {
           >
             <div
               className={`profile--card ${
-                flippedCards[index + 2] ? "flipped" : ""
+                flippedCards[index + 3] ? "flipped" : ""
               }`}
             >
               <div className="profile--card-inner">
                 <div
                   className="profile--card-front custom-pointer"
-                  onClick={() => handleFlip(index + 2)}
+                  onClick={() => handleFlip(index + 3)}
                 >
                   <header>
                     <img src={card.foto} alt={card.name} />
@@ -243,7 +243,7 @@ export default function ProfileCard({ cards }) {
                   <div className="flip-arrow--back">
                     <div
                       className="flip-arrow custom-pointer"
-                      onClick={() => handleFlip(index + 2)}
+                      onClick={() => handleFlip(index + 3)}
                     >
                       <FontAwesomeIcon icon={faArrowAltCircleLeft} />
                     </div>
@@ -255,7 +255,7 @@ export default function ProfileCard({ cards }) {
         ))}
       </div>
       <div className="row justify-content-center mx-auto">
-        {cards.slice(5, 8).map((card, index) => (
+        {cards.slice(6, 9).map((card, index) => (
           <label
             key={index}
             id={card.name}
@@ -263,13 +263,13 @@ export default function ProfileCard({ cards }) {
           >
             <div
               className={`profile--card ${
-                flippedCards[index + 5] ? "flipped" : ""
+                flippedCards[index + 6] ? "flipped" : ""
               }`}
             >
               <div className="profile--card-inner">
                 <div
                   className="profile--card-front custom-pointer"
-                  onClick={() => handleFlip(index + 5)}
+                  onClick={() => handleFlip(index + 6)}
                 >
                   <header>
                     <img src={card.foto} alt={card.name} />
@@ -296,7 +296,7 @@ export default function ProfileCard({ cards }) {
                   <div className="flip-arrow--back">
                     <div
                       className="flip-arrow custom-pointer"
-                      onClick={() => handleFlip(index + 5)}
+                      onClick={() => handleFlip(index + 6)}
                     >
                       <FontAwesomeIcon icon={faArrowAltCircleLeft} />
                     </div>

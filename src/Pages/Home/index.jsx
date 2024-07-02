@@ -13,6 +13,7 @@ import carruseFoto5 from "../../Assets/Carrusel con fotos/5.jpg";
 import carruseFoto6 from "../../Assets/Carrusel con fotos/6.jpg";
 import jefeFoto from "../../Assets/Equipo Asegurar LTDA/Presidente.jpg";
 import getenteFoto from "../../Assets/Equipo Asegurar LTDA/Gerencia.jpg";
+import sgsstFoto from "../../Assets/Equipo Asegurar LTDA/SGSST.jpeg";
 import equipoFoto1 from "../../Assets/Equipo Asegurar LTDA/Jefatura-de-Red.jpg";
 import equipoFoto2 from "../../Assets/Equipo Asegurar LTDA/Ingeniero-David.jpg";
 import equipoFoto3 from "../../Assets/Equipo Asegurar LTDA/Asistente.jpg";
@@ -135,6 +136,14 @@ export default function Home() {
         "Administradora de Empresas, 20 años de experiencia en manejo de personal y finanzas.",
     },
     {
+      name: "Valentina Ledesma Marin",
+      cargo: "Responsable SG-SST",
+      email: "sstvalentina8@gmail.com",
+      foto: sgsstFoto,
+      descript:
+        "Profesional en administración en seguridad y salud en el trabajo y auditora HSEQ.",
+    },
+    {
       name: "Pedro Andrés Valencia Medina",
       cargo: "Administrador Plataforma de Monitoreo CELLVI.",
       email: "jefatura.red.asegurar@gmail.com",
@@ -147,7 +156,8 @@ export default function Home() {
       cargo: "Jefe de Desarrollos Tecnológicos",
       email: "dsmontes95@gmail.com",
       foto: equipoFoto2,
-      descript: "Ingeniero Electronico de la Universidad de Nariño. Desarrollador FullStack",
+      descript:
+        "Ingeniero Electronico de la Universidad de Nariño. Desarrollador FullStack",
     },
     {
       name: "Johanna Yamile Guzmán Gaviria",

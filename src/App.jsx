@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
+import { PrimeReactProvider } from "primereact/api";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { useRoutes, BrowserRouter, useLocation } from "react-router-dom";
 import { AsegurarProvider } from "./Context"; //Contexto de la aplicacion, sirve para tranferir info entre componentes
 import Home from "../src/Pages/Home";
@@ -21,7 +23,8 @@ import Ubicacion from "./Pages/Ubicacion";
 import UbicacionDetalle from "./Pages/Ubicacion/UbicacionDetalle";
 
 const AppRoutes = () => {
-  let routes = useRoutes([ //aqui se realiza el enrutamiento de la aplicacion y la llamda de las vistas
+  let routes = useRoutes([
+    //aqui se realiza el enrutamiento de la aplicacion y la llamda de las vistas
     { path: "/", element: <Home />, exact: true },
     { path: "/acercadenosotros", element: <AboutUs /> },
     { path: "/contacto", element: <Contact /> },
@@ -59,10 +62,12 @@ const App = () => {
   return (
     <AsegurarProvider>
       <BrowserRouter>
-        <ScrollToTop />
-        <Navbar />
-        <AppRoutes />
-        <WhatsAppButton />
+        <PrimeReactProvider>
+          <ScrollToTop />
+          <Navbar />
+          <AppRoutes />
+          <WhatsAppButton />
+        </PrimeReactProvider>
       </BrowserRouter>
     </AsegurarProvider>
   );
