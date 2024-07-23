@@ -26,11 +26,11 @@ const Navbar = () => {
     { name: "Contacto", path: "/contacto", activeClassName: "text-blue" },
     { name: "Blog", path: "/blog", activeClassName: "text-blue" },
     { name: "LinkUbicacion", path: "/ubicacion", activeClassName: "text-blue" },
-    {
-      name: "Portal de Pagos",
-      path: "/portaldepagos",
-      activeClassName: "text-blue",
-    },
+    // {
+    //   name: "Portal de Pagos",
+    //   path: "/portaldepagos",
+    //   activeClassName: "text-blue",
+    // },
   ];
 
   return (

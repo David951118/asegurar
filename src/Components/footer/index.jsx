@@ -23,11 +23,11 @@ export default function Footer() {
     { name: "Legalidad", path: "/legalidad", activeClassName: "text-blue" },
     // { name: "Login admin", path: "/admin-login", activeClassName: "text-blue" },
     { name: "COMPARTE TU UBICACION", path: "/ubicacion", activeClassName: "text-blue" },
-    {
-      name: "Portal de Pagos",
-      path: "/portaldepagos",
-      activeClassName: "text-blue",
-    },
+    // {
+    //   name: "Portal de Pagos",
+    //   path: "/portaldepagos",
+    //   activeClassName: "text-blue",
+    // },
   ];
 
   return (

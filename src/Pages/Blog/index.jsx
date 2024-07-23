@@ -13,6 +13,7 @@ import chucunes from "../../Assets/blog/chucunes.jpeg";
 import chucunesinseguro from "../../Assets/blog/inseguridad_0_1.jpeg";
 import tencnologiaMini from "../../Assets/blog/miniFotoTecnologia.png";
 import tencnologia from "../../Assets/blog/Tecnologia.jpeg";
+import asegurar from "../../Assets/Foto Portada/DSCF7863.jpg";
 
 export default function Blog() {
   const [blog, setBlog] = useState(0);
@@ -48,6 +49,31 @@ export default function Blog() {
   }, []);
 
   const noticia = [
+    {
+      titulo: "NOVEDADES ASEGURAR",
+      titulo2: "Noticias importantes en Asegurar!",
+      fecha: "20 Julio 2024",
+      resumen1: "Noticias mes de Julio 2024",
+      minifoto: asegurar,
+      creador: "Romulo Bolaños",
+      contenido: [
+        {
+          tipo: "parrafo",
+          texto:
+            "1.- ASEGURAR LTDA., se unió al paro camionero organizado por la Asociación Colombiana de Camioneros Seccional Nariño, llevando la solidaridad a este gremio que enlaza con fuerza la cadena productiva de la Economía. La economía del País se mide por el número de vueltas que da la rueda de un camión en las carreteras.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "2.- ASEGURAR LTDA., presenta un saludo de felicitación a todas las organizaciones gremiales y asociaciones de camioneros de Nariño, con motivo de la celebración de la Virgen del Carmen, en ese sentido nos hemos vinculado con la Asociación de Camioneros de Jose Maria Hernandez - Corregimiento del Municipio de Pupiales con la donación de un equipo de transmisión de datos satelitales para el ganador del concurso de GINCANA.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "3.- Próximamente estará al servicio de nuestros clientes el portal de pagos WOMPY, a través de nuestra página web, publicaremos en los dias venideros publicaremos un video interactivo y explicativo de los procesos para pagar por esta plataforma, buscamos en todo momento la comodidad de nuestros clientes sin necesidad de acudir a los bancos o corresponsales.",
+        },
+      ],
+    },
     {
       titulo: "EFECTIVIDAD DE ASEGURAR",
       titulo2: "¡Acciones inmediatas y efectivas!",
