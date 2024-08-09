@@ -11,6 +11,7 @@ import Services from "./Pages/Services";
 import Blog from "./Pages/Blog";
 import Legality from "./Pages/Legality";
 import LogCelvi from "./Pages/LogCelvi";
+import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import Pse from "./Pages/Pse";
 import Navbar from "./Pages/Navbar";
 import AdminDashboard from "./Pages/Admin";
@@ -39,6 +40,7 @@ const AppRoutes = () => {
     { path: "/admin/placas", element: <Placas /> },
     { path: "/ubicacion", element: <Ubicacion /> },
     { path: "/ubicacion/:coords", element: <UbicacionDetalle /> },
+    { path: "/politica-de-privacidad", element: <PrivacyPolicy /> },
     { path: "/*", element: <OopsPage /> },
   ]);
 

@@ -382,7 +382,7 @@ export default function Blog() {
                   noticia={noticia[blog]}
                   onClick={() => handleButtonClick(blog)}
                 />
-                <div className="d-flex  mb-2">
+                <div className="d-flex mb-2">
                   <button
                     type="button"
                     className={`btn btn-outline-primary rounded-pill mx-2 ${
