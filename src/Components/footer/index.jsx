@@ -5,7 +5,7 @@ import {
   MDBRow,
   MDBCol,
   MDBIcon,
-} from "mdb-react-ui-kit"; //ToDO dsireccion en 2 renglones 
+} from "mdb-react-ui-kit"; //ToDO dsireccion en 2 renglones
 import { NavLink } from "react-router-dom";
 
 export default function Footer() {
@@ -19,10 +19,18 @@ export default function Footer() {
     { name: "Servicios", path: "/servicios", activeClassName: "text-blue" },
     { name: "Contacto", path: "/contacto", activeClassName: "text-blue" },
     { name: "Blog", path: "/blog", activeClassName: "text-blue" },
-    { name: "CELLVI", path: "/cellvi", activeClassName: "text-blue" },
+    {
+      name: "Politica de privacidad",
+      path: "/politica-de-privacidad",
+      activeClassName: "text-blue",
+    },
     { name: "Legalidad", path: "/legalidad", activeClassName: "text-blue" },
     // { name: "Login admin", path: "/admin-login", activeClassName: "text-blue" },
-    { name: "COMPARTE TU UBICACION", path: "/ubicacion", activeClassName: "text-blue" },
+    {
+      name: "COMPARTE TU UBICACION",
+      path: "/ubicacion",
+      activeClassName: "text-blue",
+    },
     // {
     //   name: "Portal de Pagos",
     //   path: "/portaldepagos",
@@ -165,7 +173,8 @@ export default function Footer() {
               <h6 className="text-uppercase fw-bold mb-4">Contacto</h6>
               <p>
                 <MDBIcon icon="home" className="me-2" />
-                Calle 19 No 27 - 41 Piso 2 Oficina 202 Edificio Merlopa, Pasto-Nariño-Colombia
+                Calle 19 No 27 - 41 Piso 2 Oficina 202 Edificio Merlopa,
+                Pasto-Nariño-Colombia
               </p>
               <p>
                 <MDBIcon icon="envelope" className="me-3" />
@@ -186,10 +195,10 @@ export default function Footer() {
         className="text-center p-4 bg-dark text-white"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
       >
-        DERECHOS DE AUTOR © 2023 Copyright: Derechos de
-        autor y propiedad industrial e intelectual :
+        DERECHOS DE AUTOR © 2023 Copyright: Derechos de autor y propiedad
+        industrial e intelectual :
         <a className="text-reset fw-bold" href="https://www.asegurar.com.co/">
-           Asegurar limitada
+          Asegurar limitada
         </a>
       </div>
     </MDBFooter>
