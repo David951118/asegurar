@@ -1,38 +1,48 @@
 import React, { useState, useEffect } from "react";
 
-const EditUserModal = ({
-  user,
-  showEditModal,
-  handleCloseEditModal,
-  handleEditUser,
-}) => {
+const EditUserModal = ({ user, showEditModal, handleCloseEditModal, handleEditUser }) => {
+  const [id, setId] = useState("");
   const [name, setName] = useState("");
-  const [cedula, setCedula] = useState(0);
-  const [celular, setCelular] = useState(0);
+  const [idCard, setIdCard] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [direccion, setDireccion] = useState("");
-  const [ciudad, setCiudad] = useState("");
+  const [userCellvi, setUserCellvi] = useState("");
+  const [direction, setDirection] = useState("");
+  const [isActive, setIsActive] = useState(true);
+  const [natural, setNatural] = useState(true);
 
-  // Utilizamos useEffect para actualizar el estado local cuando la prop user cambie
+  // Actualiza los campos cuando el modal se abre y el usuario se pasa como prop
   useEffect(() => {
-    setName(user.name);
-    setCedula(user.cedula);
-    setCelular(user.celular);
-    setEmail(user.email);
-    setDireccion(user.direccion);
-    setCiudad(user.ciudad);
-  }, [user]); // Esta función se ejecutará cada vez que la prop user cambie
+     console.log(user,'Usuaeio')
+    if (user) {
+      setId(user.id)
+      setName(user.name || "");
+      setIdCard(user.idCard || "");
+      setPhone(user.phone || "");
+      setEmail(user.user.email || "");
+      setUserCellvi(user.userCellvi || "");
+      setDirection(user.direction || "");
+      setIsActive(user.isActive || true);
+      setNatural(user.natural || true);
+    }
+  }, [user]);
 
-  const handleCreateUserClick = () => {
-    const newUser = {
-      name: name,
-      cedula: cedula,
-      celular: celular,
-      email: email,
-      direccion: direccion,
-      ciudad: ciudad,
+  const handleEditUserClick = () => {
+    const updatedUser = {
+      id,
+      isActive,
+      natural,
+      name,
+      idCard,
+      userCellvi,
+      direction,
+      phone,
+      user: {
+        email,
+        role: "customer",
+      },
     };
-    handleEditUser(newUser);
+    handleEditUser(updatedUser);
   };
 
   return (
@@ -44,10 +54,10 @@ const EditUserModal = ({
         zIndex: "1050",
       }}
     >
-      <div className="modal-dialog modal-dialog-centered modal-dialog-scrollabled">
+      <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Editar Usuario</h5>
+            <h5 className="modal-title">Editar usuario</h5>
             <button
               type="button"
               className="btn-close"
@@ -57,6 +67,34 @@ const EditUserModal = ({
           <div className="modal-body">
             <form>
               <div className="mb-3">
+                <label htmlFor="isActive" className="form-label">
+                  Activo
+                </label>
+                <select
+                  className="form-select"
+                  id="isActive"
+                  value={isActive}
+                  onChange={(e) => setIsActive(e.target.value === "true")}
+                >
+                  <option value="true">Sí</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="isNatural" className="form-label">
+                  Tipo de cliente
+                </label>
+                <select
+                  className="form-select"
+                  id="isNatural"
+                  value={natural}
+                  onChange={(e) => setNatural(e.target.value === "true")}
+                >
+                  <option value="true">Natural</option>
+                  <option value="false">Jurídica</option>
+                </select>
+              </div>
+              <div className="mb-3">
                 <label htmlFor="name" className="form-label">
                   Nombre
                 </label>
@@ -64,32 +102,56 @@ const EditUserModal = ({
                   type="text"
                   className="form-control"
                   id="name"
-                  value={name} // Utilizamos el valor del estado local
+                  value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="cedula" className="form-label">
-                  Cedula
+                <label htmlFor="idCard" className="form-label">
+                  Cédula/NIT
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   className="form-control"
-                  id="cedula"
-                  value={cedula} // Utilizamos el valor del estado local
-                  onChange={(e) => setCedula(e.target.value)}
+                  id="idCard"
+                  value={idCard}
+                  onChange={(e) => setIdCard(e.target.value)}
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="celular" className="form-label">
-                  Celular
+                <label htmlFor="userCellvi" className="form-label">
+                  Usuario de CELLVI
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   className="form-control"
-                  value={celular}
-                  id="celular"
-                  onChange={(e) => setCelular(e.target.value)}
+                  id="userCellvi"
+                  value={userCellvi}
+                  onChange={(e) => setUserCellvi(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="direction" className="form-label">
+                  Dirección
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="direction"
+                  value={direction}
+                  onChange={(e) => setDirection(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="phone" className="form-label">
+                  Teléfono
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
               <div className="mb-3">
@@ -99,33 +161,9 @@ const EditUserModal = ({
                 <input
                   type="email"
                   className="form-control"
-                  value={email}
                   id="email"
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="direccion" className="form-label">
-                  Direccion
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={direccion}
-                  id="direccion"
-                  onChange={(e) => setDireccion(e.target.value)}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="ciudad" className="form-label">
-                  Ciudad
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={ciudad}
-                  id="Ciudad"
-                  onChange={(e) => setCiudad(e.target.value)}
                 />
               </div>
             </form>
@@ -141,9 +179,9 @@ const EditUserModal = ({
             <button
               type="button"
               className="btn btn-success"
-              onClick={handleCreateUserClick}
+              onClick={handleEditUserClick}
             >
-              Guardar
+              Guardar cambios
             </button>
           </div>
         </div>

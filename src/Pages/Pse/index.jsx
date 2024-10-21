@@ -1,49 +1,103 @@
-import React, { useState } from "react";
-import PSEForm from "../../Components/PSEform";
-import Result from "../../Components/PSEform/Result"; //cobro de wompi es del 2,65 mas 700  +iva
-import image from "../../Assets/Untitled.jpg";
-import Footer from "../../Components/footer";
+import React from "react";
+import { Card } from "primereact/card";
+// import { useNavigate } from "react-router-dom";
+import Banco from "../../Assets/Portal de pagos/CIB.D-4e55a284.png";
+import Prueba from "../../Assets/Portal de pagos/814004223.png"; // Asegúrate de tener la imagen del QR en tu proyecto
+import Aliados from "../../Assets/Portal de pagos/qrInformacion.png";
 
-const Pse = () => {
-  const [paymentAmount, setPaymentAmount] = useState(null);
-  const obtenerTiempoPago = (date) => {
-    // Obtener la fecha y hora actual
-    let tiempoActual = date;
-    // Añadir 15 minutos
-    tiempoActual.setMinutes(tiempoActual.getMinutes() + 15);
-    // Convertir a cadena de texto en formato ISO 8601
-    let tiempoPago = tiempoActual.toISOString();
-    return tiempoPago;
-  };
+// Componente para el encabezado
+const Header = ({ image, height }) => {
+  return (
+    <div className="header-container text-center">
+      <img
+        src={image}
+        alt="imagen"
+        className="header-image img-fluid rounded-start"
+        style={{ height }}
+      />
+    </div>
+  );
+};
 
-  const handlePayment = (amount) => {
-    let referenciaPago = "0001ae22";
-    let tiempoPago = obtenerTiempoPago(new Date());
+// Componente para el pie de la tarjeta
+const FooterCard = ({ link, disabled, title }) => {
+  // const navigate = useNavigate();
 
-    setPaymentAmount(amount);
-  };
+  // const handleButtonClick = () => {
+  //   if (!disabled) {
+  //     navigate(link);
+  //   }
+  // };
 
   return (
-    <div>
-      <div className="container mt-5 p-4">
-        <div className="row justify-content-center">
-          <div className="col-md-8">
-            {!paymentAmount ? (
-              <PSEForm onSubmit={handlePayment} />
-            ) : (
-              <Result amount={paymentAmount} />
-            )}
-          </div>
-          <div className="col-md-4 text-center">
-            {!paymentAmount ? (
-              <img src={image} alt={"imagen"} className="img img-fluid mt-5" />
-            ) : (
-              <Result amount={paymentAmount} />
-            )}
+    <div className="footer-container text-center">
+      {/* <button
+        type="button"
+        className={`btn btn-lg ${
+          disabled ? "btn-disabled" : "btn-primary-custom"
+        }`}
+        disabled={disabled}
+        onClick={handleButtonClick}
+      >
+        {title}
+      </button> */}
+      <img
+        src={Prueba}
+        alt="QR de Bancolombia"
+        className="img-fluid mb-2"
+        style={{ maxWidth: "300px" }}
+      />
+      <img
+        src={Aliados}
+        alt="Aliados de Bancolombia"
+        className="img-fluid"
+        style={{ maxWidth: "300px" }}
+      />
+      <div className="px-2 pt-3">
+        <p>
+          No te olvides enviar el certificado de consignacio a nuestro canal
+          dedicado
+        </p>
+      </div>
+    </div>
+  );
+};
+
+const Pse = () => {
+  const banco = Banco;
+  return (
+    <div className="pse-container text-center p-3">
+      <div className="content-container">
+        <div className="row justify-content-center m-3">
+          <div className="col-md-6">
+            <Card
+              title="Pagos con QR de Bancolombia"
+              subTitle="Ademas puedes pagar con Nequi"
+              footer={
+                <FooterCard
+                  link="/portaldepagos/qrbancolombia"
+                  disabled={false}
+                  title="Escanea el código"
+                />
+              }
+              header={<Header image={banco} height={"100%"} />}
+              className="custom-card"
+            >
+              <p className="m-0 description">
+                Escanea el código QR con la app Bancolombia y paga de forma
+                directa y segura a nuestra empresa. Utilizando la app de
+                Bancolombia, podrás realizar pagos instantáneos desde tu cuenta
+                bancaria, sin necesidad de efectivo o tarjetas. Este método
+                garantiza que tus transacciones se completen de manera rápida y
+                confiable, con la protección y seguridad que esperas. Simplifica
+                tu experiencia de pago y elige la opción más conveniente y
+                segura al pagar tus compras con el QR de Bancolombia.
+              </p>
+              
+            </Card>
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

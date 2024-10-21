@@ -11,6 +11,8 @@ export default function Noticia({ noticia, onClick }) {
         return (
           <img src={element.url} alt={element.alt} className="img img-fluid" />
         );
+      case "link":
+        return <a href={element.texto}>{element.texto}</a>;
       case "lista":
         return (
           <ul>

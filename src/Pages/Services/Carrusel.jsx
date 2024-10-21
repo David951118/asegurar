@@ -1,21 +1,18 @@
 import React from "react";
-import item2 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0002.jpg";
-import item3 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0003.jpg";
-import item4 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0004.jpg";
-import item5 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0005.jpg";
-import item6 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0006.jpg";
-import item7 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0007.jpg";
-import item8 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0008.jpg";
-import item9 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0009.jpg";
-import item10 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0010.jpg";
-import item11 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0011.jpg";
-import item12 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0012.jpg";
-import item13 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0013.jpg";
-import item14 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0014.jpg";
-import item15 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0015.jpg";
-import item16 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0016.jpg";
-import item17 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0017.jpg";
-import item18 from "../../Assets/Portafolio Asegurar imagenes/ASEGURAR PORTAFOLIO (3)_page-0018.jpg";
+import item2 from "../../Assets/Portafolio Asegurar imagenes/1.jpeg";
+import item3 from "../../Assets/Portafolio Asegurar imagenes/2.jpeg";
+import item4 from "../../Assets/Portafolio Asegurar imagenes/3.jpeg";
+import item5 from "../../Assets/Portafolio Asegurar imagenes/4.jpeg";
+import item6 from "../../Assets/Portafolio Asegurar imagenes/5.jpeg";
+import item7 from "../../Assets/Portafolio Asegurar imagenes/6.jpeg";
+import item8 from "../../Assets/Portafolio Asegurar imagenes/7.jpeg";
+import item9 from "../../Assets/Portafolio Asegurar imagenes/8.jpeg";
+import item10 from "../../Assets/Portafolio Asegurar imagenes/9.jpeg";
+import item11 from "../../Assets/Portafolio Asegurar imagenes/10.jpeg";
+import item12 from "../../Assets/Portafolio Asegurar imagenes/11.jpeg";
+import item13 from "../../Assets/Portafolio Asegurar imagenes/12.jpeg";
+import item14 from "../../Assets/Portafolio Asegurar imagenes/13.jpeg";
+import item15 from "../../Assets/Portafolio Asegurar imagenes/14.jpeg";
 
 export default function Carrusel() {
   const items = [
@@ -33,10 +30,7 @@ export default function Carrusel() {
     { foto: item12 },
     { foto: item13 },
     { foto: item14 },
-    { foto: item15 },
-    { foto: item16 },
-    { foto: item17 },
-    { foto: item18 },
+    { foto: item15 }
   ];
 
   return (

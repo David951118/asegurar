@@ -4,6 +4,7 @@ import { PrimeReactProvider } from "primereact/api";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { useRoutes, BrowserRouter, useLocation } from "react-router-dom";
 import { AsegurarProvider } from "./Context"; //Contexto de la aplicacion, sirve para tranferir info entre componentes
+import { AuthProvider } from "./Context/AuthContext";
 import Home from "../src/Pages/Home";
 import AboutUs from "./Pages/AboutUs";
 import Contact from "./Pages/Contact";
@@ -14,30 +15,43 @@ import LogCelvi from "./Pages/LogCelvi";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import Pse from "./Pages/Pse";
 import Navbar from "./Pages/Navbar";
-import AdminDashboard from "./Pages/Admin";
-import AdminLogin from "./Pages/Admin/login";
-import Adminusers from "./Pages/Admin/usuarios";
+import Footer from "./Components/footer";
 import OopsPage from "./Pages/oops";
-import Placas from "./Pages/Admin/placas";
 import WhatsAppButton from "./Components/whatsapButon";
 import Ubicacion from "./Pages/Ubicacion";
 import UbicacionDetalle from "./Pages/Ubicacion/UbicacionDetalle";
+// import Portal from "./Pages/Pse/Portal";
+// import Bancolombia from "./Pages/Pse/Bancolombia";
+// import AdminDashboard from "./Pages/Admin";
+// import AdminLogin from "./Pages/Admin/login";
+// import Adminusers from "./Pages/Admin/usuarios";
+// import Placas from "./Pages/Admin/placas";
+// import RecoveryPortal from "./Pages/Admin/RecoveryPortal";
+// import ChangePassword from "./Pages/Admin/ChangePasswrod";
+// import PrivateRoute from "./Components/privateRoute";
+
 
 const AppRoutes = () => {
   let routes = useRoutes([
-    //aqui se realiza el enrutamiento de la aplicacion y la llamda de las vistas
-    { path: "/", element: <Home />, exact: true },
+    { path: "/", element: <Home /> },
     { path: "/acercadenosotros", element: <AboutUs /> },
     { path: "/contacto", element: <Contact /> },
     { path: "/servicios", element: <Services /> },
     { path: "/blog", element: <Blog /> },
     { path: "/legalidad", element: <Legality /> },
     { path: "/cellvi", element: <LogCelvi /> },
-    // { path: "/portaldepagos", element: <Pse /> },
+    { path: "/portaldepagos", element: <Pse /> },
+    // { path: "/portaldepagos/wompi", element: <Portal /> },
+    // { path: "/portaldepagos/qrbancolombia", element: <Bancolombia /> },
     // { path: "/admin-login", element: <AdminLogin /> },
-    // { path: "/admin", element: <AdminDashboard /> },
-    // { path: "/admin/users", element: <Adminusers /> },
-    { path: "/admin/placas", element: <Placas /> },
+    // { path: "/recuperar-contrasena", element: <RecoveryPortal /> },
+    // { path: "/cambiar-contrasena", element: <ChangePassword /> },
+    // { path: "/admin", element: <PrivateRoute element={<AdminDashboard />} /> },
+    // {
+    //   path: "/admin/users",
+    //   element: <PrivateRoute element={<Adminusers />} />,
+    // },
+    // { path: "/admin/placas", element: <PrivateRoute element={<Placas />} /> },
     { path: "/ubicacion", element: <Ubicacion /> },
     { path: "/ubicacion/:coords", element: <UbicacionDetalle /> },
     { path: "/politica-de-privacidad", element: <PrivacyPolicy /> },
@@ -63,14 +77,17 @@ const ScrollToTop = () => {
 const App = () => {
   return (
     <AsegurarProvider>
-      <BrowserRouter>
-        <PrimeReactProvider>
-          <ScrollToTop />
-          <Navbar />
-          <AppRoutes />
-          <WhatsAppButton />
-        </PrimeReactProvider>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <PrimeReactProvider>
+            <ScrollToTop />
+            <Navbar />
+            <AppRoutes />
+            <Footer />
+            <WhatsAppButton />
+          </PrimeReactProvider>
+        </BrowserRouter>
+      </AuthProvider>
     </AsegurarProvider>
   );
 };

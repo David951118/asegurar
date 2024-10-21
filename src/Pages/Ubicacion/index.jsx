@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import BackgroundGradient from "../../Components/background";
-import Footer from "../../Components/footer";
 
 export default function Ubicacion() {
   const [usuario, setUsuario] = useState("");
@@ -246,7 +245,6 @@ export default function Ubicacion() {
           </div>
         </div>
       </BackgroundGradient>
-      <Footer />
     </div>
   );
 }

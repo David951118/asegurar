@@ -1,78 +1,156 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker.css";   
 
 const CreatePlacaModal = ({
   showModal,
   handleCloseModal,
   handleCreatePlaca,
-  users,
 }) => {
-  console.log(users);
   const [placa, setPlaca] = useState("");
-  const [user, setUser] = useState("");
-  const [tipo, setTipo] = useState("");
-  const [plan, setPlan] = useState("");
-  const [finPlan, setFinPlan] = useState();
-  const [fechaPago, setFechaPago] = useState();
-  const [estado, setEstado] = useState();
+  const [fechaCorte, setFechaCorte] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [userId, setUserId] = useState(null);
+  const [isUserSelected, setIsUserSelected] = useState(false);
+  const [cuotas, setCuotas] = useState(1); // Cuotas iniciales en 1
+  const [pagos, setPagos] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const token = localStorage.getItem("token");
 
-  const tipoVehiculo = [
-    { id: 0, titulo: "Vehiculo de carga" },
-    { id: 1, titulo: "Vehiculo de transporte" },
-    { id: 2, titulo: "Maquinaria Amarilla" },
-  ];
+  // Fetch users
+  const fetchUsers = useCallback(
+    async (search) => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await fetch(
+          `http://localhost:4000/api/v1/customers/?name=${search}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-  const tipoPlan = [
-    { id: 0, titulo: "Plan Premium" },
-    { id: 1, titulo: "Plan Standar" },
-    { id: 2, titulo: "Comodato" },
-  ];
+        if (!response.ok) {
+          throw new Error("Error al obtener usuarios");
+        }
 
-  const tipoEstado = [
-    { id: 0, titulo: "Activo" },
-    { id: 1, titulo: "Inactivo" },
-    { id: 2, titulo: "Mora" },
-  ];
+        const usersData = await response.json();
+        setFilteredUsers(usersData);
+      } catch (err) {
+        setError("Error al obtener usuarios");
+        console.error("Error:", err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [token]
+  );
 
-  const handleDatePlanChange = (date) => {
-    setFinPlan(date);
+  useEffect(() => {
+    if (searchTerm && !isUserSelected) {
+      const delayDebounceFn = setTimeout(() => {
+        fetchUsers(searchTerm);
+      }, 400);
+
+      return () => clearTimeout(delayDebounceFn);
+    } else {
+      setFilteredUsers([]);
+    }
+  }, [searchTerm, isUserSelected, fetchUsers]);
+
+  const handleUserSelect = (user) => {
+    setUserId(user.id);
+    setSearchTerm(user.name);
+    setFilteredUsers([]);
+    setIsUserSelected(true);
   };
 
-  const handleDatePagoChange = (date) => {
-    setFechaPago(date);
+  const generarCuotas = (fechaInicial, numCuotas) => {
+    const nuevasCuotas = Array.from({ length: numCuotas }, (_, i) => {
+      const nuevaFecha = new Date(fechaInicial);
+      nuevaFecha.setMonth(nuevaFecha.getMonth() + i);
+      return {
+        mes: i + 1,
+        valor: 50000,
+        fechaCorte: nuevaFecha,
+      };
+    });
+    setPagos(nuevasCuotas);
+  };
+
+  // Monitorea cambios en la fecha de corte y el número de cuotas
+  useEffect(() => {
+    if (fechaCorte && cuotas) {
+      generarCuotas(fechaCorte, cuotas);
+    }
+  }, [fechaCorte, cuotas]);
+
+  const handleCuotasChange = (e) => {
+    const numCuotas = parseInt(e.target.value, 10);
+    setCuotas(numCuotas);
+  };
+
+  // Modificar para actualizar la fecha específica de una cuota
+  const handleFechaCorteChange = (index, date) => {
+    setPagos((prevPagos) =>
+      prevPagos.map((pago, i) =>
+        i === index ? { ...pago, fechaCorte: date } : pago
+      )
+    );
   };
 
   const handleCreatePlacaClick = () => {
+    if (!placa || !userId || pagos.length === 0) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+
     const newPlaca = {
-      placa: placa,
-      user: user,
-      tipo: tipo,
-      plan: plan,
-      finPlan: finPlan,
-      fechaPago: fechaPago,
-      estado: estado,
+      plate: placa,
+      customerId: userId,
+      pagos,
     };
+
     handleCreatePlaca(newPlaca);
+    resetForm(); // Restablecer el formulario después de crear la placa
+  };
+
+  // Reiniciar el formulario
+  const resetForm = () => {
+    setPlaca("");
+    setSearchTerm("");
+    setIsUserSelected(false);
+    setUserId(null);
+    setCuotas(1);
+    setFechaCorte(null);
+    setPagos([]);
+  };
+
+  // Reiniciar los campos al cerrar el modal
+  const handleClose = () => {
+    resetForm();
+    handleCloseModal(); // Cerrar el modal después de reiniciar el formulario
   };
 
   return (
     <div
       className={`modal fade ${showModal ? "show" : ""}`}
       tabIndex="-1"
-      style={{
-        display: showModal ? "block" : "none",
-        zIndex: "1050",
-      }}
+      style={{ display: showModal ? "block" : "none", zIndex: "1050" }}
     >
-      <div className="modal-dialog modal-dialog-centered modal-dialog-scrollabled">
+      <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">Crear una nueva placa</h5>
             <button
               type="button"
               className="btn-close"
-              onClick={handleCloseModal}
+              onClick={handleClose}
             ></button>
           </div>
           <div className="modal-body">
@@ -85,113 +163,117 @@ const CreatePlacaModal = ({
                   type="text"
                   className="form-control"
                   id="placa"
+                  value={placa} // Bindear el valor
                   onChange={(e) => setPlaca(e.target.value)}
                 />
               </div>
+
               <div className="mb-3">
-                <label htmlFor="ususario" className="form-label">
-                  Asigna un usuario
+                <label htmlFor="searchUser" className="form-label">
+                  Buscar Usuario
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="ususario"
-                  onChange={(e) => setUser(e.target.value)}
+                  id="searchUser"
+                  value={searchTerm}
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    setIsUserSelected(false);
+                  }}
                 />
+                {loading && <p>Cargando...</p>}
+                {error && <p className="text-danger">{error}</p>}
+                {!isUserSelected && filteredUsers.length > 0 && (
+                  <ul className="list-group mt-2">
+                    {filteredUsers.map((user) => (
+                      <li
+                        key={user.id}
+                        className="list-group-item list-group-item-action"
+                        onClick={() => handleUserSelect(user)}
+                      >
+                        {user.name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
-              <div className="mb-3">
-                <label htmlFor="tipoVehiculo" className="form-label">
-                  Selecciona tipo de vehículo
-                </label>
-                <select
-                  className="form-select"
-                  id="tipoVehiculo"
-                  onChange={(e) => setTipo(e.target.value)}
-                >
-                  <option value="">Seleccionar tipo</option>
-                  {tipoVehiculo.map((tipo) => (
-                    <option key={tipo.id} value={tipo.titulo}>
-                      {tipo.titulo}
-                    </option>
-                  ))}
-                </select>
+
+              <div className="row">
+                <div className="mb-3 col">
+                  <label htmlFor="cuotas" className="form-label">
+                    Número de cuotas
+                  </label>
+                  <select
+                    className="form-control"
+                    id="cuotas"
+                    value={cuotas}
+                    onChange={handleCuotasChange}
+                  >
+                    {[...Array(12)].map((_, i) => (
+                      <option key={i + 1} value={i + 1}>
+                        {i + 1}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="mb-3 col">
+                  <label htmlFor="fechaCorte" className="form-label">
+                    Fecha de corte
+                  </label>
+                  <DatePicker
+                    selected={fechaCorte}
+                    onChange={(date) => setFechaCorte(date)}
+                    dateFormat="dd/MM/yyyy"
+                    className="form-control"
+                  />
+                </div>
               </div>
-              <div className="mb-3">
-                <label htmlFor="tipoPlan" className="form-label">
-                  Selecciona un plan
-                </label>
-                <select
-                  className="form-select"
-                  id="tipoPlan"
-                  onChange={(e) => setPlan(e.target.value)}
-                >
-                  <option value="">Seleccionar tipo</option>
-                  {tipoPlan.map((tipo) => (
-                    <option key={tipo.id} value={tipo.titulo}>
-                      {tipo.titulo}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="mb-3">
-                <label htmlFor="finPlan" className="form-label">
-                  Selecciona la fecha del fin
-                </label>
-                <br />
-                <DatePicker
-                  selected={finPlan}
-                  onChange={handleDatePlanChange}
-                  dateFormat="dd/MM/yyyy"
-                  id="finPlan"
-                  className="form-control"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="fechaPago" className="form-label">
-                  Selecciona la fecha de pago
-                </label>
-                <br />
-                <DatePicker
-                  selected={fechaPago}
-                  onChange={handleDatePagoChange}
-                  dateFormat="dd/MM/yyyy"
-                  id="fechaPago"
-                  className="form-control"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="estado" className="form-label">
-                  Asigna un estado
-                </label>
-                <select
-                  className="form-select"
-                  id="estado"
-                  onChange={(e) => setEstado(e.target.value)}
-                >
-                  <option value="">Seleccionar estado</option>
-                  {tipoEstado.map((tipo) => (
-                    <option key={tipo.id} value={tipo.titulo}>
-                      {tipo.titulo}
-                    </option>
-                  ))}
-                </select>
-              </div>
+
+              {pagos.map((pago, index) => (
+                <div key={index} className="mb-3 row">
+                  <label>Cuota {index + 1}</label>
+                  <div className="col">
+                    <input
+                      type="number"
+                      value={pago.valor}
+                      onChange={(e) =>
+                        setPagos((prevPagos) =>
+                          prevPagos.map((p, i) =>
+                            i === index ? { ...p, valor: e.target.value } : p
+                          )
+                        )
+                      }
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="col">
+                    <DatePicker
+                      selected={pago.fechaCorte}
+                      onChange={(date) => handleFechaCorteChange(index, date)}
+                      dateFormat="dd/MM/yyyy"
+                      className="form-control"
+                    />
+                  </div>
+                </div>
+              ))}
             </form>
           </div>
           <div className="modal-footer">
             <button
               type="button"
               className="btn btn-outline-success"
-              onClick={handleCloseModal}
-            >
-              Cerrar
-            </button>
-            <button
-              type="button"
-              className="btn btn-success"
               onClick={handleCreatePlacaClick}
             >
               Crear Placa
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline-danger"
+              onClick={handleClose}
+            >
+              Cancelar
             </button>
           </div>
         </div>

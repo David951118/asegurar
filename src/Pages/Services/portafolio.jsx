@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import BackgroundGradient from "../../Components/background";
-import Footer from "../../Components/footer";
 import sercicio1 from "../../Assets/Tarjetas de servicios/1.jpg";
 import sercicio2 from "../../Assets/Tarjetas de servicios/2.jpg";
 import sercicio3 from "../../Assets/Tarjetas de servicios/3.jpg";
@@ -172,7 +171,6 @@ export default function Portafolio() {
           </div>
         </div>
       </BackgroundGradient>
-      <Footer />
     </div>
   );
 }

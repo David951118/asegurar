@@ -1,13 +1,11 @@
 import React from "react";
 import BackgroundGradient from "../../Components/background";
-import Footer from "../../Components/footer";
 
 export default function PrivacyPolicy() {
   return (
     <div>
       <BackgroundGradient color1="#fff" color2="#fff">
-        <div className="w-100 container  pt-3">
-          <p className="h1">Política de Privacidad</p>
+        <div className="w-100 container text-center pt-3">
           <p className="h2">
             POLÍTICA DE TRATAMIENTO DE DATOS DE ASEGURAR LTDA
           </p>
@@ -918,7 +916,6 @@ export default function PrivacyPolicy() {
         </div>
         <hr />
       </BackgroundGradient>
-      <Footer />
     </div>
   );
 }
