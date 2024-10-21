@@ -2,21 +2,31 @@ import React, { useState } from "react";
 
 const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
   const [name, setName] = useState("");
-  const [cedula, setCedula] = useState(0);
-  const [celular, setCelular] = useState(0);
+  const [idCard, setIdCard] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [direccion, setDireccion] = useState("");
-  const [ciudad, setCiudad] = useState("");
+  const [userCellvi, setUserCellvi] = useState("");
+  const [direction, setDirection] = useState("");
+  const [isActive, setIsActive] = useState(true);
+  const [natural, setNatural] = useState(true);
+  const [password, setPassword] = useState("");
 
   const handleCreateUserClick = () => {
     const newUser = {
-      name: name,
-      cedula: cedula,
-      celular: celular,
-      email: email,
-      direccion: direccion,
-      ciudad: ciudad,
+      isActive,
+      natural,
+      name,
+      idCard,
+      userCellvi,
+      direction,
+      phone,
+      user: {
+        email,
+        password,
+        role: "customer", // O "customer", dependiendo del rol seleccionado
+      },
     };
+    console.log(newUser)
     handleCreateUser(newUser);
   };
 
@@ -32,7 +42,7 @@ const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
       <div className="modal-dialog modal-dialog-centered modal-dialog-scrollabled">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Crear un nuevo usuario</h5>
+            <h5 className="modal-title">Crear un nuevo cliente</h5>
             <button
               type="button"
               className="btn-close"
@@ -41,6 +51,32 @@ const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
           </div>
           <div className="modal-body">
             <form>
+              <div className="mb-3">
+                <label htmlFor="isActive" className="form-label">
+                  Activo
+                </label>
+                <select
+                  className="form-select"
+                  id="isActive"
+                  onChange={(e) => setIsActive(e.target.value === "true")}
+                >
+                  <option value="true">Sí</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="isNatural" className="form-label">
+                  Tipo de cliente
+                </label>
+                <select
+                  className="form-select"
+                  id="isNatural"
+                  onChange={(e) => setNatural(e.target.value === "true")}
+                >
+                  <option value="true">Natural</option>
+                  <option value="false">Jurídica</option>
+                </select>
+              </div>
               <div className="mb-3">
                 <label htmlFor="name" className="form-label">
                   Nombre
@@ -53,25 +89,47 @@ const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="cedula" className="form-label">
-                  Cedula
+                <label htmlFor="idCard" className="form-label">
+                  Cédula/NIT
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   className="form-control"
-                  id="cedula"
-                  onChange={(e) => setCedula(e.target.value)}
+                  id="idCard"
+                  onChange={(e) => setIdCard(e.target.value)}
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="celular" className="form-label">
-                  Celular
+                <label htmlFor="userCellvi" className="form-label">
+                  Usuario de CELLVI
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   className="form-control"
-                  id="celular"
-                  onChange={(e) => setCelular(e.target.value)}
+                  id="userCellvi"
+                  onChange={(e) => setUserCellvi(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="direction" className="form-label">
+                  Dirección
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="direction"
+                  onChange={(e) => setDirection(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="phone" className="form-label">
+                  Teléfono
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="phone"
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
               <div className="mb-3">
@@ -86,25 +144,14 @@ const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="direccion" className="form-label">
-                  Direccion
+                <label htmlFor="password" className="form-label">
+                  Contraseña temporal
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="direccion"
-                  onChange={(e) => setDireccion(e.target.value)}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="ciudad" className="form-label">
-                  Ciudad
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="Ciudad"
-                  onChange={(e) => setCiudad(e.target.value)}
+                  id="password"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </form>
@@ -120,9 +167,9 @@ const CreateUserModal = ({ showModal, handleCloseModal, handleCreateUser }) => {
             <button
               type="button"
               className="btn btn-success"
-              onClick={handleCreateUserClick} // Llamando a la función para crear el usuario
+              onClick={handleCreateUserClick}
             >
-              Crear usuario
+              Crear cliente
             </button>
           </div>
         </div>

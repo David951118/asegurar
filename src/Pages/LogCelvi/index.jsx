@@ -1,7 +1,6 @@
 import React from "react";
 import Title from "../../Components/title";
 import BackgroundGradient from "../../Components/background";
-import Footer from "../../Components/footer";
 import YouTubePlayer from "../../Components/youtubePlayer";
 import imageDescription from "../../Assets/Foto Portada/cellvi.jpg";
 
@@ -83,7 +82,6 @@ export default function LogCelvi() {
           </div>
         </div>
       </BackgroundGradient>
-      <Footer />
     </div>
   );
 }

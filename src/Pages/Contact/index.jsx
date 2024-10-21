@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Title from "../../Components/title";
 import BackgroundGradient from "../../Components/background";
-import Footer from "../../Components/footer";
 import YouTubePlayer from "../../Components/youtubePlayer";
 import Map from "../../Components/map";
 import PlanCard from "../../Components/planCard";
@@ -280,8 +279,7 @@ export default function Contact() {
             </div>
           </div>
         </div>
-      </BackgroundGradient>
-      <Footer />
+      </BackgroundGradient>      
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import BackgroundGradient from "../../Components/background";
 import Carousel from "../../Components/carousel";
-import Footer from "../../Components/footer";
 import Title from "../../Components/title";
 import Card from "../../Components/card";
 import carruseFoto0 from "../../Assets/Carrusel con fotos/Portada-aniversario.jpg";
@@ -238,7 +237,6 @@ export default function Home() {
           </div>
         </div>
       </BackgroundGradient>
-      <Footer />
     </div>
   );
 }

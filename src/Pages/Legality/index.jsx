@@ -1,6 +1,5 @@
 import React from "react";
 import BackgroundGradient from "../../Components/background";
-import Footer from "../../Components/footer";
 import imageDescription from "../../Assets/Foto Portada/1.jpg";
 import { MDBAccordion, MDBAccordionItem } from "mdb-react-ui-kit";
 
@@ -103,7 +102,6 @@ export default function Legality() {
           </div>
         </div>
       </BackgroundGradient>
-      <Footer />
     </div>
   );
 }

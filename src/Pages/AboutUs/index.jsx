@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import BackgroundGradient from "../../Components/background";
-import Footer from "../../Components/footer";
 import InfoCard from "../../Components/infoCard";
 import fotoAboutus from "../../Assets/Mision Vision/ASEGURAR.jpg";
 import Mision from "../../Assets/Mision Vision/MISION.jpg";
@@ -338,8 +337,7 @@ export default function AboutUs() {
             </div>
           </div>
         </div>
-      </BackgroundGradient>
-      <Footer />
+      </BackgroundGradient>      
     </div>
   );
 }

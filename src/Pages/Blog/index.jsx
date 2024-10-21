@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import BackgroundGradient from "../../Components/background";
-import Footer from "../../Components/footer";
 import Noticia from "./noticia";
 import Vision from "../../Assets/Mision Vision/POLITICAS.jpg";
 import BlogAsegurar from "../../Assets/BlogProvicional.png";
@@ -50,30 +49,65 @@ export default function Blog() {
 
   const noticia = [
     {
-      titulo: "NOVEDADES ASEGURAR",
+      titulo: "NOVEDADES ASEGURAR OCTUBRE",
       titulo2: "Noticias importantes en Asegurar!",
-      fecha: "20 Julio 2024",
-      resumen1: "Noticias mes de Julio 2024",
+      fecha: "16 Octubre 2024",
+      resumen1: "Noticias mes de Octubre 2024",
       minifoto: asegurar,
       creador: "Romulo Bolaños",
       contenido: [
         {
           tipo: "parrafo",
           texto:
-            "1.- ASEGURAR LTDA., se unió al paro camionero organizado por la Asociación Colombiana de Camioneros Seccional Nariño, llevando la solidaridad a este gremio que enlaza con fuerza la cadena productiva de la Economía. La economía del País se mide por el número de vueltas que da la rueda de un camión en las carreteras.",
+            "1.- ASEGURAR LTDA, se une a los sentimientos de dolor por la sensible pérdida de la Señora BLANCA LUCINDA CÓRDOBA DE RAMOS, insigne cliente de nuestro sistema de ubicación vehicular por largos años. Paz en su tumba y, nuestras condolencias a todos sus familiares.",
         },
         {
           tipo: "parrafo",
           texto:
-            "2.- ASEGURAR LTDA., presenta un saludo de felicitación a todas las organizaciones gremiales y asociaciones de camioneros de Nariño, con motivo de la celebración de la Virgen del Carmen, en ese sentido nos hemos vinculado con la Asociación de Camioneros de Jose Maria Hernandez - Corregimiento del Municipio de Pupiales con la donación de un equipo de transmisión de datos satelitales para el ganador del concurso de GINCANA.",
+            "2.- ASEGURAR LTDA, ha incursionado en los servicios de ubicación vehicular a flotas de transporte fluvial, nos enorgullece contar con uno de nuestros primeros clientes en el Departamento del Putumayo, con vehículos que surcan los ríos de la amazonia. ",
         },
         {
           tipo: "parrafo",
           texto:
-            "3.- Próximamente estará al servicio de nuestros clientes el portal de pagos WOMPY, a través de nuestra página web, publicaremos en los dias venideros publicaremos un video interactivo y explicativo de los procesos para pagar por esta plataforma, buscamos en todo momento la comodidad de nuestros clientes sin necesidad de acudir a los bancos o corresponsales.",
+            "3.- ASEGURAR LTDA., se permite informar a sus distinguidos clientes en la exprovincia de Obando y, que realizaban sus pagos en el punto de recaudo en el barrio Obrero de la ciudad de Ipiales, que a partir del 01 de octubre de 2024, ese punto quedó desactivado por asuntos de orden administrativo y fiscal, a partir de la fecha los pagos deben realizarse por cualquiera de los medios electrónicos de los bancos AGRARIO DE COLOMBIA, GRUPO AVAL, COLOMBIA y, sistema NEQUI. ",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "4.- Con mucha satisfacción informamos a nuestra distinguida clientela de Colombia y Ecuador que a partir del 01 de noviembre del año 2024 podrán ejecutar sus pagos a través de nuestra página web por el portal de pagos WOMPY y, BANCO DE COLOMBIA CON CÓDIGO QR, paga dando click en el siguiente link",
+        },
+        {
+          tipo: "link",
+          texto:
+            "https://www.asegurar.com.co/portaldepagos/qrbancolombia ",
         },
       ],
     },
+    // {
+    //   titulo: "NOVEDADES ASEGURAR",
+    //   titulo2: "Noticias importantes en Asegurar!",
+    //   fecha: "20 Julio 2024",
+    //   resumen1: "Noticias mes de Julio 2024",
+    //   minifoto: asegurar,
+    //   creador: "Romulo Bolaños",
+    //   contenido: [
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "1.- ASEGURAR LTDA., se unió al paro camionero organizado por la Asociación Colombiana de Camioneros Seccional Nariño, llevando la solidaridad a este gremio que enlaza con fuerza la cadena productiva de la Economía. La economía del País se mide por el número de vueltas que da la rueda de un camión en las carreteras.",
+    //     },
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "2.- ASEGURAR LTDA., presenta un saludo de felicitación a todas las organizaciones gremiales y asociaciones de camioneros de Nariño, con motivo de la celebración de la Virgen del Carmen, en ese sentido nos hemos vinculado con la Asociación de Camioneros de Jose Maria Hernandez - Corregimiento del Municipio de Pupiales con la donación de un equipo de transmisión de datos satelitales para el ganador del concurso de GINCANA.",
+    //     },
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "3.- Próximamente estará al servicio de nuestros clientes el portal de pagos WOMPY, a través de nuestra página web, publicaremos en los dias venideros publicaremos un video interactivo y explicativo de los procesos para pagar por esta plataforma, buscamos en todo momento la comodidad de nuestros clientes sin necesidad de acudir a los bancos o corresponsales.",
+    //     },
+    //   ],
+    // },
     {
       titulo: "EFECTIVIDAD DE ASEGURAR",
       titulo2: "¡Acciones inmediatas y efectivas!",
@@ -450,8 +484,7 @@ export default function Blog() {
             </div>
           </div>
         </div>
-      </BackgroundGradient>
-      <Footer />
+      </BackgroundGradient>      
     </div>
   );
 }

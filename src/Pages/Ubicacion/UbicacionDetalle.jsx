@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import BackgroundGradient from "../../Components/background";
-import Footer from "../../Components/footer";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 
 const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -117,7 +116,6 @@ const UbicacionDetalle = () => {
           </div>
         </div>
       </BackgroundGradient>
-      <Footer />
     </div>
   ) : null;
 };

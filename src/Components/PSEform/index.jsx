@@ -8,6 +8,7 @@ import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { FilterMatchMode } from "primereact/api";
+import sha256 from "crypto-js/sha256";
 
 const PSEForm = () => {
   const [usuario, setUsuario] = useState("");
@@ -30,18 +31,18 @@ const PSEForm = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      const currentDate = new Date();
+      // Simular pagos pendientes con valores fijos de 50,000
       const newMeses = [];
-      for (let i = 1; i <= 5; i++) {
+      for (let i = 1; i <= 3; i++) {
         const newDate = new Date();
-        newDate.setMonth(currentDate.getMonth() + i);
+        newDate.setMonth(newDate.getMonth() + i);
         newMeses.push({
           label: newDate.toLocaleString("default", {
             month: "long",
             year: "numeric",
           }),
           value: newDate.toISOString().slice(0, 7),
-          valor: Math.floor(Math.random() * (100000 - 50000 + 1)) + 50000,
+          valor: 50000,
         });
       }
       setMeses(newMeses);
@@ -179,9 +180,26 @@ const PSEForm = () => {
 
   const totalValue = data.reduce((acc, pago) => acc + pago.valor, 0);
 
+  // Función para generar el hash para Wompi
+  const generarHashWompi = (referencia, monto, moneda, secreto, expiration) => {
+    let cadenaConcatenada = `${referencia}${monto}${moneda}`;
+    if (expiration) {
+      cadenaConcatenada += expiration;
+    }
+    cadenaConcatenada += secreto;
+
+    // Encriptar con SHA-256
+    const hash = sha256(cadenaConcatenada).toString();
+    console.log("Hash generado:", hash);
+    return hash;
+  };
+
   if (isAuthenticated) {
     return (
       <div className="container mt-5">
+        <div>
+          <button className="btn btn-primary">Pago</button>
+        </div>
         <h3 className="text-center">Lista de Vehículos</h3>
         <Button
           label="Agregar Pago"
@@ -197,7 +215,6 @@ const PSEForm = () => {
           filters={filters}
           filterDisplay="row"
           globalFilterFields={["placa", "mes", "valor"]}
-          // header={header}
           emptyMessage="No se encontraron pagos."
         >
           <Column
@@ -261,17 +278,16 @@ const PSEForm = () => {
                 id="mes"
                 value={selectedMes}
                 options={meses}
-                onChange={(e) => setSelectedMes(e.value)}
+                onChange={(e) => {
+                  setSelectedMes(e.value);
+                  setValor(e.value.valor);
+                }}
                 placeholder="Seleccione un mes"
               />
             </div>
             <div className="p-field">
               <label htmlFor="valor">Valor</label>
-              <InputNumber
-                id="valor"
-                value={selectedMes ? selectedMes.valor : 0}
-                disabled
-              />
+              <InputNumber id="valor" value={valor} disabled />
             </div>
             <div className="p-field">
               <Button
@@ -282,61 +298,41 @@ const PSEForm = () => {
             </div>
           </div>
         </Dialog>
-        <ConfirmDialog />
       </div>
     );
   }
 
   return (
     <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col">
-          <div className="card">
-            <div className="card-header">
-              <p className="text-center h3">
-                Acá puedes pagar en línea, tus saldos asociados al servicio de
-                rastreo de tus vehiculos.
-              </p>
-            </div>
-            <div className="card-body">
-              <p className="h5">
-                Ingresa tu usuario y clave de CELLVI aqui para validar tu
-                identidad y comenzar el proceso de pago.
-              </p>
-              <form
-                noValidate
-                validated={validated.toString()}
-                onSubmit={handleSubmit}
-              >
-                <div className="form-group">
-                  <label htmlFor="usuario">Usuario:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="usuario"
-                    value={usuario}
-                    onChange={(e) => setUsuario(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="clave">Clave:</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="clave"
-                    value={clave}
-                    onChange={(e) => setClave(e.target.value)}
-                    required
-                  />
-                </div>
-                <Button type="submit" label="Ingresar" />
-              </form>
-              {error && <div className="alert alert-danger">{error}</div>}
-            </div>
-          </div>
+      <h1>Autenticación de Usuario</h1>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="usuario">Usuario</label>
+          <input
+            type="text"
+            className="form-control"
+            id="usuario"
+            placeholder="Ingrese su usuario"
+            value={usuario}
+            onChange={(e) => setUsuario(e.target.value)}
+          />
         </div>
-      </div>
+        <div className="form-group">
+          <label htmlFor="clave">Contraseña</label>
+          <input
+            type="password"
+            className="form-control"
+            id="clave"
+            placeholder="Ingrese su contraseña"
+            value={clave}
+            onChange={(e) => setClave(e.target.value)}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Iniciar Sesión
+        </button>
+        {error && <p className="text-danger mt-2">{error}</p>}
+      </form>
     </div>
   );
 };
