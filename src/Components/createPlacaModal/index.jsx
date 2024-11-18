@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";   
+import "react-datepicker/dist/react-datepicker.css";
 
 const CreatePlacaModal = ({
   showModal,
@@ -17,6 +17,7 @@ const CreatePlacaModal = ({
   const [pagos, setPagos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const token = localStorage.getItem("token");
 
   // Fetch users
@@ -76,14 +77,14 @@ const CreatePlacaModal = ({
       nuevaFecha.setMonth(nuevaFecha.getMonth() + i);
       return {
         mes: i + 1,
-        valor: 50000,
+        valor: 50000, // Valor de la cuota
         fechaCorte: nuevaFecha,
       };
     });
     setPagos(nuevasCuotas);
   };
 
-  // Monitorea cambios en la fecha de corte y el número de cuotas
+  // Actualiza cuotas cuando cambian la fecha de corte o el número de cuotas
   useEffect(() => {
     if (fechaCorte && cuotas) {
       generarCuotas(fechaCorte, cuotas);
@@ -95,7 +96,7 @@ const CreatePlacaModal = ({
     setCuotas(numCuotas);
   };
 
-  // Modificar para actualizar la fecha específica de una cuota
+  // Actualiza la fecha de corte de una cuota específica
   const handleFechaCorteChange = (index, date) => {
     setPagos((prevPagos) =>
       prevPagos.map((pago, i) =>
@@ -106,7 +107,7 @@ const CreatePlacaModal = ({
 
   const handleCreatePlacaClick = () => {
     if (!placa || !userId || pagos.length === 0) {
-      alert("Por favor, completa todos los campos.");
+      setErrorMessage("Por favor, completa todos los campos.");
       return;
     }
 
@@ -116,8 +117,16 @@ const CreatePlacaModal = ({
       pagos,
     };
 
-    handleCreatePlaca(newPlaca);
-    resetForm(); // Restablecer el formulario después de crear la placa
+    handleCreatePlaca(newPlaca)
+      .then(() => {
+        setErrorMessage(null); // Limpiar mensaje de error si se crea exitosamente
+        resetForm(); // Reiniciar el formulario después de crear la placa
+      })
+      .catch((error) => {
+        setErrorMessage("Error al crear la placa"); // Mostrar error si ocurre un fallo
+        resetForm(); // Reiniciar el formulario en caso de error
+        handleCloseModal(); // Cerrar el modal si hay un error
+      });
   };
 
   // Reiniciar el formulario
@@ -258,6 +267,14 @@ const CreatePlacaModal = ({
                   </div>
                 </div>
               ))}
+              <div>
+                {/* Mostrar mensaje de error si existe */}
+                {errorMessage && (
+                  <div className="alert alert-danger">{errorMessage}</div>
+                )}
+
+                {/* Resto del modal */}
+              </div>
             </form>
           </div>
           <div className="modal-footer">

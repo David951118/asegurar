@@ -37,7 +37,9 @@ export default function Placas() {
       }
 
       const customerData = await response.json();
+      console.log(customerData);
       return customerData;
+      
     } catch (error) {
       console.error("Error fetching customer:", error);
     }
@@ -81,11 +83,12 @@ export default function Placas() {
       }
 
       const platesData = await response.json();
+      console.log("Plates", platesData)
 
       // Para cada placa, buscamos la información del cliente usando su ID
       const platesWithCustomerInfo = await Promise.all(
         platesData.map(async (plate) => {
-          const customer = await fetchCustomer(plate.customerId);
+          const customer = await fetchCustomer(plate.customerId); // ToDo se debe agregar la pcion de mostrar la placa sin cliente asignado ya que se peude borrar un cliente y no tener un asignado m,ostraria un null y hace l apeticoiopn antes de realzixar la valdiacion se pregunta si no es null y se hacxe l apeticion 
           const pagos = await fetchPagosByPLateId(plate.id);
           return { ...plate, customer, pagos }; // Combina la placa con los datos del cliente
         })
@@ -139,7 +142,7 @@ export default function Placas() {
 
   const handleCreatePlaca = async (data) => {
     try {
-      await axios.post(
+      const response = await axios.post(
         `http://localhost:4000/api/v1/plates`,
         data, // Asegúrate de pasar los datos en el formato correcto
         {
@@ -149,10 +152,15 @@ export default function Placas() {
           },
         }
       );
+      if (!response) {
+        throw new Error("Error al crear la placa");
+      }
+
       setShowPlacaModal(false); // Cierra el modal después de la creación
       fetchPlates(); // Refresca las placas
     } catch (error) {
-      console.error("Error creating plate:", error);
+      console.error("Error al crear la placa:", error);
+      alert("Error al crear la placa, placa debe ser unica");
     }
   };
 
@@ -204,17 +212,24 @@ export default function Placas() {
               {placas.map((placa, index) => (
                 <tr key={index}>
                   <td>{placa.plate}</td>
-                  <td>{placa.customer.name}</td>
-                  <td>{placa.customer.phone}</td>
-                  <td>{placa.pagos.length}</td>
-                  <td>{placa.pagos.length}</td>
                   <td>
-                    {placa.pagos.length > 0 ? placa.pagos[0].fechaCorte : "N/A"}
+                    {placa.customer
+                      ? placa.customer.name
+                      : "Sin usuario asignado"}
+                  </td>
+                  <td>{placa.customer ? placa.customer.phone : "N/A"}</td>
+                  <td>{placa.pagos ? placa.pagos.length : 0}</td>
+                  <td>{placa.pagos ? placa.pagos.length : 0}</td>
+                  <td>
+                    {placa.pagos && placa.pagos.length > 0
+                      ? placa.pagos[0].fechaCorte
+                      : "N/A"}
                   </td>
                   <td>
-                    {placa.pagos.length > 0 ? placa.pagos[0].valor : "N/A"}
+                    {placa.pagos && placa.pagos.length > 0
+                      ? placa.pagos[0].valor
+                      : "N/A"}
                   </td>
-
                   <td>
                     <button
                       className="btn btn-warning btn-sm mr-2 m-1"

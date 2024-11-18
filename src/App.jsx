@@ -14,21 +14,22 @@ import Legality from "./Pages/Legality";
 import LogCelvi from "./Pages/LogCelvi";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import Pse from "./Pages/Pse";
+import Login from "./Components/PSEform/login";
+import Portal from "./Pages/Pse/Portal"
 import Navbar from "./Pages/Navbar";
 import Footer from "./Components/footer";
 import OopsPage from "./Pages/oops";
 import WhatsAppButton from "./Components/whatsapButon";
 import Ubicacion from "./Pages/Ubicacion";
 import UbicacionDetalle from "./Pages/Ubicacion/UbicacionDetalle";
-// import Portal from "./Pages/Pse/Portal";
-// import Bancolombia from "./Pages/Pse/Bancolombia";
-// import AdminDashboard from "./Pages/Admin";
-// import AdminLogin from "./Pages/Admin/login";
-// import Adminusers from "./Pages/Admin/usuarios";
-// import Placas from "./Pages/Admin/placas";
-// import RecoveryPortal from "./Pages/Admin/RecoveryPortal";
-// import ChangePassword from "./Pages/Admin/ChangePasswrod";
-// import PrivateRoute from "./Components/privateRoute";
+import AdminDashboard from "./Pages/Admin";
+import AdminLogin from "./Pages/Admin/login";
+import Adminusers from "./Pages/Admin/usuarios";
+import Placas from "./Pages/Admin/placas";
+import RecoveryPortal from "./Pages/Admin/RecoveryPortal";
+import ChangePassword from "./Pages/Admin/ChangePasswrod";
+import PrivateRoute from "./Components/privateRoute";
+
 
 
 const AppRoutes = () => {
@@ -41,8 +42,8 @@ const AppRoutes = () => {
     { path: "/legalidad", element: <Legality /> },
     { path: "/cellvi", element: <LogCelvi /> },
     { path: "/portaldepagos", element: <Pse /> },
-    // { path: "/portaldepagos/wompi", element: <Portal /> },
-    // { path: "/portaldepagos/qrbancolombia", element: <Bancolombia /> },
+    // { path: "/portaldepagos/wompi", element: <Login /> },
+    // { path: "/portaldepagos/wompi/portal", element: <Portal /> },
     // { path: "/admin-login", element: <AdminLogin /> },
     // { path: "/recuperar-contrasena", element: <RecoveryPortal /> },
     // { path: "/cambiar-contrasena", element: <ChangePassword /> },

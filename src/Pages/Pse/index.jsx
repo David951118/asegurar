@@ -45,7 +45,11 @@ const FooterCard = ({ link, disabled, title }) => {
         src={Prueba}
         alt="QR de Bancolombia"
         className="img-fluid mb-2"
-        style={{ maxWidth: "300px" }}
+        style={{
+          maxWidth: "100%",
+          height: "auto",
+          width: "clamp(150px, 50vw, 300px)",
+        }}
       />
       <img
         src={Aliados}

@@ -4,6 +4,7 @@ export const AsegurarContext = createContext();
 
 export const AsegurarProvider = ({ children }) => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
+  const [infoUser, setInfoUser] = useState({});
 
   const handleWhatsAppClick = (message) => {
     const phoneNumber = "573155870498";
@@ -29,7 +30,9 @@ export const AsegurarProvider = ({ children }) => {
       value={{
         isDesktop,
         setIsDesktop,
-        handleWhatsAppClick
+        handleWhatsAppClick,
+        infoUser,
+        setInfoUser,
       }}
     >
       {children}

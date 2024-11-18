@@ -13,6 +13,7 @@ import chucunesinseguro from "../../Assets/blog/inseguridad_0_1.jpeg";
 import tencnologiaMini from "../../Assets/blog/miniFotoTecnologia.png";
 import tencnologia from "../../Assets/blog/Tecnologia.jpeg";
 import asegurar from "../../Assets/Foto Portada/DSCF7863.jpg";
+import fotoApp from "../../Assets/Foto Portada/cellvi.jpg";
 
 export default function Blog() {
   const [blog, setBlog] = useState(0);
@@ -49,6 +50,21 @@ export default function Blog() {
 
   const noticia = [
     {
+      titulo: "MANUAL ACTUALIZACION APP CELLVI ANDROID",
+      titulo2: "Actualiza la app de Asegurar!",
+      fecha: "14 Noviembre 2024",
+      resumen1: "Manual para actualizar foto",
+      minifoto: fotoApp,
+      creador: "David Montes",
+      contenido: [
+        {
+          tipo: "pdf",
+          texto:
+            "/Manual de Actualizacion de app móvil CELLVI Android.pdf",
+        },
+      ],
+    },
+    {
       titulo: "NOVEDADES ASEGURAR OCTUBRE",
       titulo2: "Noticias importantes en Asegurar!",
       fecha: "16 Octubre 2024",
@@ -78,8 +94,7 @@ export default function Blog() {
         },
         {
           tipo: "link",
-          texto:
-            "https://www.asegurar.com.co/portaldepagos/qrbancolombia ",
+          texto: "https://www.asegurar.com.co/portaldepagos",
         },
       ],
     },

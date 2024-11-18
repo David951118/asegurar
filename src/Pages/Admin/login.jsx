@@ -19,7 +19,6 @@ const AdminLogin = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Autenticación exitosa:", data);
 
         // Guarda el token JWT en localStorage
         localStorage.setItem("token", data.token);
