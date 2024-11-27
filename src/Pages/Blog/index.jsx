@@ -14,6 +14,8 @@ import tencnologiaMini from "../../Assets/blog/miniFotoTecnologia.png";
 import tencnologia from "../../Assets/blog/Tecnologia.jpeg";
 import asegurar from "../../Assets/Foto Portada/DSCF7863.jpg";
 import fotoApp from "../../Assets/Foto Portada/cellvi.jpg";
+import lanchaVertial from "../../Assets/blog/lanchavertical.jpeg";
+import lanchaHorizontal from "../../Assets/blog/lanchaHorizontal.jpeg";
 
 export default function Blog() {
   const [blog, setBlog] = useState(0);
@@ -59,8 +61,7 @@ export default function Blog() {
       contenido: [
         {
           tipo: "pdf",
-          texto:
-            "/Manual de Actualizacion de app móvil CELLVI Android.pdf",
+          texto: "/Manual de Actualizacion de app móvil CELLVI Android.pdf",
         },
       ],
     },
@@ -69,7 +70,7 @@ export default function Blog() {
       titulo2: "Noticias importantes en Asegurar!",
       fecha: "16 Octubre 2024",
       resumen1: "Noticias mes de Octubre 2024",
-      minifoto: asegurar,
+      minifoto: lanchaVertial,
       creador: "Romulo Bolaños",
       contenido: [
         {
@@ -81,6 +82,11 @@ export default function Blog() {
           tipo: "parrafo",
           texto:
             "2.- ASEGURAR LTDA, ha incursionado en los servicios de ubicación vehicular a flotas de transporte fluvial, nos enorgullece contar con uno de nuestros primeros clientes en el Departamento del Putumayo, con vehículos que surcan los ríos de la amazonia. ",
+        },
+        {
+          tipo: "imagen",
+          url: lanchaHorizontal,
+          alt: "lancha",
         },
         {
           tipo: "parrafo",

@@ -3,7 +3,7 @@ import BackgroundGradient from "../../Components/background";
 import Carousel from "../../Components/carousel";
 import Title from "../../Components/title";
 import Card from "../../Components/card";
-import carruseFoto0 from "../../Assets/Carrusel con fotos/Portada-aniversario.jpg";
+import carruseFoto0 from "../../Assets/Carrusel con fotos/BANNER ANIVERSARIO_ HORIZONTAL.gif";
 import carruseFoto1 from "../../Assets/Carrusel con fotos/1.jpg";
 import carruseFoto2 from "../../Assets/Carrusel con fotos/2.jpg";
 import carruseFoto3 from "../../Assets/Carrusel con fotos/3.jpg";
@@ -26,6 +26,7 @@ import sammiSaludsas from "../../Assets/iconsEnter/Samy-Salud-png.png";
 import ProfileCard from "../../Components/profileCard";
 
 export default function Home() {
+  // const [isModalOpen, setModalOpen] = useState(true);
   const carouselItem = [
     //objeto con informacion para incluir en el carrusel.+
     {
@@ -191,9 +192,26 @@ export default function Home() {
         "Tecnologo en sistemas, especializados en manejo y control de flotas, desde centrales de monitoreo remotas.",
     },
   ];
+  // const handleCloseModal = () => {
+  //   setModalOpen(false); // Cierra el modal
+  // };
 
   return (
     <div>
+      {/* {isModalOpen && ( // Muestra el modal solo si está abierto
+        <div className="modal-overlay text-center" onClick={handleCloseModal}>
+          <div className="modal-content p-4 mt-5">
+            <img
+              src={imageAniversario} // Reemplaza con la URL o ruta de tu imagen
+              alt="Publicidad"
+              className="modal-image img "
+            />
+            <button onClick={handleCloseModal} className="close-modal-button">
+              X
+            </button>
+          </div>
+        </div>
+      )} */}
       <BackgroundGradient color1="#fff" color2="#fff ">
         {/* <div className="container-lg">
           <div className="error-message">
@@ -208,7 +226,7 @@ export default function Home() {
             </div>
           </div>
         </div> mensaje de error, descomentar y poner mensaje requerido 23/03/2024*/}
-        <div className="">
+        <div className="text-center">
           <Carousel item={carouselItem} />
         </div>
 

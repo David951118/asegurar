@@ -6,7 +6,7 @@ export default function Carousel({ item }) {
     <MDBCarousel
       showControls
       fade
-      interval={4000}
+      interval={6000}
       keyboard
       showIndicators
       touch
