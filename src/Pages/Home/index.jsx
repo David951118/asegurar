@@ -3,7 +3,7 @@ import BackgroundGradient from "../../Components/background";
 import Carousel from "../../Components/carousel";
 import Title from "../../Components/title";
 import Card from "../../Components/card";
-import carruseFoto0 from "../../Assets/Carrusel con fotos/BANNER ANIVERSARIO_ HORIZONTAL.gif";
+import carruseFoto0 from "../../Assets/Carrusel con fotos/baner.jpeg";
 import carruseFoto1 from "../../Assets/Carrusel con fotos/1.jpg";
 import carruseFoto2 from "../../Assets/Carrusel con fotos/2.jpg";
 import carruseFoto3 from "../../Assets/Carrusel con fotos/3.jpg";
@@ -13,12 +13,12 @@ import carruseFoto6 from "../../Assets/Carrusel con fotos/6.jpg";
 import jefeFoto from "../../Assets/Equipo Asegurar LTDA/Presidente.jpg";
 import getenteFoto from "../../Assets/Equipo Asegurar LTDA/Gerencia.jpg";
 import sgsstFoto from "../../Assets/Equipo Asegurar LTDA/SGSST.jpeg";
-import equipoFoto1 from "../../Assets/Equipo Asegurar LTDA/Jefatura-de-Red.jpg";
+import equipoFoto1 from "../../Assets/Equipo Asegurar LTDA/oscar.jpeg";
 import equipoFoto2 from "../../Assets/Equipo Asegurar LTDA/Ingeniero-David.jpg";
 import equipoFoto3 from "../../Assets/Equipo Asegurar LTDA/Asistente.jpg";
 import equipoFoto5 from "../../Assets/Equipo Asegurar LTDA/Operador.jpg";
 import equipoFoto6 from "../../Assets/Equipo Asegurar LTDA/Operadoa.jpg";
-import equipoFoto4 from "../../Assets/Equipo Asegurar LTDA/cristian.jpeg";
+import equipoFoto4 from "../../Assets/Equipo Asegurar LTDA/rojas.jpeg";
 import lactiosSantaMaria from "../../Assets/iconsEnter/Lacteos Santa Maria png.png";
 import coopsetrans from "../../Assets/iconsEnter/Coopsetrans.png";
 import nuevoMilenio from "../../Assets/iconsEnter/Nuevo Milenio.png";
@@ -144,12 +144,12 @@ export default function Home() {
         "Profesional en administración en seguridad y salud en el trabajo y auditora HSEQ.",
     },
     {
-      name: "Pedro Andrés Valencia Medina",
+      name: "Oscar Mauricio Aretaga Rodriguez",
       cargo: "Administrador Plataforma de Monitoreo CELLVI.",
       email: "jefatura.red.asegurar@gmail.com",
       foto: equipoFoto1,
       descript:
-        "Licenciado en informatica de la Universidad de Nariño. 15 Años de experiencia en administracion de plataformas tecnologicas de monitoreo remoto de vehiculos.",
+        "Ingeniero de Sistemas egresado de la universidad CESMAG. Administrador de la plataforma CELLVI.",
     },
     {
       name: "David Sebastian Montes Zarama",
@@ -184,7 +184,7 @@ export default function Home() {
         "Tecnologo en sistemas, especializados en manejo y control de flotas, desde centrales de monitoreo remotas.",
     },
     {
-      name: "Cristian Javier Ojeda Bolaños",
+      name: "Johanna Maribell Rojas Pastas",
       cargo: "Operadora de Medios Tecnólogicos",
       email: "centralmasegurar@gmail.com",
       foto: equipoFoto4,
