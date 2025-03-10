@@ -144,7 +144,7 @@ export default function Home() {
         "Profesional en administración en seguridad y salud en el trabajo y auditora HSEQ.",
     },
     {
-      name: "Oscar Mauricio Aretaga Rodriguez",
+      name: "Oscar Mauricio Arteaga Rodriguez",
       cargo: "Administrador Plataforma de Monitoreo CELLVI.",
       email: "jefatura.red.asegurar@gmail.com",
       foto: equipoFoto1,
@@ -165,7 +165,7 @@ export default function Home() {
       email: "asistenteasegurar@gmail.com",
       foto: equipoFoto3,
       descript:
-        "Secretaria ejecutiva, especiaalista en manejo de paquetes contables SIIGO, y administración de cartera de clientes.",
+        "Secretaria ejecutiva, especialista en manejo de paquetes contables SIIGO, y administración de cartera de clientes.",
     },
     {
       name: "Jose Rafael Agreda España",
