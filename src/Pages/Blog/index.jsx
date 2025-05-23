@@ -16,6 +16,8 @@ import asegurar from "../../Assets/Foto Portada/DSCF7863.jpg";
 import fotoApp from "../../Assets/Foto Portada/cellvi.jpg";
 import lanchaVertial from "../../Assets/blog/lanchavertical.jpeg";
 import lanchaHorizontal from "../../Assets/blog/lanchaHorizontal.jpeg";
+import reunionSeguridadVial from "../../Assets/blog/policia.jpeg";
+import reunionMesaTrabajo from "../../Assets/blog/policia2.jpeg";
 
 export default function Blog() {
   const [blog, setBlog] = useState(0);
@@ -51,6 +53,43 @@ export default function Blog() {
   }, []);
 
   const noticia = [
+    {
+      titulo:
+        "REUNIÓN INTERINSTITUCIONAL POR LA SEGURIDAD VIAL EN EL SUR DEL PAÍS",
+      titulo2: "Acciones conjuntas frente a la piratería terrestre",
+      fecha: "22 Mayo 2025",
+      resumen1:
+        "ASEGURAR LTDA. participó en una reunión clave con autoridades para abordar la creciente inseguridad en las vías del Cauca y Nariño.",
+      minifoto: reunionSeguridadVial,
+      creador: "Romulo Bolaños",
+      contenido: [
+        {
+          tipo: "parrafo",
+          texto:
+            "Ante la creciente racha de inseguridad en las vías de los departamentos del Cauca y Nariño, que ha venido afectando gravemente a transportadores de carga y pasajeros, el día de hoy se llevó a cabo una importante reunión interinstitucional en las instalaciones de ASEGURAR LTDA.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "En esta jornada participaron representantes de la Policía de Tránsito y Transporte, así como delegados de las Unidades de Investigación Criminal, quienes analizaron en conjunto los recientes casos de piratería terrestre ocurridos en la región. La intención principal del encuentro fue conocer de primera mano los incidentes más relevantes y tomar medidas inmediatas que ayuden a mitigar este flagelo que pone en riesgo vidas humanas y la operatividad del sector transportador.",
+        },
+        {
+          tipo: "imagen",
+          url: reunionMesaTrabajo, // Puedes colocar aquí otra imagen ilustrativa de la reunión
+          alt: "Reunión de seguridad vial",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Durante la reunión, ASEGURAR LTDA. expuso datos recolectados a través de su sistema de monitoreo vehicular, los cuales evidencian puntos críticos y patrones de comportamiento delictivo en zonas estratégicas. Esta información fue valorada positivamente por las autoridades, quienes destacaron la importancia de una articulación permanente con empresas privadas para fortalecer la prevención y la reacción ante este tipo de delitos.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "ASEGURAR LTDA. reitera su compromiso con la seguridad vial y la protección de los activos de sus clientes, reafirmando su disposición a continuar colaborando activamente con las autoridades en la búsqueda de soluciones eficaces frente a los desafíos que enfrentan los transportadores del suroccidente colombiano.",
+        },
+      ],
+    },
     {
       titulo: "MANUAL ACTUALIZACION APP CELLVI ANDROID",
       titulo2: "Actualiza la app de Asegurar!",
@@ -505,7 +544,7 @@ export default function Blog() {
             </div>
           </div>
         </div>
-      </BackgroundGradient>      
+      </BackgroundGradient>
     </div>
   );
 }
