@@ -12,12 +12,13 @@ import chucunes from "../../Assets/blog/chucunes.jpeg";
 import chucunesinseguro from "../../Assets/blog/inseguridad_0_1.jpeg";
 import tencnologiaMini from "../../Assets/blog/miniFotoTecnologia.png";
 import tencnologia from "../../Assets/blog/Tecnologia.jpeg";
-import asegurar from "../../Assets/Foto Portada/DSCF7863.jpg";
 import fotoApp from "../../Assets/Foto Portada/cellvi.jpg";
 import lanchaVertial from "../../Assets/blog/lanchavertical.jpeg";
 import lanchaHorizontal from "../../Assets/blog/lanchaHorizontal.jpeg";
 import reunionSeguridadVial from "../../Assets/blog/policia.jpeg";
 import reunionMesaTrabajo from "../../Assets/blog/policia2.jpeg";
+import reunionRistra from "../../Assets/blog/portadapolicia.jpeg";
+import policiaRistra from "../../Assets/blog/ereunion.jpeg";
 
 export default function Blog() {
   const [blog, setBlog] = useState(0);
@@ -53,6 +54,46 @@ export default function Blog() {
   }, []);
 
   const noticia = [
+    {
+      titulo: "ASEGURAR LTDA. SE INTEGRA AL SISTEMA RISTRA",
+      titulo2: "Un paso más hacia la seguridad vial inteligente",
+      fecha: "28 Mayo 2024",
+      resumen1: "La empresa ASEGURAR LTDA. fue integrada al Registro Integral de Seguridad en el Transporte (RISTRA), en colaboración con autoridades de tránsito del Departamento de Policía Nariño.",
+      minifoto: reunionRistra, // Usa aquí la imagen correspondiente
+      creador: "Romulo Bolaños",
+      contenido: [
+        {
+          tipo: "parrafo",
+          texto:
+            "El pasado 28 de mayo de 2024, en las instalaciones de ASEGURAR LTDA., se llevó a cabo una importante reunión con los directivos del RISTRA (Registro Integral de Seguridad en el Transporte), con el objetivo de integrar a nuestra empresa en esta plataforma tecnológica de alto impacto para la seguridad vial.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "El encuentro contó con la participación de destacados miembros de la Dirección de Transportes y Tránsito del Departamento de Policía Nariño, entre ellos el Subteniente Kevin Saavedra, el Intendente Gabriel Ortega y el Intendente Víctor Yela, quienes acompañaron el proceso de vinculación institucional de ASEGURAR LTDA. al sistema RISTRA.",
+        },
+        {
+          tipo: "imagen",
+          url: policiaRistra, // Imagen de la reunión o de los funcionarios policiales
+          alt: "Reunión con directivos del RISTRA",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "La incorporación de ASEGURAR LTDA. a esta herramienta representa un avance significativo en el monitoreo, análisis y prevención de incidentes en las vías, permitiendo una colaboración más estrecha con las autoridades de tránsito y transporte en pro de la seguridad de nuestros usuarios.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Expresamos nuestro sincero agradecimiento a la Policía de Carreteras por su permanente acompañamiento y compromiso con la protección de los transportadores, afiliados y clientes de nuestra organización.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Con esta alianza, reafirmamos nuestro compromiso de trabajar articuladamente en soluciones tecnológicas y operativas que contribuyan a fortalecer la seguridad en el transporte terrestre a nivel regional y nacional.",
+        }
+      ]
+    },    
     {
       titulo:
         "REUNIÓN INTERINSTITUCIONAL POR LA SEGURIDAD VIAL EN EL SUR DEL PAÍS",
