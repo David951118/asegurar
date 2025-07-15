@@ -184,31 +184,6 @@ export default function Blog() {
         },
       ],
     },
-    // {
-    //   titulo: "NOVEDADES ASEGURAR",
-    //   titulo2: "Noticias importantes en Asegurar!",
-    //   fecha: "20 Julio 2024",
-    //   resumen1: "Noticias mes de Julio 2024",
-    //   minifoto: asegurar,
-    //   creador: "Romulo Bolaños",
-    //   contenido: [
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "1.- ASEGURAR LTDA., se unió al paro camionero organizado por la Asociación Colombiana de Camioneros Seccional Nariño, llevando la solidaridad a este gremio que enlaza con fuerza la cadena productiva de la Economía. La economía del País se mide por el número de vueltas que da la rueda de un camión en las carreteras.",
-    //     },
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "2.- ASEGURAR LTDA., presenta un saludo de felicitación a todas las organizaciones gremiales y asociaciones de camioneros de Nariño, con motivo de la celebración de la Virgen del Carmen, en ese sentido nos hemos vinculado con la Asociación de Camioneros de Jose Maria Hernandez - Corregimiento del Municipio de Pupiales con la donación de un equipo de transmisión de datos satelitales para el ganador del concurso de GINCANA.",
-    //     },
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "3.- Próximamente estará al servicio de nuestros clientes el portal de pagos WOMPY, a través de nuestra página web, publicaremos en los dias venideros publicaremos un video interactivo y explicativo de los procesos para pagar por esta plataforma, buscamos en todo momento la comodidad de nuestros clientes sin necesidad de acudir a los bancos o corresponsales.",
-    //     },
-    //   ],
-    // },
     {
       titulo: "EFECTIVIDAD DE ASEGURAR",
       titulo2: "¡Acciones inmediatas y efectivas!",
@@ -260,142 +235,142 @@ export default function Blog() {
         },
       ],
     },
-    {
-      titulo: "Nuevas mejoras en ASEGURAR LTDA.",
-      titulo2: "¡Más eficiencia y seguridad para nuestros clientes!",
-      fecha: "5 Mayo 2024",
-      resumen1:
-        "Últimas actualizaciones en tecnología y servicios de ASEGURAR LTDA.",
-      minifoto: tencnologiaMini,
-      creador: "Ing. David Montes",
-      contenido: [
-        {
-          tipo: "parrafo",
-          texto:
-            "ASEGURAR LTDA. se complace en informar a sus clientes y suscriptores sobre las últimas mejoras implementadas en nuestros servicios tecnológicos. Hemos subido a la plataforma CELLVI una moderna herramienta que permite acceder a las rutas de trazabilidad de sus rodantes en microsegundos.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "Esta nueva herramienta representa un avance significativo en nuestra capacidad para monitorear y gestionar la seguridad de sus vehículos de manera más eficiente. La trazabilidad en tiempo real nos permite responder rápidamente ante cualquier incidente y garantizar la integridad de su carga y personal.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "Además, en ASEGURAR LTDA. seguimos comprometidos con la mejora continua de nuestros servicios. Estamos desarrollando constantemente más variables de control para satisfacer las necesidades cambiantes de nuestros clientes y ofrecerles una experiencia aún más segura y confiable.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "Pero eso no es todo, también queremos informarles que hemos realizado una actualización en la tecnología de nuestro servidor principal. Esta actualización nos ha permitido mejorar significativamente el rendimiento y la estabilidad de nuestros sistemas.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "Gracias a estas mejoras, nuestros servicios ahora funcionan mucho mejor que antes, brindándoles a nuestros clientes una experiencia más fluida y confiable en cada interacción con ASEGURAR LTDA.",
-        },
-        {
-          tipo: "imagen",
-          url: tencnologia,
-          alt: "Tecnologia",
-        },
-      ],
-    },
-    {
-      titulo: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
-      titulo2: "¡Bienvenidos a la Nueva Era: Ahora en React!",
-      fecha: "18 Diciembre 2023",
-      resumen1:
-        "En este blog ecuentras informacion, sobre las actualizaciones de la pagina web",
-      minifoto: Vision,
-      creador: "Ing David Montes",
-      contenido: [
-        { tipo: "parrafo", texto: "Estimada comunidad de ASEGURAR LTDA" },
-        {
-          tipo: "parrafo",
-          texto:
-            "Es un placer para nosotros anunciar un emocionante cambio en nuestra presencia en línea. ¡Hemos dado un salto importante y nos hemos actualizado a React! Después de años de compromiso con una versión estática en HTML, hemos decidido llevar la experiencia de usuario de nuestra página web al siguiente nivel.",
-        },
-        { tipo: "titulo", texto: "¿Qué significa esto para ti?" },
-        {
-          tipo: "lista",
-          textos: [
-            "Experiencia de Usuario Mejorada: La transición a React nos permite ofrecer una navegación más suave y un rendimiento más rápido, lo que se traduce en una experiencia de usuario mejorada.",
-            "Interactividad Avanzada: Ahora podemos implementar características interactivas y dinámicas de manera más eficiente, brindándote contenido de alta calidad de una manera más atractiva.",
-            "Mantenimiento Eficiente: React simplifica el mantenimiento del código, lo que nos permite responder rápidamente a los comentarios y asegurarnos de que nuestro sitio web esté siempre actualizado.",
-          ],
-        },
-        {
-          tipo: "parrafo",
-          texto: "Te invitamos a explorar la nueva pagina web!",
-        },
-        {
-          tipo: "imagen",
-          url: BlogAsegurar,
-          alt: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
-        },
-        {
-          tipo: "minifoto",
-          url: Vision,
-          alt: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
-        },
-      ],
-    },
-    {
-      titulo: "SG-SST ASEGURAR LTDA",
-      titulo2: "Seguridad y salud en el trabajo!",
-      fecha: "18 Diciembre 2023",
-      resumen1:
-        "En este blog ecuentras informacion, sobre las actualizaciones de la pagina web",
-      minifoto: miniFotoPost,
-      creador: "valentina Ledesma",
-      contenido: [
-        {
-          tipo: "parrafo",
-          texto:
-            "ASEGURAR LTDA trabaja por la protección de sus trabajadores, la promoción de la salud y seguridad en el desarrollo de sus operaciones, reconociendo el desempeño ejemplar en materia de seguridad y salud en el trabajo, generando las directrices bajo las cuales ASEGURAR LTDA, desarrollará la estrategias por medio de procesos, mediante la implementación de controles para los peligros identificados, riesgos valorados, el cumplimiento de la legislación aplicable y actividades de implementación, mantenimiento, control y mejoramiento continuo, que conlleve a la preservación de la salud orgánica y mental de nuestros colaboradores, ofreciendo lugares de trabajo seguros evitando así la ocurrencia de incidentes, accidentes y enfermedades laborales",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "Seguridad y Salud en el Trabajo de ASEGURAR LTDA genera interés en el desarrollo integral de sus diferentes dimensiones: física, mental, social y espiritual, a través de 3 principios:",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "Principio de Reconocimiento: Dirigido a identificar los peligros, evaluar, valorar los riesgos y definir controles, basados en los conceptos técnicos y cumpliendo los lineamientos legales de nuestro País.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "Principio de Construcción: Orientado al desarrollo de estrategias para acompañar a los grupos de interés a ser conscientes de la prevención y protección de su salud y seguridad.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "Principio de Progreso: Nos impulsa a asumir los retos, cambios y necesidades que se van presentando en pro de la mejora continua del SG-SST.",
-        },
-        { tipo: "titulo", texto: "IMPORTANCIA DE CONTAR CON UN SG-SST" },
-        {
-          tipo: "lista",
-          textos: [
-            "Principio de Reconocimiento: Dirigido a identificar los peligros, evaluar, valorar los riesgos y definir controles, basados en los conceptos técnicos y cumpliendo los lineamientos legales de nuestro País.",
-            "Principio de Construcción: Orientado al desarrollo de estrategias para acompañar a los grupos de interés a ser conscientes de la prevención y protección de su salud y seguridad.",
-            "Principio de Progreso: Nos impulsa a asumir los retos, cambios y necesidades que se van presentando en pro de la mejora continua del SG-SST.",
-          ],
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "Una correcta ejecución e implementación de un SG-SST, aportara a la empresa una buena imagen corporativa y plasmara un ambiente de bienestar laboral, en vista de la disminución de accidentes laborales, enfermedades e incapacidades, lo cual hace que en la empresa el trabajo sea más fluido y de calidad.",
-        },
-        {
-          tipo: "imagen",
-          url: fotografiapost,
-          alt: "SG-SST ASEGURAR LTDA",
-        },
-      ],
-    },
+    // {
+    //   titulo: "Nuevas mejoras en ASEGURAR LTDA.",
+    //   titulo2: "¡Más eficiencia y seguridad para nuestros clientes!",
+    //   fecha: "5 Mayo 2024",
+    //   resumen1:
+    //     "Últimas actualizaciones en tecnología y servicios de ASEGURAR LTDA.",
+    //   minifoto: tencnologiaMini,
+    //   creador: "Ing. David Montes",
+    //   contenido: [
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "ASEGURAR LTDA. se complace en informar a sus clientes y suscriptores sobre las últimas mejoras implementadas en nuestros servicios tecnológicos. Hemos subido a la plataforma CELLVI una moderna herramienta que permite acceder a las rutas de trazabilidad de sus rodantes en microsegundos.",
+    //     },
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "Esta nueva herramienta representa un avance significativo en nuestra capacidad para monitorear y gestionar la seguridad de sus vehículos de manera más eficiente. La trazabilidad en tiempo real nos permite responder rápidamente ante cualquier incidente y garantizar la integridad de su carga y personal.",
+    //     },
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "Además, en ASEGURAR LTDA. seguimos comprometidos con la mejora continua de nuestros servicios. Estamos desarrollando constantemente más variables de control para satisfacer las necesidades cambiantes de nuestros clientes y ofrecerles una experiencia aún más segura y confiable.",
+    //     },
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "Pero eso no es todo, también queremos informarles que hemos realizado una actualización en la tecnología de nuestro servidor principal. Esta actualización nos ha permitido mejorar significativamente el rendimiento y la estabilidad de nuestros sistemas.",
+    //     },
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "Gracias a estas mejoras, nuestros servicios ahora funcionan mucho mejor que antes, brindándoles a nuestros clientes una experiencia más fluida y confiable en cada interacción con ASEGURAR LTDA.",
+    //     },
+    //     {
+    //       tipo: "imagen",
+    //       url: tencnologia,
+    //       alt: "Tecnologia",
+    //     },
+    //   ],
+    // },
+    // {
+    //   titulo: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
+    //   titulo2: "¡Bienvenidos a la Nueva Era: Ahora en React!",
+    //   fecha: "18 Diciembre 2023",
+    //   resumen1:
+    //     "En este blog ecuentras informacion, sobre las actualizaciones de la pagina web",
+    //   minifoto: Vision,
+    //   creador: "Ing David Montes",
+    //   contenido: [
+    //     { tipo: "parrafo", texto: "Estimada comunidad de ASEGURAR LTDA" },
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "Es un placer para nosotros anunciar un emocionante cambio en nuestra presencia en línea. ¡Hemos dado un salto importante y nos hemos actualizado a React! Después de años de compromiso con una versión estática en HTML, hemos decidido llevar la experiencia de usuario de nuestra página web al siguiente nivel.",
+    //     },
+    //     { tipo: "titulo", texto: "¿Qué significa esto para ti?" },
+    //     {
+    //       tipo: "lista",
+    //       textos: [
+    //         "Experiencia de Usuario Mejorada: La transición a React nos permite ofrecer una navegación más suave y un rendimiento más rápido, lo que se traduce en una experiencia de usuario mejorada.",
+    //         "Interactividad Avanzada: Ahora podemos implementar características interactivas y dinámicas de manera más eficiente, brindándote contenido de alta calidad de una manera más atractiva.",
+    //         "Mantenimiento Eficiente: React simplifica el mantenimiento del código, lo que nos permite responder rápidamente a los comentarios y asegurarnos de que nuestro sitio web esté siempre actualizado.",
+    //       ],
+    //     },
+    //     {
+    //       tipo: "parrafo",
+    //       texto: "Te invitamos a explorar la nueva pagina web!",
+    //     },
+    //     {
+    //       tipo: "imagen",
+    //       url: BlogAsegurar,
+    //       alt: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
+    //     },
+    //     {
+    //       tipo: "minifoto",
+    //       url: Vision,
+    //       alt: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
+    //     },
+    //   ],
+    // },
+    // {
+    //   titulo: "SG-SST ASEGURAR LTDA",
+    //   titulo2: "Seguridad y salud en el trabajo!",
+    //   fecha: "18 Diciembre 2023",
+    //   resumen1:
+    //     "En este blog ecuentras informacion, sobre las actualizaciones de la pagina web",
+    //   minifoto: miniFotoPost,
+    //   creador: "valentina Ledesma",
+    //   contenido: [
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "ASEGURAR LTDA trabaja por la protección de sus trabajadores, la promoción de la salud y seguridad en el desarrollo de sus operaciones, reconociendo el desempeño ejemplar en materia de seguridad y salud en el trabajo, generando las directrices bajo las cuales ASEGURAR LTDA, desarrollará la estrategias por medio de procesos, mediante la implementación de controles para los peligros identificados, riesgos valorados, el cumplimiento de la legislación aplicable y actividades de implementación, mantenimiento, control y mejoramiento continuo, que conlleve a la preservación de la salud orgánica y mental de nuestros colaboradores, ofreciendo lugares de trabajo seguros evitando así la ocurrencia de incidentes, accidentes y enfermedades laborales",
+    //     },
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "Seguridad y Salud en el Trabajo de ASEGURAR LTDA genera interés en el desarrollo integral de sus diferentes dimensiones: física, mental, social y espiritual, a través de 3 principios:",
+    //     },
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "Principio de Reconocimiento: Dirigido a identificar los peligros, evaluar, valorar los riesgos y definir controles, basados en los conceptos técnicos y cumpliendo los lineamientos legales de nuestro País.",
+    //     },
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "Principio de Construcción: Orientado al desarrollo de estrategias para acompañar a los grupos de interés a ser conscientes de la prevención y protección de su salud y seguridad.",
+    //     },
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "Principio de Progreso: Nos impulsa a asumir los retos, cambios y necesidades que se van presentando en pro de la mejora continua del SG-SST.",
+    //     },
+    //     { tipo: "titulo", texto: "IMPORTANCIA DE CONTAR CON UN SG-SST" },
+    //     {
+    //       tipo: "lista",
+    //       textos: [
+    //         "Principio de Reconocimiento: Dirigido a identificar los peligros, evaluar, valorar los riesgos y definir controles, basados en los conceptos técnicos y cumpliendo los lineamientos legales de nuestro País.",
+    //         "Principio de Construcción: Orientado al desarrollo de estrategias para acompañar a los grupos de interés a ser conscientes de la prevención y protección de su salud y seguridad.",
+    //         "Principio de Progreso: Nos impulsa a asumir los retos, cambios y necesidades que se van presentando en pro de la mejora continua del SG-SST.",
+    //       ],
+    //     },
+    //     {
+    //       tipo: "parrafo",
+    //       texto:
+    //         "Una correcta ejecución e implementación de un SG-SST, aportara a la empresa una buena imagen corporativa y plasmara un ambiente de bienestar laboral, en vista de la disminución de accidentes laborales, enfermedades e incapacidades, lo cual hace que en la empresa el trabajo sea más fluido y de calidad.",
+    //     },
+    //     {
+    //       tipo: "imagen",
+    //       url: fotografiapost,
+    //       alt: "SG-SST ASEGURAR LTDA",
+    //     },
+    //   ],
+    // },
   ];
   const comentarios = [
     {
