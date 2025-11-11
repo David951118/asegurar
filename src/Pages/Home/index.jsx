@@ -29,50 +29,50 @@ export default function Home() {
   // const [isModalOpen, setModalOpen] = useState(true);
   const carouselItem = [
     //objeto con informacion para incluir en el carrusel.+
+    // {
+    //   id: 1,
+    //   image: carruseFoto0,
+    //   title: "¿Porque ?",
+    //   descrip:
+    //     "Contamos con una aplicación móvil CELLVI para sistemas operativos ANDROID Y IOS amigable y fácil de manejar",
+    // },
     {
       id: 1,
-      image: carruseFoto0,
-      title: "¿Porque ?",
-      descrip:
-        "Contamos con una aplicación móvil CELLVI para sistemas operativos ANDROID Y IOS amigable y fácil de manejar",
-    },
-    {
-      id: 2,
       image: carruseFoto1,
       title: "¿Porque ?",
       descrip:
         "Contamos con una aplicación móvil CELLVI para sistemas operativos ANDROID Y IOS amigable y fácil de manejar",
     },
     {
-      id: 3,
+      id: 2,
       image: carruseFoto2,
       title: "APLICACIÓN MÓVIL",
       descrip:
         "Contamos con una aplicación móvil CELLVI para sistemas operativos ANDROID Y IOS amigable y fácil de manejar",
     },
     {
-      id: 4,
+      id: 3,
       image: carruseFoto3,
       title: "PLATAFORMA CELLVI",
       descrip:
         "Nuestra Plataforma Tecnológica CELLVI, no está disponible en el mercado es propiedad industrial e intelectual de Asegurar Ltda.",
     },
     {
-      id: 5,
+      id: 4,
       image: carruseFoto4,
       title: "MONITOREO PERMANENTE",
       descrip:
         "Mantenemos en operación una central de monitoreo 24/7 los 365 días del año.",
     },
     {
-      id: 6,
+      id: 5,
       image: carruseFoto5,
       title: "MONITOREO PERMANENTE",
       descrip:
         "Mantenemos en operación una central de monitoreo 24/7 los 365 días del año.",
     },
     {
-      id: 7,
+      id: 6,
       image: carruseFoto6,
       title: "MONITOREO PERMANENTE",
       descrip:
