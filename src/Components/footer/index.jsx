@@ -25,7 +25,11 @@ export default function Footer() {
       activeClassName: "text-blue",
     },
     { name: "Legalidad", path: "/legalidad", activeClassName: "text-blue" },
-     { name: "Administración", path: "/admin-login", activeClassName: "text-blue" },
+    {
+      name: "RNDC",
+      path: "/rndc",
+      activeClassName: "text-blue",
+    },
     {
       name: "COMPARTE TU UBICACION",
       path: "/ubicacion",

@@ -14,6 +14,7 @@ import Legality from "./Pages/Legality";
 import LogCelvi from "./Pages/LogCelvi";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import Pse from "./Pages/Pse";
+import Rndc from "./Pages/Rndc";
 import Login from "./Components/PSEform/login";
 import Portal from "./Pages/Pse/Portal"
 import Navbar from "./Pages/Navbar";
@@ -56,6 +57,7 @@ const AppRoutes = () => {
     { path: "/ubicacion", element: <Ubicacion /> },
     { path: "/ubicacion/:coords", element: <UbicacionDetalle /> },
     { path: "/politica-de-privacidad", element: <PrivacyPolicy /> },
+    { path: "/rndc", element: <Rndc /> },
     { path: "/*", element: <OopsPage /> },
   ]);
 
