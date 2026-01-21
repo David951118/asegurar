@@ -34,7 +34,7 @@ export default function RndcPage() {
         username: storedUser.username || "",
         vehiculos: storedUser.vehiculos || [],
         roles: storedUser.roles || [],
-        persona: storedUser.username || "", // Ajustar si viene otro campo
+        persona: storedUser.persona || storedUser.username || "", // Extraer persona del objeto guardado
       });
     }
   }, [isAuthenticated]);

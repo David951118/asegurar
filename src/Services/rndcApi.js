@@ -16,6 +16,24 @@ rndcBackend.interceptors.request.use((config) => {
   return config;
 });
 
+// Interceptor para manejar errores 401 (Token inválido o expirado)
+rndcBackend.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      console.warn("Sesión inválida detectada (401). Limpiando datos...");
+      localStorage.removeItem("rndc_token");
+      localStorage.removeItem("rndc_user");
+      localStorage.removeItem("rndc_token_expires");
+      // Opcional: Redirigir si no estamos ya en la ruta de login
+      if (!window.location.pathname.includes("/rndc")) {
+        window.location.href = "/rndc";
+      }
+    }
+    return Promise.reject(error);
+  },
+);
+
 const RndcService = {
   /**
    * Autenticación contra Backend RNDC (que valida con Cellvi)
@@ -39,7 +57,7 @@ const RndcService = {
         success: true,
         token,
         roles: user.roles || [],
-        persona: user.username,
+        persona: user.persona || user.username, // Usar el nuevo atributo persona
         vehiculos: user.vehiculos || [],
         username: user.username,
       };
