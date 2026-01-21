@@ -412,7 +412,7 @@ export default function DashboardRndc({
   const isAdmin =
     roles?.includes("ROLE_ADMIN") ||
     ["admin", "asegurar", "soporte", "prueba", "desa"].includes(
-      username?.toLowerCase()
+      username?.toLowerCase(),
     );
 
   const [activeTab, setActiveTab] = useState("manifiestos");
@@ -492,7 +492,7 @@ export default function DashboardRndc({
       }
       if (filters.placa) {
         data = data.filter((m) =>
-          m.placa.toLowerCase().includes(filters.placa.toLowerCase())
+          m.placa.toLowerCase().includes(filters.placa.toLowerCase()),
         );
       }
 
@@ -651,7 +651,9 @@ export default function DashboardRndc({
 
           // Filter using the ENGLISH message returned by backend
           const toDelete = data.filter((m) =>
-            m.motivoNoMonitoreable?.includes("Vehicle does not exist in Cellvi")
+            m.motivoNoMonitoreable?.includes(
+              "Vehicle does not exist in Cellvi",
+            ),
           );
 
           if (toDelete.length === 0) {
@@ -878,8 +880,8 @@ export default function DashboardRndc({
                         r.estado === "activo"
                           ? "info"
                           : r.estado === "completado"
-                          ? "success"
-                          : "danger"
+                            ? "success"
+                            : "danger"
                       }
                     />
                   )}
@@ -977,8 +979,8 @@ export default function DashboardRndc({
                         r.estado === "reportado"
                           ? "success"
                           : r.estado === "error"
-                          ? "danger"
-                          : "warning"
+                            ? "danger"
+                            : "warning"
                       }
                     />
                   )}

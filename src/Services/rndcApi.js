@@ -1,13 +1,13 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-// Configuración de la API del RNDC (Backend en Servidor Producción)
+// Configuración de la API del RNDC (Backend propio - Proxy a Cellvi/RNDC)
 const rndcBackend = axios.create({
-  baseURL: "https://rndc.asegurar.com.co/api",
-  timeout: 10000,
+  baseURL: "https://rndc.asegurar.com.co/api", // Cambiar a HTTPS en producción
+  timeout: 15000,
 });
 
-// Interceptor para inyectar token automáticamente (Se deja por seguridad futura, aunque el endpoint sea público)
+// Interceptor para inyectar token automáticamente
 rndcBackend.interceptors.request.use((config) => {
   const token = localStorage.getItem("rndc_token");
   if (token) {
@@ -16,57 +16,73 @@ rndcBackend.interceptors.request.use((config) => {
   return config;
 });
 
-// Configuración de la API de Cellvi (Para autenticación y roles)
-const cellviApi = axios.create({
-  baseURL: "https://cellviapi.asegurar.com.co",
-  timeout: 10000,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
 const RndcService = {
   /**
-   * Autenticación contra Cellvi
-   * Retorna el token y datos del usuario si es exitoso
+   * Autenticación contra Backend RNDC (que valida con Cellvi)
    */
   login: async (username, password) => {
     try {
-      // 1. Obtener Token
-      const authResponse = await cellviApi.post("/api/login_check", {
+      // Login contra nuestro backend
+      const response = await rndcBackend.post("/auth/login", {
         username,
         password,
       });
 
-      const { token, data } = authResponse.data;
+      const { token, user, expiresAt } = response.data;
 
-      // Usar datos directos de la respuesta del login
-      const roles = data.roles || [];
-      const persona = data.persona || username;
-
-      // 2. Obtener Perfil / Vehículos (Para saber si es Admin o Usuario)
-      // Usamos el endpoint que devuelve la lista de vehículos del usuario logueado
-      const vehiculosResponse = await cellviApi.get(
-        "/cellvi/movil/v3/vehiculos/usuario",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      // Guardar token y datos básicos
+      localStorage.setItem("rndc_token", token);
+      localStorage.setItem("rndc_user", JSON.stringify(user));
+      localStorage.setItem("rndc_token_expires", expiresAt);
 
       return {
         success: true,
         token,
-        roles, // Retornamos los roles reales
-        persona, // Nombre amigable
-        vehiculos: vehiculosResponse.data, // Array de { id, placa, ... }
-        username,
+        roles: user.roles || [],
+        persona: user.username,
+        vehiculos: user.vehiculos || [],
+        username: user.username,
       };
     } catch (error) {
       console.error("Login Error:", error);
       return {
         success: false,
-        error: error.response?.data?.message || "Credenciales inválidas",
+        error: error.response?.data?.message || "Error de autenticación",
       };
+    }
+  },
+
+  /**
+   * Renovar sesión (Refresh Token)
+   */
+  refreshToken: async () => {
+    try {
+      const response = await rndcBackend.post("/auth/refresh");
+      const { token, expiresAt } = response.data;
+
+      localStorage.setItem("rndc_token", token);
+      if (expiresAt) {
+        localStorage.setItem("rndc_token_expires", expiresAt);
+      }
+      return token;
+    } catch (error) {
+      console.error("Error refrescando token:", error);
+      throw error;
+    }
+  },
+
+  /**
+   * Cerrar Sesión
+   */
+  logout: async () => {
+    try {
+      await rndcBackend.post("/auth/logout");
+    } catch (e) {
+      console.warn("Error en logout remoto", e);
+    } finally {
+      localStorage.removeItem("rndc_token");
+      localStorage.removeItem("rndc_user");
+      localStorage.removeItem("rndc_token_expires");
     }
   },
 

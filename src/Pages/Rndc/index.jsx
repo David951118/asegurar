@@ -9,53 +9,48 @@ import DashboardRndc from "./Dashboard"; // Componente que crearemos a continuac
 import BackgroundGradient from "../../Components/background";
 import Title from "../../Components/title";
 
+import { useAuth } from "../../Context/AuthContext";
+
 export default function RndcPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, login, logout } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [userVehiculos, setUserVehiculos] = useState([]);
-  const [currentUser, setCurrentUser] = useState("");
-  const [roles, setRoles] = useState([]);
-  const [persona, setPersona] = useState("");
 
-  // Verificar si hay sesión activa al cargar
+  // Estado para datos del usuario (para pasar al dashboard)
+  const [userData, setUserData] = useState({
+    username: "",
+    vehiculos: [],
+    roles: [],
+    persona: "",
+  });
+
+  // Cargar datos de usuario del localStorage si está autenticado
   useEffect(() => {
-    const storedUser = localStorage.getItem("rndc_user");
-    const storedVehiculos = localStorage.getItem("rndc_vehiculos");
-    const storedRoles = localStorage.getItem("rndc_roles");
-    const storedPersona = localStorage.getItem("rndc_persona");
-
-    if (storedUser) {
-      setCurrentUser(storedUser);
-      setUserVehiculos(JSON.parse(storedVehiculos || "[]"));
-      setRoles(JSON.parse(storedRoles || "[]"));
-      setPersona(storedPersona || storedUser);
-      setIsAuthenticated(true);
+    if (isAuthenticated) {
+      const storedUser = JSON.parse(localStorage.getItem("rndc_user") || "{}");
+      setUserData({
+        username: storedUser.username || "",
+        vehiculos: storedUser.vehiculos || [],
+        roles: storedUser.roles || [],
+        persona: storedUser.username || "", // Ajustar si viene otro campo
+      });
     }
-  }, []);
+  }, [isAuthenticated]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
+    // Login via Servicio (Internamente guarda token en localStorage)
     const result = await RndcService.login(username, password);
 
     if (result.success) {
-      // Guardar sesión
-      localStorage.setItem("rndc_token", result.token);
-      localStorage.setItem("rndc_user", result.username);
-      localStorage.setItem("rndc_vehiculos", JSON.stringify(result.vehiculos));
-      localStorage.setItem("rndc_roles", JSON.stringify(result.roles || []));
-      localStorage.setItem("rndc_persona", result.persona);
-
-      setCurrentUser(result.username);
-      setUserVehiculos(result.vehiculos);
-      setRoles(result.roles || []);
-      setPersona(result.persona);
-      setIsAuthenticated(true);
+      // Login exitoso
+      login(); // Actualizar estado global
+      // El useEffect se disparará y cargará los datos
     } else {
       setError(result.error);
     }
@@ -63,25 +58,16 @@ export default function RndcPage() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("rndc_token");
-    localStorage.removeItem("rndc_user");
-    localStorage.removeItem("rndc_vehiculos");
-    localStorage.removeItem("rndc_roles");
-    localStorage.removeItem("rndc_persona");
-    setIsAuthenticated(false);
-    setUserVehiculos([]);
-    setRoles([]);
-    setPersona("");
-    setCurrentUser("");
+    logout(); // Limpia localStorage y estado global
   };
 
   // Si está autenticado, mostramos el Dashboard
   if (isAuthenticated) {
     return (
       <DashboardRndc
-        username={persona} // Usamos persona como nombre a mostrar
-        vehiculos={userVehiculos}
-        roles={roles}
+        username={userData.persona || userData.username}
+        vehiculos={userData.vehiculos}
+        roles={userData.roles}
         onLogout={handleLogout}
       />
     );

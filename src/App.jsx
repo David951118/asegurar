@@ -16,7 +16,7 @@ import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import Pse from "./Pages/Pse";
 import Rndc from "./Pages/Rndc";
 import Login from "./Components/PSEform/login";
-import Portal from "./Pages/Pse/Portal"
+import Portal from "./Pages/Pse/Portal";
 import Navbar from "./Pages/Navbar";
 import Footer from "./Components/footer";
 import OopsPage from "./Pages/oops";
@@ -30,8 +30,7 @@ import Placas from "./Pages/Admin/placas";
 import RecoveryPortal from "./Pages/Admin/RecoveryPortal";
 import ChangePassword from "./Pages/Admin/ChangePasswrod";
 import PrivateRoute from "./Components/privateRoute";
-
-
+import SessionTimeoutModal from "./Components/SessionTimeoutModal";
 
 const AppRoutes = () => {
   let routes = useRoutes([
@@ -86,6 +85,7 @@ const App = () => {
             <ScrollToTop />
             <Navbar />
             <AppRoutes />
+            <SessionTimeoutModal />
             <Footer />
             <WhatsAppButton />
           </PrimeReactProvider>
