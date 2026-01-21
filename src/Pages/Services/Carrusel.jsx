@@ -1,18 +1,11 @@
-import React from "react";
-import item2 from "../../Assets/Portafolio Asegurar imagenes/1.jpeg";
-import item3 from "../../Assets/Portafolio Asegurar imagenes/2.jpeg";
-import item4 from "../../Assets/Portafolio Asegurar imagenes/3.jpeg";
-import item5 from "../../Assets/Portafolio Asegurar imagenes/4.jpeg";
-import item6 from "../../Assets/Portafolio Asegurar imagenes/5.jpeg";
-import item7 from "../../Assets/Portafolio Asegurar imagenes/6.jpeg";
-import item8 from "../../Assets/Portafolio Asegurar imagenes/7.jpeg";
-import item9 from "../../Assets/Portafolio Asegurar imagenes/8.jpeg";
-import item10 from "../../Assets/Portafolio Asegurar imagenes/9.jpeg";
-import item11 from "../../Assets/Portafolio Asegurar imagenes/10.jpeg";
-import item12 from "../../Assets/Portafolio Asegurar imagenes/11.jpeg";
-import item13 from "../../Assets/Portafolio Asegurar imagenes/12.jpeg";
-import item14 from "../../Assets/Portafolio Asegurar imagenes/13.jpeg";
-import item15 from "../../Assets/Portafolio Asegurar imagenes/14.jpeg";
+import item2 from "../../Assets/Portafolio Asegurar imagenes/Portafolio1.jpeg";
+import item3 from "../../Assets/Portafolio Asegurar imagenes/Portafolio2.jpeg";
+import item4 from "../../Assets/Portafolio Asegurar imagenes/Portafolio3.jpeg";
+import item5 from "../../Assets/Portafolio Asegurar imagenes/Portafolio4.jpeg";
+import item6 from "../../Assets/Portafolio Asegurar imagenes/Portafolio5.jpeg";
+import item7 from "../../Assets/Portafolio Asegurar imagenes/Portafolio6.jpeg";
+import item8 from "../../Assets/Portafolio Asegurar imagenes/Portafolio7.jpeg";
+import item9 from "../../Assets/Portafolio Asegurar imagenes/Portafolio8.jpeg";
 
 export default function Carrusel() {
   const items = [
@@ -25,12 +18,6 @@ export default function Carrusel() {
     { foto: item7 },
     { foto: item8 },
     { foto: item9 },
-    { foto: item10 },
-    { foto: item11 },
-    { foto: item12 },
-    { foto: item13 },
-    { foto: item14 },
-    { foto: item15 }
   ];
 
   return (

@@ -109,7 +109,7 @@ export default function Portafolio() {
       <BackgroundGradient color1="#fff" color2="#fff">
         <div className="w-100">
           <div className="position-relative overflow-hidden  text-center aqua--marker">
-            <div className="col-md-8 p-lg-5 mx-auto text-center">
+            <div className="col-md-12 p-lg-5 mx-auto text-center">
               <h1 className="display-3 fw-bold text-center">{info.title}</h1>
               <h3 className="fw-normal text-muted text-center">
                 {info.titleDescription}
