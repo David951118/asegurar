@@ -7,6 +7,7 @@ import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import RndcService from "../../Services/rndcApi";
+import { useAuth } from "../../Context/AuthContext";
 
 // Estilos CSS del Dashboard original
 const styles = `
@@ -402,12 +403,31 @@ function ManifiestoDetail({ manifiesto }) {
   );
 }
 
-export default function DashboardRndc({
-  username,
-  vehiculos,
-  roles,
-  onLogout,
-}) {
+export default function DashboardRndc() {
+  const { logout } = useAuth();
+
+  // Load user data internally
+  const [userData, setUserData] = useState({
+    username: "",
+    vehiculos: [],
+    roles: [],
+    persona: "",
+  });
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("rndc_user") || "{}");
+    setUserData({
+      username: storedUser.username || "",
+      vehiculos: storedUser.vehiculos || [],
+      roles: storedUser.roles || [],
+      persona: storedUser.persona || storedUser.username || "",
+    });
+  }, []);
+
+  const username = userData.persona || userData.username;
+  const vehiculos = userData.vehiculos;
+  const roles = userData.roles;
+  const onLogout = logout;
   // Check if user is admin
   const isAdmin =
     roles?.includes("ROLE_ADMIN") ||

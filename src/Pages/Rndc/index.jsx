@@ -5,75 +5,41 @@ import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Message } from "primereact/message";
 import RndcService from "../../Services/rndcApi";
-import DashboardRndc from "./Dashboard"; // Componente que crearemos a continuación
 import BackgroundGradient from "../../Components/background";
 import Title from "../../Components/title";
-
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 
 export default function RndcPage() {
-  const { isAuthenticated, login, logout } = useAuth();
+  const { isAuthenticated, login } = useAuth();
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Estado para datos del usuario (para pasar al dashboard)
-  const [userData, setUserData] = useState({
-    username: "",
-    vehiculos: [],
-    roles: [],
-    persona: "",
-  });
-
-  // Cargar datos de usuario del localStorage si está autenticado
   useEffect(() => {
     if (isAuthenticated) {
-      const storedUser = JSON.parse(localStorage.getItem("rndc_user") || "{}");
-      setUserData({
-        username: storedUser.username || "",
-        vehiculos: storedUser.vehiculos || [],
-        roles: storedUser.roles || [],
-        persona: storedUser.persona || storedUser.username || "", // Extraer persona del objeto guardado
-      });
+      navigate("/rndc/dashboard");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
-    // Login via Servicio (Internamente guarda token en localStorage)
     const result = await RndcService.login(username, password);
 
     if (result.success) {
-      // Login exitoso
-      login(); // Actualizar estado global
-      // El useEffect se disparará y cargará los datos
+      login(); // Updates global state
+      navigate("/rndc/dashboard");
     } else {
       setError(result.error);
     }
     setLoading(false);
   };
 
-  const handleLogout = () => {
-    logout(); // Limpia localStorage y estado global
-  };
-
-  // Si está autenticado, mostramos el Dashboard
-  if (isAuthenticated) {
-    return (
-      <DashboardRndc
-        username={userData.persona || userData.username}
-        vehiculos={userData.vehiculos}
-        roles={userData.roles}
-        onLogout={handleLogout}
-      />
-    );
-  }
-
-  // Si no, mostramos el Login
   return (
     <BackgroundGradient color1="#ffffff" color2="#f0f2f5">
       <div className="flex align-items-center justify-content-center min-vh-100 p-4">

@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     await RndcService.logout();
     setIsAuthenticated(false);
     setShowRenewalModal(false);
-    window.location.href = "/"; // Redirigir a home o login
+    window.location.href = "/rndc"; // Redirigir a home o login
   }, []);
 
   const login = () => {

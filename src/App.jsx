@@ -15,6 +15,8 @@ import LogCelvi from "./Pages/LogCelvi";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import Pse from "./Pages/Pse";
 import Rndc from "./Pages/Rndc";
+import DashboardRndc from "./Pages/Rndc/Dashboard";
+import Pesv from "./Pages/Pesv";
 import Login from "./Components/PSEform/login";
 import Portal from "./Pages/Pse/Portal";
 import Navbar from "./Pages/Navbar";
@@ -57,6 +59,8 @@ const AppRoutes = () => {
     { path: "/ubicacion/:coords", element: <UbicacionDetalle /> },
     { path: "/politica-de-privacidad", element: <PrivacyPolicy /> },
     { path: "/rndc", element: <Rndc /> },
+    { path: "/rndc/dashboard", element: <DashboardRndc /> },
+    { path: "/pesv", element: <Pesv /> },
     { path: "/*", element: <OopsPage /> },
   ]);
 
