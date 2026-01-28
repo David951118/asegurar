@@ -15,7 +15,7 @@ const styles = `
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
     padding: 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(13deg, #0c508f 0%, #ffffff 100%);
   }
 
   .main-wrapper {
@@ -35,7 +35,7 @@ const styles = `
   }
   
   .dash-header h1 {
-    color: #667eea;
+    color: #094aa0;
     font-size: 28px;
     margin: 0 0 5px 0;
   }
@@ -72,7 +72,7 @@ const styles = `
   .stat-value {
     font-size: 36px;
     font-weight: bold;
-    color: #667eea;
+    color: #094aa0;
   }
 
   .stat-label {
@@ -105,7 +105,7 @@ const styles = `
   }
 
   .custom-tab.active {
-    background: #667eea;
+    background: #094aa0;
     color: white;
   }
 
