@@ -7,7 +7,7 @@ export default function PesvPage() {
     <div
       style={{
         minHeight: "100vh",
-        backgroundImage: `linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(15, 23, 42, 0.45) 100%), url(/Imagen-fondo-pesv.png)`,
+        backgroundImage: `linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(15, 23, 42, 0.45) 100%), `,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",

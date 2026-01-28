@@ -5,7 +5,6 @@ const initialData = {
     alcance: "",
     descripcionOperacion: "",
     riesgosPrincipales: "",
-    // ✅ ANTES era string. Ahora soporta links + archivos (NO rompe tu UI).
     evidencia: { links: "", files: [] },
     responsable: "",
     fechaActualizacion: "",
@@ -47,7 +46,6 @@ const steps = [
       { name: "alcance", label: "Alcance (flota / conductores / terceros)", placeholder: "Ej: Flota propia + conductores + contratistas" },
       { name: "descripcionOperacion", label: "Descripción de la operación", placeholder: "Ej: rutas, turnos, zonas críticas, tipo de servicio", textarea: true },
       { name: "riesgosPrincipales", label: "Riesgos principales identificados", placeholder: "Ej: velocidad, fatiga, distractores, clima, vía…", textarea: true },
-      // ✅ Mantengo tu field, solo cambia el label (más claro)
       { name: "evidencia", label: "Evidencia (archivos / links)" },
       { name: "responsable", label: "Responsable", placeholder: "Ej: Coordinador SST / Operaciones" },
       { name: "fechaActualizacion", label: "Fecha de actualización", placeholder: "YYYY-MM-DD" },
