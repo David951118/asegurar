@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+﻿import React, { useMemo, useState } from "react";
 
 const initialData = {
   diagnostico: {
@@ -358,37 +358,6 @@ export default function PesvCarousel() {
     go(idx - 1);
   }
 
-  function exportJson() {
-    const payload = {
-      company: "Asegurar",
-      module: "PESV",
-      version: "1.0",
-      updatedAt: new Date().toISOString(),
-      data,
-    };
-    const txt = JSON.stringify(payload, null, 2);
-
-    navigator.clipboard?.writeText(txt).then(
-      () => notify("success", "JSON copiado al portapapeles."),
-      () => notify("warning", "No pude copiar. Copia manual desde el panel de exportación.")
-    );
-
-    return txt;
-  }
-
-  // ✅ Preview JSON limpio: no incluye File ni previewUrl (para que no reviente)
-  const exportText = useMemo(() => {
-    const clean = JSON.parse(
-      JSON.stringify(data, (key, val) => {
-        if (key === "file") return undefined;
-        if (key === "previewUrl") return undefined;
-        return val;
-      })
-    );
-
-    return JSON.stringify({ company: "Asegurar", module: "PESV", version: "1.0", data: clean }, null, 2);
-  }, [data]);
-
   return (
     <div>
       <div className="d-flex flex-wrap gap-2 mb-3">
@@ -521,15 +490,6 @@ export default function PesvCarousel() {
                 <div className="d-flex gap-2">
                   <button
                     type="button"
-                    className="btn btn-outline-secondary"
-                    onClick={exportJson}
-                    style={{ borderRadius: 12, fontWeight: 800 }}
-                  >
-                    Exportar JSON
-                  </button>
-
-                  <button
-                    type="button"
                     className="btn btn-dark"
                     onClick={next}
                     style={{ borderRadius: 12, fontWeight: 900 }}
@@ -607,28 +567,6 @@ export default function PesvCarousel() {
             </div>
           </div>
 
-          <div className="card border-0 shadow-sm mt-3" style={{ borderRadius: 16 }}>
-            <div className="card-body" style={{ padding: 16 }}>
-              <div style={{ fontWeight: 900, color: "#111827" }}>Payload (preview)</div>
-              <div className="text-muted small mb-2">
-                Ideal para guardar como “draft” y enviar al backend.
-              </div>
-              <pre
-                style={{
-                  margin: 0,
-                  maxHeight: 240,
-                  overflow: "auto",
-                  background: "#0b1220",
-                  color: "rgba(255,255,255,0.88)",
-                  padding: 12,
-                  borderRadius: 14,
-                  fontSize: 11,
-                }}
-              >
-                {exportText}
-              </pre>
-            </div>
-          </div>
         </div>
       </div>
     </div>

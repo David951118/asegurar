@@ -1,13 +1,14 @@
 import React from "react";
 import Title from "../../Components/title";
 import PesvCarousel from "./PesvCarousel";
+import imagenFondoPESV from "../../Assets/imagenFondoPESV.png";
 
 export default function PesvPage() {
   return (
     <div
       style={{
         minHeight: "100vh",
-        backgroundImage: `linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(15, 23, 42, 0.45) 100%), `,
+        backgroundImage: `linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(15, 23, 42, 0.45) 100%), url(${imagenFondoPESV})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
