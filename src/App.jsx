@@ -33,6 +33,7 @@ import RecoveryPortal from "./Pages/Admin/RecoveryPortal";
 import ChangePassword from "./Pages/Admin/ChangePasswrod";
 import PrivateRoute from "./Components/privateRoute";
 import SessionTimeoutModal from "./Components/SessionTimeoutModal";
+import Brochure from "./Pages/Brochure";
 
 const AppRoutes = () => {
   let routes = useRoutes([
@@ -61,6 +62,7 @@ const AppRoutes = () => {
     { path: "/rndc", element: <Rndc /> },
     { path: "/rndc/dashboard", element: <DashboardRndc /> },
     { path: "/pesv", element: <Pesv /> },
+    { path: "/brochure", element: <Brochure /> },
     { path: "/*", element: <OopsPage /> },
   ]);
 

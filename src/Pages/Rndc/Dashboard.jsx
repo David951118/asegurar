@@ -177,7 +177,352 @@ const styles = `
   }
   .delete-btn:hover { background-color: #c82333; }
   .delete-btn i { font-size: 14px; }
+
+  .manualOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
+  .manualModal {
+    width: min(980px, 100%);
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.25);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .manualHeader {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .manualTitle {
+    font-weight: 800;
+    font-size: 18px;
+    color: #0f172a;
+    margin: 0;
+  }
+
+  .manualChip {
+    margin-left: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #094aa0;
+    background: rgba(9, 74, 160, 0.08);
+    border: 1px solid rgba(9, 74, 160, 0.2);
+    padding: 4px 8px;
+    border-radius: 999px;
+  }
+
+  .manualBody {
+    padding: 16px;
+    overflow-y: auto;
+    max-height: 75vh;
+  }
+
+  .manualBody h1 {
+    font-size: 20px;
+    margin: 0 0 10px;
+    font-weight: 900;
+    color: #0f172a;
+  }
+
+  .manualBody h2 {
+    font-size: 16px;
+    margin: 18px 0 8px;
+    font-weight: 900;
+    color: #0f172a;
+  }
+
+  .manualBody h3 {
+    font-size: 14px;
+    margin: 14px 0 6px;
+    font-weight: 800;
+    color: #0f172a;
+  }
+
+  .manualBody p {
+    margin: 8px 0;
+    line-height: 1.55;
+    color: #0f172a;
+  }
+
+  .manualBody ul {
+    margin: 8px 0 8px 18px;
+  }
+
+  .manualBody li {
+    margin: 6px 0;
+  }
+
+  .manualBody hr {
+    border: none;
+    border-top: 1px solid rgba(148, 163, 184, 0.35);
+    margin: 16px 0;
+  }
+
+  .manualBody code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 8px;
+    background: rgba(226, 232, 240, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+  }
+
+  .manualNote {
+    margin: 12px 0;
+    padding: 12px 12px;
+    border-radius: 12px;
+    background: rgba(219, 234, 254, 0.6);
+    border: 1px solid rgba(147, 197, 253, 0.7);
+  }
+
+  .manualDialog .p-dialog-header,
+  .manualDialog .p-dialog-content {
+    padding: 0;
+  }
+
+  .manualDialog .p-dialog-header,
+  .manualDialog .p-dialog-content,
+  .manualDialog .p-dialog {
+    overflow: hidden;
+  }
 `;
+
+const MANUAL_USUARIO = `#  Manual de Usuario - Dashboard RNDC
+
+Bienvenido al sistema de monitoreo de manifiestos RNDC. Esta guía le ayudará a usar la plataforma para supervisar el estado de su flota y el cumplimiento de los reportes al Ministerio de Transporte.
+
+##  Acceso al Sistema
+
+1.  Ingrese a la dirección web proporcionada por soporte (ej. \`https://www.asegurar.com.co/rndc\`).
+2.  Use sus **credenciales de Cellvi** (El mismo Usuario y Contraseña que usa para rastrear sus vehículos).
+3.  Haga clic en **Ingresar**.
+
+> **Nota:** No necesita crear un usuario nuevo. Su cuenta de Cellvi funciona automáticamente.
+
+---
+
+##  Pantalla Principal (Dashboard)
+
+Al ingresar, verá un resumen ejecutivo en la parte superior con 4 indicadores:
+
+- **Total Manifiestos:** Cantidad total de viajes activos descargados del RNDC para su cuenta.
+- **Monitoreables:** Viajes donde el vehículo SÍ está registrado en Cellvi y tiene GPS activo. Estos se reportan automáticamente.
+- **No Monitoreables:** Viajes donde la placa del RNDC no coincide con ningún vehículo en su cuenta de Cellvi. **¡Atención!** Estos viajes requieren revisión manual ya que no tenemos GPS para ellos.
+- **RMMs Pendientes:** Reportes en cola esperando ser transmitidos al servidor del Ministerio.
+
+---
+
+##  Pestaña: Manifiestos
+
+Es la vista principal donde gestiona sus viajes.
+
+###  Filtros
+
+Use la barra gris superior para encontrar viajes específicos:
+
+- **Placa:** Escriba las letras o números de la placa.
+- **Estado:** Filtre por \`ACTIVO\` (en viaje), \`CUMPLIDO\` (terminado) o \`ANULADO\`.
+- **Monitoreable:** Seleccione "Sí" para ver solo los que se están reportando automáticamente.
+
+### Detalle del Viaje
+
+Haga clic en la flecha **( > )** a la izquierda de cada fila para desplegar la información detallada:
+
+1.  **Botón "Ver Ubicación Actual":** Muestra la última posición GPS conocida del vehículo, velocidad y enlace directo a Google Maps.
+2.  **Lista de Puntos de Control:** Muestra las ciudades por donde debe pasar el vehículo.
+    - **Etiqueta Verde (COMPLETADO):** El vehículo ya pasó y se reportó al RNDC. Muestra el número de Radicado.
+    - **Etiqueta Amarilla (PENDIENTE):** El vehículo aún no ha llegado a este punto.
+    - **Mapa:** Enlace para ver la ubicación exacta del punto de control en el mapa.
+
+---
+
+##  Pestaña: RMMs (Reportes de Monitoreo)
+
+Esta pestaña es una auditoría técnica de los envíos al ministerio. Úsela para verificar cumplimiento.
+
+- **Estado Enviado (Verde):** El ministerio recibió y aprobó el reporte de llegada/salida.
+- **Estado Error (Rojo):** Hubo un problema. Ponga el mouse sobre el ícono de error para ver el mensaje del RNDC (ej. "Conductor no corresponde").
+- **Acciones:**
+  - **Reintentar:** Si ve un error de conexión, use este botón para intentar enviar de nuevo.
+
+---
+
+##  Pestaña: Bitácora / Alertas (Solo Admin)
+
+Aquí se muestran las **Novedades (RNMM)** generadas automáticamente.
+
+- **Código 1:** El vehículo no llegó al punto de control 24 horas después de la cita.
+- **Código 2:** La placa del manifiesto no existe en nuestra plataforma de rastreo.
+
+Estas novedades se reportan automáticamente al RNDC para evitar sanciones por falta de información.
+
+---
+
+## Preguntas Frecuentes
+
+**¿Por qué un manifiesto dice "No Monitoreable"?**
+Significa que la placa escrita en el manifiesto del RNDC no existe exactamente igual en su cuenta de Cellvi. Verifique que el vehículo esté creado en la plataforma de rastreo.
+
+**¿Cuánto tarda en aparecer un nuevo manifiesto aquí?**
+El sistema consulta al RNDC cada **15 minutos**. Si acaba de crear el manifiesto en la página del ministerio, espere al próximo ciclo de sincronización.
+
+**¿Qué pasa si el conductor apaga el GPS?**
+Si el GPS no reporta, el sistema no puede detectar la llegada. Si pasan 24 horas de la cita sin reporte, el sistema generará automáticamente una **Novedad RNMM** indicando que el vehículo no apareció, para cumplir con la normativa vigilar.
+
+**¿La sesión caduca?**
+Sí. Por seguridad, la sesión se cierra automáticamete tras un tiempo de inactividad. Si ve un mensaje de "¿Sigues ahí?", confirme para continuar trabajando sin perder sus filtros.
+
+---
+
+**Soporte Técnico:** Contacte al área de sistemas si detecta errores persistentes en color rojo.
+`;
+
+const renderInline = (text, keyPrefix) => {
+  if (!text) return null;
+  const parts = [];
+  let i = 0;
+  while (i < text.length) {
+    if (text[i] === "`") {
+      const end = text.indexOf("`", i + 1);
+      if (end !== -1) {
+        parts.push(
+          <code key={`${keyPrefix}-code-${i}`}>{text.slice(i + 1, end)}</code>,
+        );
+        i = end + 1;
+        continue;
+      }
+    }
+    if (text[i] === "*" && text[i + 1] === "*") {
+      const end = text.indexOf("**", i + 2);
+      if (end !== -1) {
+        parts.push(
+          <strong key={`${keyPrefix}-strong-${i}`}>
+            {text.slice(i + 2, end)}
+          </strong>,
+        );
+        i = end + 2;
+        continue;
+      }
+    }
+    let next = text.length;
+    const nextCode = text.indexOf("`", i);
+    const nextStrong = text.indexOf("**", i);
+    if (nextCode !== -1) next = Math.min(next, nextCode);
+    if (nextStrong !== -1) next = Math.min(next, nextStrong);
+    parts.push(
+      <React.Fragment key={`${keyPrefix}-text-${i}`}>
+        {text.slice(i, next)}
+      </React.Fragment>,
+    );
+    i = next;
+  }
+  return parts;
+};
+
+const renderManual = (text) => {
+  const lines = String(text || "").split(/\r?\n/);
+  const blocks = [];
+  let listItems = [];
+  const flushList = () => {
+    if (listItems.length) {
+      blocks.push(
+        <ul key={`ul-${blocks.length}`} className="manualUl">
+          {listItems.map((item, idx) => (
+            <li key={`li-${idx}`} className="manualLi">
+              {renderInline(item, `li-${blocks.length}-${idx}`)}
+            </li>
+          ))}
+        </ul>,
+      );
+      listItems = [];
+    }
+  };
+
+  lines.forEach((rawLine, idx) => {
+    const line = rawLine.trim();
+    if (!line) {
+      flushList();
+      return;
+    }
+    if (line === "---") {
+      flushList();
+      blocks.push(<hr key={`hr-${idx}`} className="manualHr" />);
+      return;
+    }
+    if (line.startsWith("# ")) {
+      flushList();
+      blocks.push(
+        <h1 key={`h1-${idx}`} className="manualH1">
+          {renderInline(line.slice(2).trim(), `h1-${idx}`)}
+        </h1>,
+      );
+      return;
+    }
+    if (line.startsWith("## ")) {
+      flushList();
+      blocks.push(
+        <h2 key={`h2-${idx}`} className="manualH2">
+          {renderInline(line.slice(3).trim(), `h2-${idx}`)}
+        </h2>,
+      );
+      return;
+    }
+    if (line.startsWith("### ")) {
+      flushList();
+      blocks.push(
+        <h3 key={`h3-${idx}`} className="manualH3">
+          {renderInline(line.slice(4).trim(), `h3-${idx}`)}
+        </h3>,
+      );
+      return;
+    }
+    if (line.startsWith("- ")) {
+      listItems.push(line.slice(2).trim());
+      return;
+    }
+    if (line.startsWith("> ")) {
+      flushList();
+      blocks.push(
+        <div key={`note-${idx}`} className="manualNote">
+          {renderInline(line.slice(2).trim(), `note-${idx}`)}
+        </div>,
+      );
+      return;
+    }
+    flushList();
+    blocks.push(
+      <p key={`p-${idx}`} className="manualP">
+        {renderInline(line, `p-${idx}`)}
+      </p>,
+    );
+  });
+
+  flushList();
+  return blocks;
+};
 
 const getPlacasFilter = (username, vehiculos, roles = []) => {
   const superAdmins = ["admin", "asegurar", "soporte", "prueba", "desa"];
@@ -436,6 +781,7 @@ export default function DashboardRndc() {
     );
 
   const [activeTab, setActiveTab] = useState("manifiestos");
+  const [openManual, setOpenManual] = useState(false);
   const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState({
     total: 0,
@@ -805,6 +1151,12 @@ export default function DashboardRndc() {
               🐛 Bitácora
             </button>
           )}
+          <button
+            className={`custom-tab ${openManual ? "active" : ""}`}
+            onClick={() => setOpenManual(true)}
+          >
+            📖 Manual
+          </button>
         </div>
 
         {/* Contenido */}
@@ -1229,6 +1581,29 @@ export default function DashboardRndc() {
             </pre>
           </div>
         )}
+      </Dialog>
+
+      <Dialog
+        visible={openManual}
+        style={{ width: "70vw", maxWidth: 980 }}
+        onHide={() => setOpenManual(false)}
+        header={
+          <div className="manualHeader">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <span className="manualTitle">Manual de Usuario</span>
+              <span className="manualChip">Manual RNDC</span>
+            </div>
+            <Button
+              icon="pi pi-times"
+              className="p-button-text"
+              onClick={() => setOpenManual(false)}
+              aria-label="Cerrar"
+            />
+          </div>
+        }
+        className="manualDialog"
+      >
+        <div className="manualBody">{renderManual(MANUAL_USUARIO)}</div>
       </Dialog>
     </div>
   );
