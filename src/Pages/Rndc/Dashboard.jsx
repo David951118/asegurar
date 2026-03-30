@@ -805,6 +805,12 @@ export default function DashboardRndc() {
               🐛 Bitácora
             </button>
           )}
+          <button
+            className={`custom-tab ${activeTab === "fuec" ? "active" : ""}`}
+            onClick={() => setActiveTab("fuec")}
+          >
+            📄 Contratos FUEC
+          </button>
         </div>
 
         {/* Contenido */}
@@ -1189,6 +1195,114 @@ export default function DashboardRndc() {
                   )}
                 ></Column>
               </DataTable>
+            </div>
+          )}
+
+          {activeTab === "fuec" && (
+            <div>
+              <h2 style={{ color: "#094aa0", marginBottom: 8 }}>📄 Contratos FUEC</h2>
+              <p style={{ color: "#666", marginBottom: 24 }}>
+                Gestione los <strong>Formatos Únicos de Extracto de Contrato (FUEC)</strong> requeridos
+                para el transporte especial en Colombia.
+              </p>
+
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20, marginBottom: 32 }}>
+                {/* Card: ¿Qué es FUEC? */}
+                <div style={{ background: "#f0f6ff", border: "1px solid #bcd4f5", borderRadius: 12, padding: "24px 20px" }}>
+                  <div style={{ fontSize: 32, marginBottom: 12 }}>📋</div>
+                  <h3 style={{ color: "#094aa0", fontSize: "1.1rem", marginBottom: 10 }}>¿Qué es el FUEC?</h3>
+                  <p style={{ color: "#555", fontSize: "0.9rem", lineHeight: 1.65, margin: 0 }}>
+                    El Formato Único de Extracto de Contrato es el documento oficial que acredita
+                    la existencia de un contrato de transporte especial. Es obligatorio para
+                    vehículos que prestan servicio de transporte escolar, empresarial o turístico.
+                  </p>
+                </div>
+
+                {/* Card: Requisitos */}
+                <div style={{ background: "#f0fff4", border: "1px solid #b2dfdb", borderRadius: 12, padding: "24px 20px" }}>
+                  <div style={{ fontSize: 32, marginBottom: 12 }}>✅</div>
+                  <h3 style={{ color: "#1b5e20", fontSize: "1.1rem", marginBottom: 10 }}>Requisitos para generarlo</h3>
+                  <ul style={{ color: "#555", fontSize: "0.9rem", lineHeight: 2, margin: 0, paddingLeft: 18 }}>
+                    <li>NIT y razón social de la empresa transportadora</li>
+                    <li>Placa y datos del vehículo</li>
+                    <li>Nombre y cédula del conductor</li>
+                    <li>Datos del contratante (empresa o persona)</li>
+                    <li>Vigencia del contrato</li>
+                  </ul>
+                </div>
+
+                {/* Card: Pasos */}
+                <div style={{ background: "#fffde7", border: "1px solid #ffe082", borderRadius: 12, padding: "24px 20px" }}>
+                  <div style={{ fontSize: 32, marginBottom: 12 }}>🔢</div>
+                  <h3 style={{ color: "#e65100", fontSize: "1.1rem", marginBottom: 10 }}>Pasos para crear su FUEC</h3>
+                  <ol style={{ color: "#555", fontSize: "0.9rem", lineHeight: 2.1, margin: 0, paddingLeft: 18 }}>
+                    <li>Ingrese al sistema RNDC del Ministerio de Transporte</li>
+                    <li>Seleccione la opción <strong>Contratos FUEC</strong></li>
+                    <li>Complete los datos del contrato</li>
+                    <li>Genere y descargue el PDF del FUEC</li>
+                    <li>Entregue una copia al conductor del vehículo</li>
+                  </ol>
+                </div>
+              </div>
+
+              <div style={{
+                background: "linear-gradient(135deg, #094aa0 0%, #1565c0 100%)",
+                borderRadius: 14,
+                padding: "28px 32px",
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                gap: 16,
+              }}>
+                <div>
+                  <h3 style={{ margin: "0 0 8px 0", fontSize: "1.2rem" }}>Acceder al sistema RNDC oficial</h3>
+                  <p style={{ margin: 0, color: "rgba(255,255,255,0.8)", fontSize: "0.9rem" }}>
+                    Los contratos FUEC se generan directamente en el portal del Ministerio de Transporte.
+                    Use sus credenciales CELLVI registradas ante el RNDC.
+                  </p>
+                </div>
+                <a
+                  href="https://rndc.mintransporte.gov.co"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    background: "#ffd54f",
+                    color: "#0a2d6e",
+                    fontWeight: 800,
+                    padding: "14px 28px",
+                    borderRadius: 50,
+                    textDecoration: "none",
+                    fontSize: "0.95rem",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
+                  }}
+                >
+                  <i className="pi pi-external-link" /> Ir al RNDC Ministerio
+                </a>
+              </div>
+
+              <div style={{
+                marginTop: 20,
+                background: "#fff3e0",
+                border: "1px solid #ffe0b2",
+                borderRadius: 10,
+                padding: "14px 18px",
+                display: "flex",
+                gap: 12,
+                alignItems: "flex-start",
+              }}>
+                <i className="pi pi-exclamation-triangle" style={{ color: "#e65100", fontSize: "1.2rem", marginTop: 2 }} />
+                <p style={{ margin: 0, color: "#6d4c41", fontSize: "0.9rem", lineHeight: 1.6 }}>
+                  <strong>Importante:</strong> El FUEC tiene una vigencia máxima de un año y debe
+                  renovarse antes de su vencimiento. Conducir sin el FUEC vigente puede generar
+                  inmovilización del vehículo y sanciones económicas según el Código Nacional de Tránsito.
+                </p>
+              </div>
             </div>
           )}
         </div>

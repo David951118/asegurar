@@ -1,210 +1,267 @@
-import React from "react";
-import {
-  MDBFooter,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBIcon,
-} from "mdb-react-ui-kit"; //ToDO dsireccion en 2 renglones
 import { NavLink } from "react-router-dom";
 
+const styles = `
+  .ft {
+    background: #0a1e3d;
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* Social bar */
+  .ft-social-bar {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 18px 0;
+  }
+  .ft-social-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .ft-social-text {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.55);
+    margin: 0;
+  }
+  .ft-social-links { display: flex; gap: 8px; }
+  .ft-social-links a {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: all 0.25s;
+    font-size: 0.9rem;
+  }
+  .ft-social-links a:hover {
+    background: #1565c0;
+    color: #fff;
+    border-color: #1565c0;
+    transform: translateY(-2px);
+  }
+
+  /* Main grid */
+  .ft-main { padding: 48px 0 32px; }
+  .ft-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr 1.2fr;
+    gap: 36px;
+  }
+  @media (max-width: 992px) { .ft-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 576px) { .ft-grid { grid-template-columns: 1fr; } }
+
+  .ft-brand h3 {
+    color: #fff;
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin: 0 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ft-brand p {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.55);
+    margin: 0;
+  }
+
+  .ft-col h4 {
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0 0 18px;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  .ft-col h4::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 28px;
+    height: 2px;
+    background: #1565c0;
+    border-radius: 2px;
+  }
+  .ft-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .ft-col ul li a {
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 4px 0;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .ft-col ul li a:hover {
+    color: #fff;
+    padding-left: 6px;
+  }
+
+  /* Contact col */
+  .ft-contact-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    font-size: 0.88rem;
+  }
+  .ft-contact-item i {
+    color: #1565c0;
+    font-size: 0.95rem;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+  .ft-contact-item span {
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+  }
+
+  /* Bottom bar */
+  .ft-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 18px 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+  }
+  .ft-bottom a {
+    color: #64b5f6;
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .ft-bottom a:hover { color: #fff; }
+`;
+
+const navLinks = [
+  { name: "Inicio", path: "/" },
+  { name: "Quiénes somos", path: "/acercadenosotros" },
+  { name: "Servicios", path: "/servicios" },
+  { name: "Contacto", path: "/contacto" },
+];
+
+const utilLinks = [
+  { name: "Blog", path: "/blog" },
+  { name: "Política de privacidad", path: "/politica-de-privacidad" },
+  { name: "Legalidad", path: "/legalidad" },
+  { name: "RNDC", path: "/rndc" },
+  { name: "Comparte tu ubicación", path: "/ubicacion" },
+  { name: "Rastrea tu activo", path: "/cellvi" },
+  { name: "Inventario GPS", path: "/inventario" },
+];
+
+const socials = [
+  { icon: "pi pi-facebook", href: "https://www.facebook.com/asegurar.limitada" },
+  { icon: "pi pi-instagram", href: "https://www.instagram.com/asegurar.ltda/" },
+  { icon: "pi pi-linkedin", href: "https://www.linkedin.com/company/asegurar-ltda/about/" },
+  { icon: "pi pi-google", href: "https://www.google.com/maps/place/ASEGURAR+LTDA./@1.2200628,-77.2905461,17z" },
+];
+
 export default function Footer() {
-  const menuItems = [
-    { name: "Inicio", path: "/", activeClassName: "text-blue" },
-    {
-      name: "Quienes somos",
-      path: "/acercadenosotros",
-      activeClassName: "text-blue",
-    },
-    { name: "Servicios", path: "/servicios", activeClassName: "text-blue" },
-    { name: "Contacto", path: "/contacto", activeClassName: "text-blue" },
-    { name: "Blog", path: "/blog", activeClassName: "text-blue" },
-    {
-      name: "Politica de privacidad",
-      path: "/politica-de-privacidad",
-      activeClassName: "text-blue",
-    },
-    { name: "Legalidad", path: "/legalidad", activeClassName: "text-blue" },
-    {
-      name: "RNDC",
-      path: "/rndc",
-      activeClassName: "text-blue",
-    },
-    {
-      name: "COMPARTE TU UBICACION",
-      path: "/ubicacion",
-      activeClassName: "text-blue",
-    },
-    // {
-    //   name: "Portal de Pagos",
-    //   path: "/portaldepagos",
-    //   activeClassName: "text-blue",
-    // },
-  ];
-
   return (
-    <MDBFooter
-      bgColor="light"
-      className="text-center text-lg-start text-muted "
-    >
-      <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom ">
-        <div className="me-5 d-none d-lg-block">
-          <span>Conéctate con nosotros en las redes sociales:</span>
+    <>
+      <style>{styles}</style>
+      <footer className="ft">
+        {/* Social bar */}
+        <div className="ft-social-bar">
+          <div className="container ft-social-inner">
+            <p className="ft-social-text">Conéctese con nosotros en redes sociales</p>
+            <div className="ft-social-links">
+              {socials.map((s, i) => (
+                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer">
+                  <i className={s.icon} />
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div>
-          <a
-            href="https://www.facebook.com/asegurar.limitada"
-            className="me-4 text-reset"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <MDBIcon fab icon="facebook-f" />
-          </a>
-          <a
-            href="https://www.twitter.com/tucuenta"
-            className="me-4 text-reset"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <MDBIcon fab icon="twitter" />
-          </a>
-          <a
-            href="https://www.google.com/maps/place/ASEGURAR+LTDA./@1.2200628,-77.2905461,17z/data=!3m1!4b1!4m6!3m5!1s0x8e2ed380203ad0d7:0xecb75e7dba491732!8m2!3d1.2200574!4d-77.2879712!16s%2Fg%2F11cs1w8dk4?entry=ttu"
-            className="me-4 text-reset"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <MDBIcon fab icon="google" />
-          </a>
-          <a
-            href="https://www.instagram.com/asegurar.ltda/"
-            className="me-4 text-reset"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <MDBIcon fab icon="instagram" />
-          </a>
-          <a
-            href="https://www.linkedin.com/company/asegurar-ltda/about/"
-            className="me-4 text-reset"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <MDBIcon fab icon="linkedin" />
-          </a>
+        {/* Main */}
+        <div className="ft-main">
+          <div className="container">
+            <div className="ft-grid">
+              {/* Brand */}
+              <div className="ft-brand">
+                <h3>
+                  <i className="pi pi-shield" style={{ color: "#1565c0" }} />
+                  Asegurar Limitada
+                </h3>
+                <p>
+                  Empresa nariñense autorizada por el Ministerio de Comunicaciones
+                  de Colombia para operar nuestra red de telecomunicaciones.
+                  Más de 23 años al servicio de la seguridad y el monitoreo vehicular.
+                </p>
+              </div>
+
+              {/* Navegación */}
+              <div className="ft-col">
+                <h4>Navegación</h4>
+                <ul>
+                  {navLinks.map((l, i) => (
+                    <li key={i}><NavLink to={l.path}>{l.name}</NavLink></li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Utilidades */}
+              <div className="ft-col">
+                <h4>Utilidades</h4>
+                <ul>
+                  {utilLinks.map((l, i) => (
+                    <li key={i}><NavLink to={l.path}>{l.name}</NavLink></li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Contacto */}
+              <div className="ft-col">
+                <h4>Contacto</h4>
+                <div className="ft-contact-item">
+                  <i className="pi pi-map-marker" />
+                  <span>Calle 19 No 27-41, Piso 2, Of. 202,<br />Edificio Merlopa, Pasto - Nariño</span>
+                </div>
+                <div className="ft-contact-item">
+                  <i className="pi pi-envelope" />
+                  <span>asegurar.limitada@gmail.com</span>
+                </div>
+                <div className="ft-contact-item">
+                  <i className="pi pi-phone" />
+                  <span>+57 315 587 0498</span>
+                </div>
+                <div className="ft-contact-item">
+                  <i className="pi pi-phone" />
+                  <span>+57 318 750 0962</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
 
-      <section className="">
-        <MDBContainer className="text-center text-md-start mt-5">
-          <MDBRow className="mt-3">
-            <MDBCol md="3" lg="4" xl="3" className="mx-auto mb-4">
-              <h6 className="text-uppercase fw-bold mb-4">
-                <MDBIcon icon="gem" className="me-3" />
-                Asegurar Limitada
-              </h6>
-              <p>
-                Empresa Nariñense autorizada por el Ministerio de Comunicaciones
-                de Colombia para operar nuestra red de telecomunicaciones.
-              </p>
-            </MDBCol>
-
-            <MDBCol md="2" lg="2" xl="2" className="mx-auto mb-4">
-              <h6 className="text-uppercase fw-bold mb-4">Productos</h6>
-              <NavLink
-                to={menuItems[0].path}
-                className={`nav-link ${menuItems[0].activeClassName}`}
-              >
-                <p className="text-reset">{menuItems[0].name}</p>
-              </NavLink>
-
-              <NavLink
-                to={menuItems[1].path}
-                className={`nav-link ${menuItems[1].activeClassName}`}
-              >
-                <p className="text-reset">{menuItems[1].name}</p>
-              </NavLink>
-
-              <NavLink
-                to={menuItems[2].path}
-                className={`nav-link ${menuItems[2].activeClassName}`}
-              >
-                <p className="text-reset">{menuItems[2].name}</p>
-              </NavLink>
-
-              <NavLink
-                to={menuItems[3].path}
-                className={`nav-link ${menuItems[3].activeClassName}`}
-              >
-                <p className="text-reset">{menuItems[3].name}</p>
-              </NavLink>
-            </MDBCol>
-
-            <MDBCol md="3" lg="2" xl="2" className="mx-auto mb-4">
-              <h6 className="text-uppercase fw-bold mb-4">utilidades</h6>
-
-              <NavLink
-                to={menuItems[4].path}
-                className={`nav-link ${menuItems[4].activeClassName}`}
-              >
-                <p className="text-reset">{menuItems[4].name}</p>
-              </NavLink>
-
-              <NavLink
-                to={menuItems[5].path}
-                className={`nav-link ${menuItems[5].activeClassName}`}
-              >
-                <p className="text-reset">{menuItems[5].name}</p>
-              </NavLink>
-
-              <NavLink
-                to={menuItems[6].path}
-                className={`nav-link ${menuItems[6].activeClassName}`}
-              >
-                <p className="text-reset">{menuItems[6].name}</p>
-              </NavLink>
-
-              <NavLink
-                to={menuItems[7].path}
-                className={`nav-link ${menuItems[7].activeClassName}`}
-              >
-                <p className="text-reset">{menuItems[7].name}</p>
-              </NavLink>
-            </MDBCol>
-
-            <MDBCol md="4" lg="3" xl="3" className="mx-auto mb-md-0 mb-4">
-              <h6 className="text-uppercase fw-bold mb-4">Contacto</h6>
-              <p>
-                <MDBIcon icon="home" className="me-2" />
-                Calle 19 No 27 - 41 Piso 2 Oficina 202 Edificio Merlopa,
-                Pasto-Nariño-Colombia
-              </p>
-              <p>
-                <MDBIcon icon="envelope" className="me-3" />
-                asegurar.limitada@gmail.com
-              </p>
-              <p>
-                <MDBIcon icon="phone" className="me-3" /> +57 3155870498
-              </p>
-              <p>
-                <MDBIcon icon="phone" className="me-3" /> +57 3187500962
-              </p>
-            </MDBCol>
-          </MDBRow>
-        </MDBContainer>
-      </section>
-
-      <div
-        className="text-center p-4 bg-dark text-white"
-        style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
-      >
-        DERECHOS DE AUTOR © 2023 Copyright: Derechos de autor y propiedad
-        industrial e intelectual :
-        <a className="text-reset fw-bold" href="https://www.asegurar.com.co/">
-          Asegurar limitada
-        </a>
-      </div>
-    </MDBFooter>
+        {/* Bottom */}
+        <div className="ft-bottom">
+          <div className="container">
+            Derechos de autor &copy; 2023 – {new Date().getFullYear()} · Propiedad industrial e intelectual:{" "}
+            <a href="https://www.asegurar.com.co/" target="_blank" rel="noopener noreferrer">
+              Asegurar Limitada
+            </a>
+          </div>
+        </div>
+      </footer>
+    </>
   );
 }

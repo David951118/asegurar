@@ -1,15 +1,29 @@
 {
   "short_name": "Asegurar",
-  "name": "Asegurar LDTA",
+  "name": "Asegurar Ltda. - Monitoreo Vehicular GPS",
   "icons": [
     {
       "src": "asegurar.png",
       "type": "image/png",
       "sizes": "64x64 32x32 24x24 16x16"
+    },
+    {
+      "src": "asegurar.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "asegurar.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#0a2d6e",
+  "background_color": "#ffffff",
+  "description": "Plataforma de monitoreo vehicular GPS y telecomunicaciones. Asegurar Ltda., Pasto, Nariño, Colombia.",
+  "categories": ["business", "utilities"]
 }

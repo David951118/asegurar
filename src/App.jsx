@@ -5,6 +5,8 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { useRoutes, BrowserRouter, useLocation } from "react-router-dom";
 import { AsegurarProvider } from "./Context"; //Contexto de la aplicacion, sirve para tranferir info entre componentes
 import { AuthProvider } from "./Context/AuthContext";
+import { InventarioAuthProvider } from "./Context/InventarioAuthContext";
+import { ThemeProvider } from "./Context/ThemeContext";
 import Home from "../src/Pages/Home";
 import AboutUs from "./Pages/AboutUs";
 import Contact from "./Pages/Contact";
@@ -16,7 +18,7 @@ import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import Pse from "./Pages/Pse";
 import Rndc from "./Pages/Rndc";
 import DashboardRndc from "./Pages/Rndc/Dashboard";
-import Pesv from "./Pages/Pesv";
+import Pesv from "./Pages/Pesv/index";
 import Login from "./Components/PSEform/login";
 import Portal from "./Pages/Pse/Portal";
 import Navbar from "./Pages/Navbar";
@@ -33,6 +35,8 @@ import RecoveryPortal from "./Pages/Admin/RecoveryPortal";
 import ChangePassword from "./Pages/Admin/ChangePasswrod";
 import PrivateRoute from "./Components/privateRoute";
 import SessionTimeoutModal from "./Components/SessionTimeoutModal";
+import InventarioLogin from "./Pages/Inventario";
+import InventarioDashboard from "./Pages/Inventario/Dashboard";
 
 const AppRoutes = () => {
   let routes = useRoutes([
@@ -61,6 +65,8 @@ const AppRoutes = () => {
     { path: "/rndc", element: <Rndc /> },
     { path: "/rndc/dashboard", element: <DashboardRndc /> },
     { path: "/pesv", element: <Pesv /> },
+    { path: "/inventario", element: <InventarioLogin /> },
+    { path: "/inventario/dashboard", element: <InventarioDashboard /> },
     { path: "/*", element: <OopsPage /> },
   ]);
 
@@ -82,8 +88,10 @@ const ScrollToTop = () => {
 
 const App = () => {
   return (
+    <ThemeProvider>
     <AsegurarProvider>
       <AuthProvider>
+      <InventarioAuthProvider>
         <BrowserRouter>
           <PrimeReactProvider>
             <ScrollToTop />
@@ -94,8 +102,10 @@ const App = () => {
             <WhatsAppButton />
           </PrimeReactProvider>
         </BrowserRouter>
+      </InventarioAuthProvider>
       </AuthProvider>
     </AsegurarProvider>
+    </ThemeProvider>
   );
 };
 

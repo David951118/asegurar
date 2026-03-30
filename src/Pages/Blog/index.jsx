@@ -1,17 +1,10 @@
-import React, { useState, useEffect } from "react";
-import BackgroundGradient from "../../Components/background";
+import { useState, useEffect } from "react";
 import Noticia from "./noticia";
-import Vision from "../../Assets/Mision Vision/POLITICAS.jpg";
-import BlogAsegurar from "../../Assets/BlogProvicional.png";
-import fotografiapost from "../../Assets/Foto Portada/WhatsApp Image 2023-11-11 at 10.47.56 AM.jpeg";
-import miniFotoPost from "../../Assets/Foto Portada/WhatsApp Image 2023-11-09 at 2.45.28 PM.jpeg";
 import fotoCliente1 from "../../Assets/iconsEnter/Coopsetrans.png";
 import fotoCliente2 from "../../Assets/iconsEnter/Samy-Salud-png.png";
 import fotoCliente3 from "../../Assets/iconsEnter/Lacteos Santa Maria png.png";
 import chucunes from "../../Assets/blog/chucunes.jpeg";
 import chucunesinseguro from "../../Assets/blog/inseguridad_0_1.jpeg";
-import tencnologiaMini from "../../Assets/blog/miniFotoTecnologia.png";
-import tencnologia from "../../Assets/blog/Tecnologia.jpeg";
 import fotoApp from "../../Assets/Foto Portada/cellvi.jpg";
 import lanchaVertial from "../../Assets/blog/lanchavertical.jpeg";
 import lanchaHorizontal from "../../Assets/blog/lanchaHorizontal.jpeg";
@@ -20,547 +13,267 @@ import reunionMesaTrabajo from "../../Assets/blog/policia2.jpeg";
 import reunionRistra from "../../Assets/blog/portadapolicia.jpeg";
 import policiaRistra from "../../Assets/blog/ereunion.jpeg";
 
+const styles = `
+  .blog-page { background: #f8fafc; min-height: 100vh; }
+
+  /* Hero */
+  .blog-hero {
+    background: linear-gradient(135deg, #0a2d6e 0%, #1565c0 60%, #42a5f5 100%);
+    padding: 72px 0 48px; color: #fff; text-align: center;
+  }
+  .blog-hero-tag {
+    display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 999px; padding: 5px 16px; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px;
+  }
+  .blog-hero h1 { font-size: clamp(2rem,4vw,2.8rem); font-weight: 900; margin: 0 0 12px; }
+  .blog-hero p { color: rgba(255,255,255,0.75); font-size: 1rem; max-width: 600px; margin: 0 auto; line-height: 1.65; }
+
+  /* Featured cards */
+  .blog-featured { padding: 40px 0; }
+  .blog-featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 768px) { .blog-featured-grid { grid-template-columns: 1fr; } }
+  .blog-feat-card {
+    background: #fff; border-radius: 14px; overflow: hidden; cursor: pointer;
+    box-shadow: 0 3px 16px rgba(0,0,0,0.06); border: 1px solid #e8eef5;
+    display: flex; transition: all 0.3s;
+  }
+  .blog-feat-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(21,101,192,0.1); border-color: #bbdefb; }
+  .blog-feat-card img { width: 140px; min-height: 100%; object-fit: cover; flex-shrink: 0; }
+  @media (max-width: 576px) { .blog-feat-card img { width: 100px; } }
+  .blog-feat-body { padding: 16px 18px; }
+  .blog-feat-tag {
+    display: inline-block; background: #e3f0ff; color: #1565c0;
+    border-radius: 6px; padding: 2px 10px; font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .blog-feat-body h3 { font-size: 0.95rem; font-weight: 800; color: #0a2d6e; margin: 0 0 4px; line-height: 1.35; }
+  .blog-feat-body .date { font-size: 0.78rem; color: #999; margin: 0 0 6px; }
+  .blog-feat-body p { font-size: 0.84rem; color: #666; margin: 0; line-height: 1.5;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+  /* Main content */
+  .blog-main { padding: 0 0 60px; }
+  .blog-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 32px; align-items: start; }
+  @media (max-width: 992px) { .blog-layout { grid-template-columns: 1fr; } }
+
+  .blog-article-card {
+    background: #fff; border-radius: 14px; padding: 32px 28px;
+    box-shadow: 0 3px 16px rgba(0,0,0,0.06); border: 1px solid #e8eef5;
+  }
+  .blog-nav-row { display: flex; gap: 10px; margin-top: 20px; }
+  .blog-nav-btn {
+    padding: 8px 20px; border-radius: 8px; font-size: 0.85rem; font-weight: 700;
+    cursor: pointer; transition: all 0.2s; border: 1.5px solid #ddd; background: #fff; color: #444;
+  }
+  .blog-nav-btn:hover:not(:disabled) { border-color: #1565c0; color: #1565c0; background: #e3f0ff; }
+  .blog-nav-btn:disabled { opacity: 0.4; cursor: default; }
+
+  /* Sidebar */
+  .blog-sidebar { position: sticky; top: 80px; }
+  .blog-sidebar-card {
+    background: #fff; border-radius: 14px; padding: 22px 20px;
+    box-shadow: 0 3px 16px rgba(0,0,0,0.06); border: 1px solid #e8eef5;
+    margin-bottom: 20px;
+  }
+  .blog-sidebar-card h4 { font-size: 0.95rem; font-weight: 800; color: #0a2d6e; margin: 0 0 14px; }
+  .blog-sidebar-card p { font-size: 0.88rem; color: #666; line-height: 1.6; }
+  .blog-testimonial {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 0; border-top: 1px solid #f0f0f0;
+  }
+  .blog-testimonial:first-of-type { border-top: none; padding-top: 0; }
+  .blog-testimonial img {
+    width: 48px; height: 48px; object-fit: contain; border-radius: 8px;
+    border: 1px solid #e8eef5; flex-shrink: 0; padding: 4px;
+  }
+  .blog-testimonial h5 { font-size: 0.82rem; font-weight: 800; color: #0a2d6e; margin: 0 0 3px; }
+  .blog-testimonial p { font-size: 0.8rem; color: #666; margin: 0; line-height: 1.5; }
+`;
+
+const noticia = [
+  {
+    titulo: "ASEGURAR LTDA. SE INTEGRA AL SISTEMA RISTRA",
+    titulo2: "Un paso más hacia la seguridad vial inteligente",
+    fecha: "28 Mayo 2024", resumen1: "La empresa ASEGURAR LTDA. fue integrada al Registro Integral de Seguridad en el Transporte (RISTRA), en colaboración con autoridades de tránsito del Departamento de Policía Nariño.",
+    minifoto: reunionRistra, creador: "Romulo Bolaños",
+    contenido: [
+      { tipo: "parrafo", texto: "El pasado 28 de mayo de 2024, en las instalaciones de ASEGURAR LTDA., se llevó a cabo una importante reunión con los directivos del RISTRA (Registro Integral de Seguridad en el Transporte), con el objetivo de integrar a nuestra empresa en esta plataforma tecnológica de alto impacto para la seguridad vial." },
+      { tipo: "parrafo", texto: "El encuentro contó con la participación de destacados miembros de la Dirección de Transportes y Tránsito del Departamento de Policía Nariño, entre ellos el Subteniente Kevin Saavedra, el Intendente Gabriel Ortega y el Intendente Víctor Yela." },
+      { tipo: "imagen", url: policiaRistra, alt: "Reunión con directivos del RISTRA" },
+      { tipo: "parrafo", texto: "La incorporación de ASEGURAR LTDA. a esta herramienta representa un avance significativo en el monitoreo, análisis y prevención de incidentes en las vías." },
+      { tipo: "parrafo", texto: "Expresamos nuestro sincero agradecimiento a la Policía de Carreteras por su permanente acompañamiento y compromiso con la protección de los transportadores." },
+      { tipo: "parrafo", texto: "Con esta alianza, reafirmamos nuestro compromiso de trabajar articuladamente en soluciones tecnológicas y operativas que contribuyan a fortalecer la seguridad en el transporte terrestre." },
+    ],
+  },
+  {
+    titulo: "REUNIÓN INTERINSTITUCIONAL POR LA SEGURIDAD VIAL EN EL SUR DEL PAÍS",
+    titulo2: "Acciones conjuntas frente a la piratería terrestre",
+    fecha: "22 Mayo 2025", resumen1: "ASEGURAR LTDA. participó en una reunión clave con autoridades para abordar la creciente inseguridad en las vías del Cauca y Nariño.",
+    minifoto: reunionSeguridadVial, creador: "Romulo Bolaños",
+    contenido: [
+      { tipo: "parrafo", texto: "Ante la creciente racha de inseguridad en las vías de los departamentos del Cauca y Nariño, se llevó a cabo una importante reunión interinstitucional en las instalaciones de ASEGURAR LTDA." },
+      { tipo: "parrafo", texto: "Participaron representantes de la Policía de Tránsito y Transporte, así como delegados de las Unidades de Investigación Criminal, quienes analizaron los recientes casos de piratería terrestre." },
+      { tipo: "imagen", url: reunionMesaTrabajo, alt: "Reunión de seguridad vial" },
+      { tipo: "parrafo", texto: "ASEGURAR LTDA. expuso datos recolectados a través de su sistema de monitoreo vehicular, evidenciando puntos críticos y patrones de comportamiento delictivo." },
+      { tipo: "parrafo", texto: "ASEGURAR LTDA. reitera su compromiso con la seguridad vial y la protección de los activos de sus clientes." },
+    ],
+  },
+  {
+    titulo: "MANUAL ACTUALIZACIÓN APP CELLVI ANDROID",
+    titulo2: "Actualiza la app de Asegurar!",
+    fecha: "14 Noviembre 2024", resumen1: "Manual para actualizar la aplicación móvil CELLVI en Android.",
+    minifoto: fotoApp, creador: "David Montes",
+    contenido: [{ tipo: "pdf", texto: "/Manual de Actualizacion de app móvil CELLVI Android.pdf" }],
+  },
+  {
+    titulo: "NOVEDADES ASEGURAR OCTUBRE",
+    titulo2: "Noticias importantes en Asegurar!",
+    fecha: "16 Octubre 2024", resumen1: "Noticias del mes de Octubre 2024.",
+    minifoto: lanchaVertial, creador: "Romulo Bolaños",
+    contenido: [
+      { tipo: "parrafo", texto: "1.- ASEGURAR LTDA, se une a los sentimientos de dolor por la sensible pérdida de la Señora BLANCA LUCINDA CÓRDOBA DE RAMOS." },
+      { tipo: "parrafo", texto: "2.- ASEGURAR LTDA, ha incursionado en los servicios de ubicación vehicular a flotas de transporte fluvial en el Departamento del Putumayo." },
+      { tipo: "imagen", url: lanchaHorizontal, alt: "lancha" },
+      { tipo: "parrafo", texto: "3.- Se informa que el punto de recaudo en Ipiales quedó desactivado. Los pagos deben realizarse por medios electrónicos." },
+      { tipo: "parrafo", texto: "4.- A partir del 01 de noviembre de 2024 podrán ejecutar sus pagos a través de nuestra página web por el portal de pagos WOMPY y BANCO DE COLOMBIA CON CÓDIGO QR." },
+      { tipo: "link", texto: "https://www.asegurar.com.co/portaldepagos" },
+    ],
+  },
+  {
+    titulo: "EFECTIVIDAD DE ASEGURAR",
+    titulo2: "¡Acciones inmediatas y efectivas!",
+    fecha: "5 Mayo 2024", resumen1: "Caso de éxito: recuperación de vehículo asaltado en la ruta Pasto-Tumaco.",
+    minifoto: chucunes, creador: "Ing David Montes",
+    contenido: [
+      { tipo: "parrafo", texto: "En colaboración entre la Policía Nacional, el Ejército Nacional y ASEGURAR LTDA, se logró recuperar el vehículo asaltado en la ruta de Pasto a Tumaco, sector de CHUCUNES." },
+      { tipo: "parrafo", texto: "El trabajo conjunto entre las fuerzas de seguridad colombianas y el personal de ASEGURAR fue fundamental para el éxito de esta operación." },
+      { tipo: "parrafo", texto: "La recuperación del vehículo es un ejemplo tangible de los esfuerzos continuos que se están realizando para garantizar la seguridad en las carreteras colombianas." },
+      { tipo: "parrafo", texto: "¡Sigamos adelante juntos! En ASEGURAR siempre estaremos dispuestos a atender todas sus dudas." },
+      { tipo: "imagen", url: chucunesinseguro, alt: "Chucunes" },
+    ],
+  },
+];
+
+const comentarios = [
+  { nombreCliente: "COOPSETRANS", comentario: "La plataforma CELLVI nos ha permitido el control de nuestra flota y el cumplimiento oportuno de reportes.", foto: fotoCliente1 },
+  { nombreCliente: "IPS SAMYSALUD SAS", comentario: "ASEGURAR presta excelente servicio con responsabilidad y confianza.", foto: fotoCliente2 },
+  { nombreCliente: "Lácteos Santa María", comentario: "ASEGURAR nos permite viajar seguros, con un servicio eficiente y efectivo.", foto: fotoCliente3 },
+];
+
 export default function Blog() {
   const [blog, setBlog] = useState(0);
-  const [colMd8Ref, setColMd8Ref] = useState(null);
-  const [scrollToRef, setScrollToRef] = useState(false);
+  const [articleRef, setArticleRef] = useState(null);
+  const [scrollTo, setScrollTo] = useState(false);
 
   useEffect(() => {
-    if (scrollToRef && colMd8Ref) {
-      colMd8Ref.scrollIntoView({ behavior: "smooth" });
-      setScrollToRef(false);
-    }
-  }, [scrollToRef, colMd8Ref]);
+    if (scrollTo && articleRef) { articleRef.scrollIntoView({ behavior: "smooth" }); setScrollTo(false); }
+  }, [scrollTo, articleRef]);
 
-  const handleButtonClick = (newBlogId) => {
-    if (newBlogId >= 0 && newBlogId < noticia.length) {
-      setBlog(newBlogId);
-      setScrollToRef(true);
-    }
-  };
+  const go = (i) => { if (i >= 0 && i < noticia.length) { setBlog(i); setScrollTo(true); } };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (document.readyState === "complete") {
-        setScrollToRef(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const noticia = [
-    {
-      titulo: "ASEGURAR LTDA. SE INTEGRA AL SISTEMA RISTRA",
-      titulo2: "Un paso más hacia la seguridad vial inteligente",
-      fecha: "28 Mayo 2024",
-      resumen1: "La empresa ASEGURAR LTDA. fue integrada al Registro Integral de Seguridad en el Transporte (RISTRA), en colaboración con autoridades de tránsito del Departamento de Policía Nariño.",
-      minifoto: reunionRistra, // Usa aquí la imagen correspondiente
-      creador: "Romulo Bolaños",
-      contenido: [
-        {
-          tipo: "parrafo",
-          texto:
-            "El pasado 28 de mayo de 2024, en las instalaciones de ASEGURAR LTDA., se llevó a cabo una importante reunión con los directivos del RISTRA (Registro Integral de Seguridad en el Transporte), con el objetivo de integrar a nuestra empresa en esta plataforma tecnológica de alto impacto para la seguridad vial.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "El encuentro contó con la participación de destacados miembros de la Dirección de Transportes y Tránsito del Departamento de Policía Nariño, entre ellos el Subteniente Kevin Saavedra, el Intendente Gabriel Ortega y el Intendente Víctor Yela, quienes acompañaron el proceso de vinculación institucional de ASEGURAR LTDA. al sistema RISTRA.",
-        },
-        {
-          tipo: "imagen",
-          url: policiaRistra, // Imagen de la reunión o de los funcionarios policiales
-          alt: "Reunión con directivos del RISTRA",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "La incorporación de ASEGURAR LTDA. a esta herramienta representa un avance significativo en el monitoreo, análisis y prevención de incidentes en las vías, permitiendo una colaboración más estrecha con las autoridades de tránsito y transporte en pro de la seguridad de nuestros usuarios.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "Expresamos nuestro sincero agradecimiento a la Policía de Carreteras por su permanente acompañamiento y compromiso con la protección de los transportadores, afiliados y clientes de nuestra organización.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "Con esta alianza, reafirmamos nuestro compromiso de trabajar articuladamente en soluciones tecnológicas y operativas que contribuyan a fortalecer la seguridad en el transporte terrestre a nivel regional y nacional.",
-        }
-      ]
-    },    
-    {
-      titulo:
-        "REUNIÓN INTERINSTITUCIONAL POR LA SEGURIDAD VIAL EN EL SUR DEL PAÍS",
-      titulo2: "Acciones conjuntas frente a la piratería terrestre",
-      fecha: "22 Mayo 2025",
-      resumen1:
-        "ASEGURAR LTDA. participó en una reunión clave con autoridades para abordar la creciente inseguridad en las vías del Cauca y Nariño.",
-      minifoto: reunionSeguridadVial,
-      creador: "Romulo Bolaños",
-      contenido: [
-        {
-          tipo: "parrafo",
-          texto:
-            "Ante la creciente racha de inseguridad en las vías de los departamentos del Cauca y Nariño, que ha venido afectando gravemente a transportadores de carga y pasajeros, el día de hoy se llevó a cabo una importante reunión interinstitucional en las instalaciones de ASEGURAR LTDA.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "En esta jornada participaron representantes de la Policía de Tránsito y Transporte, así como delegados de las Unidades de Investigación Criminal, quienes analizaron en conjunto los recientes casos de piratería terrestre ocurridos en la región. La intención principal del encuentro fue conocer de primera mano los incidentes más relevantes y tomar medidas inmediatas que ayuden a mitigar este flagelo que pone en riesgo vidas humanas y la operatividad del sector transportador.",
-        },
-        {
-          tipo: "imagen",
-          url: reunionMesaTrabajo, // Puedes colocar aquí otra imagen ilustrativa de la reunión
-          alt: "Reunión de seguridad vial",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "Durante la reunión, ASEGURAR LTDA. expuso datos recolectados a través de su sistema de monitoreo vehicular, los cuales evidencian puntos críticos y patrones de comportamiento delictivo en zonas estratégicas. Esta información fue valorada positivamente por las autoridades, quienes destacaron la importancia de una articulación permanente con empresas privadas para fortalecer la prevención y la reacción ante este tipo de delitos.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "ASEGURAR LTDA. reitera su compromiso con la seguridad vial y la protección de los activos de sus clientes, reafirmando su disposición a continuar colaborando activamente con las autoridades en la búsqueda de soluciones eficaces frente a los desafíos que enfrentan los transportadores del suroccidente colombiano.",
-        },
-      ],
-    },
-    {
-      titulo: "MANUAL ACTUALIZACION APP CELLVI ANDROID",
-      titulo2: "Actualiza la app de Asegurar!",
-      fecha: "14 Noviembre 2024",
-      resumen1: "Manual para actualizar foto",
-      minifoto: fotoApp,
-      creador: "David Montes",
-      contenido: [
-        {
-          tipo: "pdf",
-          texto: "/Manual de Actualizacion de app móvil CELLVI Android.pdf",
-        },
-      ],
-    },
-    {
-      titulo: "NOVEDADES ASEGURAR OCTUBRE",
-      titulo2: "Noticias importantes en Asegurar!",
-      fecha: "16 Octubre 2024",
-      resumen1: "Noticias mes de Octubre 2024",
-      minifoto: lanchaVertial,
-      creador: "Romulo Bolaños",
-      contenido: [
-        {
-          tipo: "parrafo",
-          texto:
-            "1.- ASEGURAR LTDA, se une a los sentimientos de dolor por la sensible pérdida de la Señora BLANCA LUCINDA CÓRDOBA DE RAMOS, insigne cliente de nuestro sistema de ubicación vehicular por largos años. Paz en su tumba y, nuestras condolencias a todos sus familiares.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "2.- ASEGURAR LTDA, ha incursionado en los servicios de ubicación vehicular a flotas de transporte fluvial, nos enorgullece contar con uno de nuestros primeros clientes en el Departamento del Putumayo, con vehículos que surcan los ríos de la amazonia. ",
-        },
-        {
-          tipo: "imagen",
-          url: lanchaHorizontal,
-          alt: "lancha",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "3.- ASEGURAR LTDA., se permite informar a sus distinguidos clientes en la exprovincia de Obando y, que realizaban sus pagos en el punto de recaudo en el barrio Obrero de la ciudad de Ipiales, que a partir del 01 de octubre de 2024, ese punto quedó desactivado por asuntos de orden administrativo y fiscal, a partir de la fecha los pagos deben realizarse por cualquiera de los medios electrónicos de los bancos AGRARIO DE COLOMBIA, GRUPO AVAL, COLOMBIA y, sistema NEQUI. ",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "4.- Con mucha satisfacción informamos a nuestra distinguida clientela de Colombia y Ecuador que a partir del 01 de noviembre del año 2024 podrán ejecutar sus pagos a través de nuestra página web por el portal de pagos WOMPY y, BANCO DE COLOMBIA CON CÓDIGO QR, paga dando click en el siguiente link",
-        },
-        {
-          tipo: "link",
-          texto: "https://www.asegurar.com.co/portaldepagos",
-        },
-      ],
-    },
-    {
-      titulo: "EFECTIVIDAD DE ASEGURAR",
-      titulo2: "¡Acciones inmediatas y efectivas!",
-      fecha: "5 Mayo 2024",
-      resumen1:
-        "Noticia importante sobre un caso de efectividad en nuestro servicio",
-      minifoto: chucunes,
-      creador: "Ing David Montes",
-      contenido: [
-        {
-          tipo: "parrafo",
-          texto:
-            "En un acto de colaboración entre la Policía Nacional , el Ejército Nacional de Colombia y nuestra empresa Asegurar LTDA, se logró un importante hito en la lucha contra la piratería terrestre el pasado 23 de marzo de 2024. El vehículo identificado con las placas S** 2**, que había sido asaltado en la ruta de Pasto a Tumaco - Nariño, en el sector de CHUCUNES, vereda San Isidro, fue recuperado exitosamente.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "El asalto a vehículos en estas rutas ha sido una preocupación creciente en la región, afectando tanto a comerciantes como a ciudadanos comunes que transitan por estas vías con el objetivo de llevar a cabo sus actividades diarias. Este tipo de actos no solo representan una amenaza para la seguridad de los individuos, sino que también tienen un impacto negativo en la economía local y nacional.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "El trabajo conjunto entre las fuerzas de seguridad colombianas y el personal de ASEGURAR fue fundamental para el éxito de esta operación. La rápida respuesta y coordinación entre los involucrados permitió la ubicación y recuperación del vehículo en tiempo récord. Este logro no solo representa un golpe contra la piratería terrestre, sino que también envía un mensaje claro de que ASEGURAR esta comprometida con la seguridad de sus clientes y la calidad de su servicio.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "La recuperación del vehículo S** 2** es un ejemplo tangible de los esfuerzos continuos que se están realizando para garantizar la seguridad en las carreteras colombianas. Sin embargo, queda claro que aún queda mucho trabajo por hacer. Es necesario seguir fortaleciendo las estrategias de seguridad, así como fomentar la cooperación ciudadana para prevenir y enfrentar este tipo de incidentes.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "Este éxito debe servir como un recordatorio de la importancia de la colaboración entre las autoridades y la comunidad en la construcción de entornos seguros y libres de violencia. Solo a través de un esfuerzo conjunto y continuo podremos enfrentar eficazmente los desafíos de la piratería terrestre y otros tipos de delitos que afectan a nuestra sociedad.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "La recuperación del vehículo S** 2** es un paso adelante en la dirección correcta, pero debemos mantenernos vigilantes y comprometidos en nuestra lucha por la seguridad y comodidad de todos los clientes de ASEGURAR.",
-        },
-        {
-          tipo: "parrafo",
-          texto:
-            "¡Sigamos adelante juntos en esta importante tarea! En ASEGURAR siempre estaremos dispuestos a atender todas sus dudas.",
-        },
-        {
-          tipo: "imagen",
-          url: chucunesinseguro,
-          alt: "Chucunes",
-        },
-      ],
-    },
-    // {
-    //   titulo: "Nuevas mejoras en ASEGURAR LTDA.",
-    //   titulo2: "¡Más eficiencia y seguridad para nuestros clientes!",
-    //   fecha: "5 Mayo 2024",
-    //   resumen1:
-    //     "Últimas actualizaciones en tecnología y servicios de ASEGURAR LTDA.",
-    //   minifoto: tencnologiaMini,
-    //   creador: "Ing. David Montes",
-    //   contenido: [
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "ASEGURAR LTDA. se complace en informar a sus clientes y suscriptores sobre las últimas mejoras implementadas en nuestros servicios tecnológicos. Hemos subido a la plataforma CELLVI una moderna herramienta que permite acceder a las rutas de trazabilidad de sus rodantes en microsegundos.",
-    //     },
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "Esta nueva herramienta representa un avance significativo en nuestra capacidad para monitorear y gestionar la seguridad de sus vehículos de manera más eficiente. La trazabilidad en tiempo real nos permite responder rápidamente ante cualquier incidente y garantizar la integridad de su carga y personal.",
-    //     },
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "Además, en ASEGURAR LTDA. seguimos comprometidos con la mejora continua de nuestros servicios. Estamos desarrollando constantemente más variables de control para satisfacer las necesidades cambiantes de nuestros clientes y ofrecerles una experiencia aún más segura y confiable.",
-    //     },
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "Pero eso no es todo, también queremos informarles que hemos realizado una actualización en la tecnología de nuestro servidor principal. Esta actualización nos ha permitido mejorar significativamente el rendimiento y la estabilidad de nuestros sistemas.",
-    //     },
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "Gracias a estas mejoras, nuestros servicios ahora funcionan mucho mejor que antes, brindándoles a nuestros clientes una experiencia más fluida y confiable en cada interacción con ASEGURAR LTDA.",
-    //     },
-    //     {
-    //       tipo: "imagen",
-    //       url: tencnologia,
-    //       alt: "Tecnologia",
-    //     },
-    //   ],
-    // },
-    // {
-    //   titulo: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
-    //   titulo2: "¡Bienvenidos a la Nueva Era: Ahora en React!",
-    //   fecha: "18 Diciembre 2023",
-    //   resumen1:
-    //     "En este blog ecuentras informacion, sobre las actualizaciones de la pagina web",
-    //   minifoto: Vision,
-    //   creador: "Ing David Montes",
-    //   contenido: [
-    //     { tipo: "parrafo", texto: "Estimada comunidad de ASEGURAR LTDA" },
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "Es un placer para nosotros anunciar un emocionante cambio en nuestra presencia en línea. ¡Hemos dado un salto importante y nos hemos actualizado a React! Después de años de compromiso con una versión estática en HTML, hemos decidido llevar la experiencia de usuario de nuestra página web al siguiente nivel.",
-    //     },
-    //     { tipo: "titulo", texto: "¿Qué significa esto para ti?" },
-    //     {
-    //       tipo: "lista",
-    //       textos: [
-    //         "Experiencia de Usuario Mejorada: La transición a React nos permite ofrecer una navegación más suave y un rendimiento más rápido, lo que se traduce en una experiencia de usuario mejorada.",
-    //         "Interactividad Avanzada: Ahora podemos implementar características interactivas y dinámicas de manera más eficiente, brindándote contenido de alta calidad de una manera más atractiva.",
-    //         "Mantenimiento Eficiente: React simplifica el mantenimiento del código, lo que nos permite responder rápidamente a los comentarios y asegurarnos de que nuestro sitio web esté siempre actualizado.",
-    //       ],
-    //     },
-    //     {
-    //       tipo: "parrafo",
-    //       texto: "Te invitamos a explorar la nueva pagina web!",
-    //     },
-    //     {
-    //       tipo: "imagen",
-    //       url: BlogAsegurar,
-    //       alt: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
-    //     },
-    //     {
-    //       tipo: "minifoto",
-    //       url: Vision,
-    //       alt: "LANZAMIENTO OFICIAL ASEGURAR.COM.CO",
-    //     },
-    //   ],
-    // },
-    // {
-    //   titulo: "SG-SST ASEGURAR LTDA",
-    //   titulo2: "Seguridad y salud en el trabajo!",
-    //   fecha: "18 Diciembre 2023",
-    //   resumen1:
-    //     "En este blog ecuentras informacion, sobre las actualizaciones de la pagina web",
-    //   minifoto: miniFotoPost,
-    //   creador: "valentina Ledesma",
-    //   contenido: [
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "ASEGURAR LTDA trabaja por la protección de sus trabajadores, la promoción de la salud y seguridad en el desarrollo de sus operaciones, reconociendo el desempeño ejemplar en materia de seguridad y salud en el trabajo, generando las directrices bajo las cuales ASEGURAR LTDA, desarrollará la estrategias por medio de procesos, mediante la implementación de controles para los peligros identificados, riesgos valorados, el cumplimiento de la legislación aplicable y actividades de implementación, mantenimiento, control y mejoramiento continuo, que conlleve a la preservación de la salud orgánica y mental de nuestros colaboradores, ofreciendo lugares de trabajo seguros evitando así la ocurrencia de incidentes, accidentes y enfermedades laborales",
-    //     },
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "Seguridad y Salud en el Trabajo de ASEGURAR LTDA genera interés en el desarrollo integral de sus diferentes dimensiones: física, mental, social y espiritual, a través de 3 principios:",
-    //     },
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "Principio de Reconocimiento: Dirigido a identificar los peligros, evaluar, valorar los riesgos y definir controles, basados en los conceptos técnicos y cumpliendo los lineamientos legales de nuestro País.",
-    //     },
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "Principio de Construcción: Orientado al desarrollo de estrategias para acompañar a los grupos de interés a ser conscientes de la prevención y protección de su salud y seguridad.",
-    //     },
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "Principio de Progreso: Nos impulsa a asumir los retos, cambios y necesidades que se van presentando en pro de la mejora continua del SG-SST.",
-    //     },
-    //     { tipo: "titulo", texto: "IMPORTANCIA DE CONTAR CON UN SG-SST" },
-    //     {
-    //       tipo: "lista",
-    //       textos: [
-    //         "Principio de Reconocimiento: Dirigido a identificar los peligros, evaluar, valorar los riesgos y definir controles, basados en los conceptos técnicos y cumpliendo los lineamientos legales de nuestro País.",
-    //         "Principio de Construcción: Orientado al desarrollo de estrategias para acompañar a los grupos de interés a ser conscientes de la prevención y protección de su salud y seguridad.",
-    //         "Principio de Progreso: Nos impulsa a asumir los retos, cambios y necesidades que se van presentando en pro de la mejora continua del SG-SST.",
-    //       ],
-    //     },
-    //     {
-    //       tipo: "parrafo",
-    //       texto:
-    //         "Una correcta ejecución e implementación de un SG-SST, aportara a la empresa una buena imagen corporativa y plasmara un ambiente de bienestar laboral, en vista de la disminución de accidentes laborales, enfermedades e incapacidades, lo cual hace que en la empresa el trabajo sea más fluido y de calidad.",
-    //     },
-    //     {
-    //       tipo: "imagen",
-    //       url: fotografiapost,
-    //       alt: "SG-SST ASEGURAR LTDA",
-    //     },
-    //   ],
-    // },
-  ];
-  const comentarios = [
-    {
-      nombreCliente: "COOPSETRANS",
-      comentario:
-        "Para COOPSETRANS contar con el apoyo incondicional de ASEGURAR Ltda., ha sido fundamental, desde el momento de nuestra vinculación.  La plataforma de monitoreo satelital CELLVI que utiliza nos ha permitido el control de nuestra flota y el cumplimiento oportuno de los reportes a los diferentes entes de control que nos supervisan.",
-      foto: fotoCliente1,
-    },
-    {
-      nombreCliente: "IPS SAMYSALUD SAS",
-      comentario:
-        "ASEGURAR presta excelente servicio con responsabilidad y confianza",
-      foto: fotoCliente2,
-    },
-    {
-      nombreCliente: "Lácteos Santa María",
-      comentario:
-        "En referencia al concepto de su empresa: ASEGURAR nos permite viajar seguros, con un servicio eficiente y efectivo",
-      foto: fotoCliente3,
-    },
-  ];
   return (
-    <div>
-      <BackgroundGradient color1="#fff" color2="#fff">
-        <div className="w-100 container pt-2">
-          <div className="p-4 p-md-5 mb-4 rounded text-body-emphasis mt-4 aqua--marker">
-            <div className="col-lg px-0">
-              <h1 className="display-4 fw-bold mb-3">Asegublog</h1>
-              <p className="lead my-3">
-                ASEGUBLOG, es un sitio en la página web de ASEGURAR LTDA., donde
-                publicamos de manera frecuente temas, informaciones y noticia
-                que queremos compartir con los visitantes a nuestro sitio web y,
-                que son de interés para todos, lo actualizamos periódicamente y,
-                recopilamos cronológicamente temas relacionados con el servicio
-                de monitoreo remoto de activos fijos y móviles y, demás
-                servicios del portafolio de la empresa.
-              </p>
-              <p className="lead my-3">
-                Es una herramienta digital que sirve de canal de comunicación de
-                la empresa con los usuarios de los servicios, resolvemos dudas,
-                realizamos entrevistas y, publicamos las referencias que los
-                clientes deseen realizar acerca de los servicios que prestamos.
-              </p>
-              <p
-                className="lead mb-0 text-body-emphasis fw-bold custom-pointer"
-                onClick={() => handleButtonClick(0)}
-              >
-                Ultimas novedades ...
-              </p>
-            </div>
+    <>
+      <style>{styles}</style>
+      <div className="blog-page">
+        {/* Hero */}
+        <section className="blog-hero">
+          <div className="container">
+            <span className="blog-hero-tag">Asegublog</span>
+            <h1>Noticias y Novedades</h1>
+            <p>
+              Publicamos temas, informaciones y noticias relacionadas con el servicio
+              de monitoreo remoto y seguridad vial. Actualizado periódicamente.
+            </p>
           </div>
-          <div className="row mb-2">
-            <div className="col-md-6">
-              {noticia.length > 0 && blog < noticia.length && (
-                <div
-                  className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative custom-pointer"
-                  onClick={() => handleButtonClick(0)}
-                >
-                  <div className="col p-4 d-flex flex-column position-static">
-                    <strong className="d-inline-block mb-2 text-primary-emphasis">
-                      Empresarial
-                    </strong>
-                    <h3 className="mb-0">{noticia[blog].titulo}</h3>
-                    <div className="mb-1 text-body-secondary">
-                      {noticia[blog].fecha}
-                    </div>
-                    <p className="card-text mb-auto">
-                      {noticia[blog].resumen1}
-                    </p>
-                  </div>
-                  <div className="col-auto d-none d-lg-block">
-                    <img
-                      alt="Thumbnail"
-                      src={noticia[blog].minifoto}
-                      width="200"
-                      height="200"
-                      className="bd-placeholder-img m-4 border"
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="col-md-6">
-              {noticia.length > 1 && blog + 1 < noticia.length && (
-                <div
-                  className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative custom-pointer"
-                  onClick={() => handleButtonClick(blog + 1)}
-                >
-                  <div className="col p-4 d-flex flex-column position-static">
-                    <strong className="d-inline-block mb-2 text-primary-emphasis">
-                      Empresarial
-                    </strong>
-                    <h3 className="mb-0">{noticia[blog + 1].titulo}</h3>
-                    <div className="mb-1 text-body-secondary">
-                      {noticia[blog].fecha}
-                    </div>
-                    <p className="card-text mb-auto">
-                      {noticia[blog + 1].resumen1}
-                    </p>
-                  </div>
-                  <div className="col-auto d-none d-lg-block">
-                    <img
-                      alt="Thumbnail"
-                      src={noticia[blog + 1].minifoto}
-                      width="200"
-                      height="200"
-                      className="bd-placeholder-img m-4 border"
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
+        </section>
 
-          <div className="row g-5" ref={(ref) => setColMd8Ref(ref)}>
-            <div className="col-md-8">
-              <div>
-                <Noticia
-                  noticia={noticia[blog]}
-                  onClick={() => handleButtonClick(blog)}
-                />
-                <div className="d-flex mb-2">
-                  <button
-                    type="button"
-                    className={`btn btn-outline-primary rounded-pill mx-2 ${
-                      blog === 0 ? "active" : ""
-                    }`}
-                    onClick={() => handleButtonClick(blog - 1)}
-                    disabled={blog === 0} // Deshabilita el botón si ya estás en la primera noticia
-                  >
-                    Antigua
+        {/* Featured */}
+        <section className="blog-featured">
+          <div className="container">
+            <div className="blog-featured-grid">
+              {noticia.slice(0, 2).map((n, i) => (
+                <div key={i} className="blog-feat-card" onClick={() => go(i)}>
+                  <img src={n.minifoto} alt={n.titulo} />
+                  <div className="blog-feat-body">
+                    <span className="blog-feat-tag">Empresarial</span>
+                    <h3>{n.titulo}</h3>
+                    <div className="date">{n.fecha}</div>
+                    <p>{n.resumen1}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Main content */}
+        <section className="blog-main">
+          <div className="container">
+            <div className="blog-layout" ref={(r) => setArticleRef(r)}>
+              {/* Article */}
+              <div className="blog-article-card">
+                <Noticia noticia={noticia[blog]} onClick={() => {}} />
+                <div className="blog-nav-row">
+                  <button className="blog-nav-btn" onClick={() => go(blog - 1)} disabled={blog === 0}>
+                    <i className="pi pi-arrow-left me-1" /> Anterior
                   </button>
-                  <button
-                    type="button"
-                    className={`btn btn-outline-secondary rounded-pill mx-2 ${
-                      blog === noticia.length - 1 ? "active" : ""
-                    }`}
-                    onClick={() => handleButtonClick(blog + 1)}
-                    disabled={blog === noticia.length - 1} // Deshabilita el botón si ya estás en la última noticia
-                  >
-                    Nueva
+                  <button className="blog-nav-btn" onClick={() => go(blog + 1)} disabled={blog === noticia.length - 1}>
+                    Siguiente <i className="pi pi-arrow-right ms-1" />
                   </button>
+                  <span style={{ marginLeft: "auto", fontSize: "0.82rem", color: "#999", alignSelf: "center" }}>
+                    {blog + 1} / {noticia.length}
+                  </span>
                 </div>
               </div>
-            </div>
-            <div className="col-md-4">
-              <div className="position-sticky" style={{ top: "2rem" }}>
-                <div className="p-4 mb-3 bg-body-tertiary rounded">
-                  <h4 className="fts-italic">Asegurar</h4>
-                  <p className="mb-0">
-                    Empresa lider en tecnologia en la region Narinense, ganadora
-                    del premio....
-                  </p>
-                  <button className="btn btn-primary mt-1">
-                    Leer mas aqui
-                  </button>
+
+              {/* Sidebar */}
+              <div className="blog-sidebar">
+                <div className="blog-sidebar-card">
+                  <h4><i className="pi pi-building me-2" style={{ color: "#1565c0" }} />Asegurar Ltda.</h4>
+                  <p>Empresa líder en tecnología y telecomunicaciones en la región nariñense, con más de 23 años de experiencia.</p>
                 </div>
-                <div className="">
-                  <h4 className="fst-italic">
-                    Comentarios de nuestros clientes
-                  </h4>
-                  <ul className="list-unstyled">
-                    {comentarios.map((item, index) => (
-                      <div key={index}>
-                        <div className="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top">
-                          <div className="col-lg-4">
-                            <img
-                              alt="Post"
-                              className="img img-fluid"
-                              src={item.foto}
-                            />
-                          </div>
-                          <div className="col-lg-8">
-                            <h5>{item.nombreCliente}</h5>
-                            <h6 className="mb-0">{item.comentario}</h6>
-                            <small className="text-body-secondary">
-                              Noviembre 29 del 2023
-                            </small>
-                          </div>
-                        </div>
+
+                <div className="blog-sidebar-card">
+                  <h4><i className="pi pi-comments me-2" style={{ color: "#1565c0" }} />Lo que dicen nuestros clientes</h4>
+                  {comentarios.map((c, i) => (
+                    <div key={i} className="blog-testimonial">
+                      <img src={c.foto} alt={c.nombreCliente} />
+                      <div>
+                        <h5>{c.nombreCliente}</h5>
+                        <p>{c.comentario}</p>
                       </div>
-                    ))}
-                  </ul>
+                    </div>
+                  ))}
                 </div>
-                <div className="p-4"></div>
+
+                {/* Index de artículos */}
+                <div className="blog-sidebar-card">
+                  <h4><i className="pi pi-list me-2" style={{ color: "#1565c0" }} />Todos los artículos</h4>
+                  {noticia.map((n, i) => (
+                    <div
+                      key={i}
+                      onClick={() => go(i)}
+                      style={{
+                        padding: "8px 0",
+                        borderBottom: i < noticia.length - 1 ? "1px solid #f0f0f0" : "none",
+                        cursor: "pointer",
+                        transition: "color 0.2s",
+                        color: blog === i ? "#1565c0" : "#666",
+                        fontWeight: blog === i ? 700 : 500,
+                        fontSize: "0.84rem",
+                      }}
+                    >
+                      {n.titulo}
+                      <div style={{ fontSize: "0.72rem", color: "#aaa" }}>{n.fecha}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </BackgroundGradient>
-    </div>
+        </section>
+      </div>
+    </>
   );
 }

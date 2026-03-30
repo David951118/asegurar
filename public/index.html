@@ -4,49 +4,91 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/asegurar.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a2d6e" />
 
-    <meta name="theme-color" content="#000000" />
-    <meta name="asegurar" content="Web site Asegurar LTDA" />
+    <!-- SEO Primary -->
+    <title>Asegurar Ltda. | Monitoreo Vehicular GPS y Telecomunicaciones en Colombia</title>
+    <meta name="description" content="Asegurar Ltda. – Empresa nariñense con más de 23 años en telecomunicaciones y monitoreo vehicular GPS. Plataforma CELLVI, RNDC, PESV. Central de monitoreo 24/7. Pasto, Nariño, Colombia." />
+    <meta name="keywords" content="monitoreo vehicular, GPS Colombia, rastreo de flotas, CELLVI, Asegurar Ltda, telecomunicaciones Nariño, RNDC, PESV, seguridad vial, monitoreo satelital, rastreo GPS Pasto, monitoreo 24 horas" />
+    <meta name="author" content="Asegurar Ltda." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.asegurar.com.co/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.asegurar.com.co/" />
+    <meta property="og:title" content="Asegurar Ltda. | Monitoreo Vehicular GPS y Telecomunicaciones" />
+    <meta property="og:description" content="Más de 23 años en telecomunicaciones y monitoreo vehicular GPS. Plataforma CELLVI 24/7. Pasto, Nariño, Colombia." />
+    <meta property="og:image" content="https://www.asegurar.com.co/asegurar.png" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:site_name" content="Asegurar Ltda." />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Asegurar Ltda. | Monitoreo Vehicular GPS" />
+    <meta name="twitter:description" content="Empresa nariñense con más de 23 años en telecomunicaciones y monitoreo vehicular GPS. Plataforma CELLVI 24/7." />
+    <meta name="twitter:image" content="https://www.asegurar.com.co/asegurar.png" />
+
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="CO-NAR" />
+    <meta name="geo.placename" content="Pasto, Nariño, Colombia" />
+    <meta name="geo.position" content="1.2200574;-77.2879712" />
+    <meta name="ICBM" content="1.2200574, -77.2879712" />
+
+    <!-- Structured Data / JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Asegurar Ltda.",
+      "alternateName": "ASEGURAR LIMITADA",
+      "url": "https://www.asegurar.com.co",
+      "logo": "https://www.asegurar.com.co/asegurar.png",
+      "description": "Empresa de telecomunicaciones y monitoreo vehicular GPS con más de 23 años de experiencia en Colombia.",
+      "foundingDate": "2002",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Calle 19 No 27-41, Piso 2, Oficina 202, Edificio Merlopa",
+        "addressLocality": "Pasto",
+        "addressRegion": "Nariño",
+        "postalCode": "520001",
+        "addressCountry": "CO"
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+57-315-587-0498",
+          "contactType": "customer service",
+          "areaServed": "CO",
+          "availableLanguage": "Spanish"
+        }
+      ],
+      "email": "asegurar.limitada@gmail.com",
+      "sameAs": [
+        "https://www.facebook.com/asegurar.limitada",
+        "https://www.instagram.com/asegurar.ltda/",
+        "https://www.linkedin.com/company/asegurar-ltda/about/"
+      ],
+      "serviceType": ["Monitoreo vehicular GPS", "Telecomunicaciones", "Rastreo satelital", "Seguridad vial"]
+    }
+    </script>
+
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/asegurar.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/asegurar.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
     <link
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
       rel="stylesheet"
     />
-    <title>Asegurar</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>Asegurar Ltda. - Monitoreo Vehicular GPS en Colombia. Necesita habilitar JavaScript para ver esta página.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -58,6 +100,5 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://checkout.wompi.co/widget.js" data-react-helmet="true" class="current" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
   </body>
 </html>

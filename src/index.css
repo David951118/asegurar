@@ -1,16 +1,349 @@
-body {
+/* ── Theme Variables ── */
+:root,
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f0f6ff;
+  --card-bg: #ffffff;
+  --card-border: #e8eef5;
+  --card-shadow: rgba(0,0,0,0.06);
+
+  --nav-bg: rgba(255,255,255,0.97);
+  --nav-border: rgba(0,0,0,0.06);
+
+  --text-primary: #1a1a2e;
+  --text-secondary: #555;
+  --text-muted: #888;
+
+  --accent: #1565c0;
+  --accent-bg: #e3f0ff;
+  --accent-border: #bbdefb;
+  --accent-dark: #0a2d6e;
+
+  --green: #2e7d32;
+  --green-bg: #e8f5e9;
+  --green-border: #c8e6c9;
+
+  --hero-gradient: linear-gradient(135deg, #0a2d6e 0%, #1565c0 60%, #1e88e5 100%);
+
+  --footer-bg: #0a1e3d;
+  --footer-text: rgba(255,255,255,0.55);
+  --footer-heading: #fff;
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0f1117;
+  --bg-secondary: #161922;
+  --bg-tertiary: #1a1f2e;
+  --card-bg: #1a1f2e;
+  --card-border: #2a3042;
+  --card-shadow: rgba(0,0,0,0.3);
+
+  --nav-bg: rgba(15,17,23,0.97);
+  --nav-border: rgba(255,255,255,0.08);
+
+  --text-primary: #e0e6ed;
+  --text-secondary: #a0aab8;
+  --text-muted: #6b7585;
+
+  --accent: #64b5f6;
+  --accent-bg: rgba(100,181,246,0.12);
+  --accent-border: rgba(100,181,246,0.25);
+  --accent-dark: #90caf9;
+
+  --green: #66bb6a;
+  --green-bg: rgba(102,187,106,0.12);
+  --green-border: rgba(102,187,106,0.25);
+
+  --hero-gradient: linear-gradient(135deg, #060d1f 0%, #0d2855 60%, #133e7a 100%);
+
+  --footer-bg: #080b12;
+  --footer-text: rgba(255,255,255,0.45);
+  --footer-heading: #ddd;
+
+  color-scheme: dark;
+}
+
+/* ── Global transitions ── */
+body,
+.nav-main,
+.card,
+section,
+footer {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ── Base ── */
+html, body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  padding: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+body {
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+#root {
+  background: var(--bg-primary);
+  min-height: 100vh;
+}
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-body {
-  font-family: Roboto, Helvetica, Arial, sans-serif;
+
+/* ── Dark mode overrides for common elements ── */
+[data-theme="dark"] .bg-light {
+  background-color: var(--bg-secondary) !important;
+}
+
+[data-theme="dark"] .bg-body-tertiary {
+  background-color: var(--bg-tertiary) !important;
+}
+
+[data-theme="dark"] .text-muted {
+  color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .text-body-emphasis {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .border,
+[data-theme="dark"] .border-bottom,
+[data-theme="dark"] .border-top {
+  border-color: var(--card-border) !important;
+}
+
+[data-theme="dark"] .shadow,
+[data-theme="dark"] .shadow-sm {
+  box-shadow: 0 4px 16px var(--card-shadow) !important;
+}
+
+/* Dark mode - cards and containers */
+[data-theme="dark"] .card,
+[data-theme="dark"] .card-body {
+  background-color: var(--card-bg) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--card-border) !important;
+}
+
+/* Dark mode - form elements */
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select,
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--card-border) !important;
+}
+
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px var(--accent-bg) !important;
+}
+
+/* Dark mode - Bootstrap navbar toggler */
+[data-theme="dark"] .navbar-toggler-icon {
+  filter: invert(1);
+}
+
+/* Dark mode - PrimeReact overrides */
+[data-theme="dark"] .p-datatable .p-datatable-thead > tr > th {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--card-border) !important;
+}
+
+[data-theme="dark"] .p-datatable .p-datatable-tbody > tr {
+  background: var(--card-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .p-datatable .p-datatable-tbody > tr:nth-child(even) {
+  background: var(--bg-secondary) !important;
+}
+
+[data-theme="dark"] .p-inputtext {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--card-border) !important;
+}
+
+[data-theme="dark"] .p-dropdown {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--card-border) !important;
+}
+
+[data-theme="dark"] .p-dialog .p-dialog-content,
+[data-theme="dark"] .p-dialog .p-dialog-header,
+[data-theme="dark"] .p-dialog .p-dialog-footer {
+  background: var(--card-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Dark mode - page-level backgrounds */
+[data-theme="dark"] .about-content,
+[data-theme="dark"] .services-section,
+[data-theme="dark"] .ct-plans,
+[data-theme="dark"] .port-services,
+[data-theme="dark"] .blog-page,
+[data-theme="dark"] .clients-section,
+[data-theme="dark"] .cellvi-page {
+  background: var(--bg-secondary) !important;
+}
+
+[data-theme="dark"] .about-card,
+[data-theme="dark"] .about-tabs,
+[data-theme="dark"] .port-card,
+[data-theme="dark"] .ct-plan-card,
+[data-theme="dark"] .ct-form-card,
+[data-theme="dark"] .blog-feat-card,
+[data-theme="dark"] .blog-article-card,
+[data-theme="dark"] .blog-sidebar-card,
+[data-theme="dark"] .cellvi-video-card,
+[data-theme="dark"] .cellvi-login-card,
+[data-theme="dark"] .cellvi-feat,
+[data-theme="dark"] .team-card,
+[data-theme="dark"] .service-card,
+[data-theme="dark"] .client-logo-card {
+  background: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .about-card-body h2,
+[data-theme="dark"] .port-card-body h4,
+[data-theme="dark"] .ct-plan-body h4,
+[data-theme="dark"] .ct-section-title,
+[data-theme="dark"] .port-section-title,
+[data-theme="dark"] .blog-feat-body h3,
+[data-theme="dark"] .blog-sidebar-card h4,
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .team-name,
+[data-theme="dark"] .cellvi-video-body h3,
+[data-theme="dark"] .cellvi-feat h4 {
+  color: var(--accent-dark) !important;
+}
+
+/* Dark mode - Service cards (3 plataformas en Home) */
+[data-theme="dark"] .service-card h3 {
+  color: #ffd54f !important;
+}
+[data-theme="dark"] .service-card p {
+  color: var(--text-secondary) !important;
+}
+[data-theme="dark"] .service-link {
+  color: #ffd54f !important;
+}
+[data-theme="dark"] .service-icon.blue {
+  background: rgba(255,213,79,0.15) !important;
+  color: #ffd54f !important;
+}
+[data-theme="dark"] .service-icon.green {
+  background: rgba(255,213,79,0.15) !important;
+  color: #ffd54f !important;
+}
+[data-theme="dark"] .service-icon.orange {
+  background: rgba(255,213,79,0.15) !important;
+  color: #ffd54f !important;
+}
+[data-theme="dark"] .service-card:hover {
+  border-top-color: #ffd54f !important;
+  box-shadow: 0 12px 40px rgba(255,213,79,0.1) !important;
+}
+
+[data-theme="dark"] .about-card-body p,
+[data-theme="dark"] .port-card-desc,
+[data-theme="dark"] .ct-plan-body p,
+[data-theme="dark"] .blog-feat-body p,
+[data-theme="dark"] .blog-testimonial p,
+[data-theme="dark"] .section-sub,
+[data-theme="dark"] .team-desc,
+[data-theme="dark"] .cellvi-feat p {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .about-tab {
+  color: var(--text-secondary) !important;
+  background: transparent !important;
+}
+[data-theme="dark"] .about-tab:hover {
+  background: var(--accent-bg) !important;
+  color: var(--accent) !important;
+}
+[data-theme="dark"] .about-tab.active {
+  background: linear-gradient(135deg, #0a2d6e, #1565c0) !important;
+  color: #fff !important;
+}
+
+/* Dark mode - stats bar */
+[data-theme="dark"] .stats-section,
+[data-theme="dark"] .stats-bar {
+  background: var(--card-bg) !important;
+}
+[data-theme="dark"] .stat-item {
+  border-color: var(--card-border) !important;
+}
+[data-theme="dark"] .stat-label {
+  color: var(--text-muted) !important;
+}
+
+/* Dark mode - team section */
+[data-theme="dark"] .team-section {
+  background: var(--bg-primary) !important;
+}
+[data-theme="dark"] .team-role {
+  background: var(--accent-bg) !important;
+  color: var(--accent) !important;
+}
+
+/* Dark mode - contact */
+[data-theme="dark"] .ct-contact {
+  background: var(--bg-primary) !important;
+}
+[data-theme="dark"] .ct-nav-bar {
+  background: var(--card-bg) !important;
+}
+[data-theme="dark"] .ct-nav-btn {
+  background: var(--card-bg) !important;
+  color: var(--text-secondary) !important;
+  border-color: var(--card-border) !important;
+}
+
+/* Dark mode - footer */
+[data-theme="dark"] .ft {
+  background: var(--footer-bg) !important;
+}
+
+/* Dark mode - blog featured tag */
+[data-theme="dark"] .blog-feat-tag,
+[data-theme="dark"] .section-tag {
+  background: var(--accent-bg) !important;
+  color: var(--accent) !important;
+}
+
+/* Dark mode - search and filter inputs */
+[data-theme="dark"] .ct-field input,
+[data-theme="dark"] .ct-field textarea {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--card-border) !important;
+}
+
+/* Dark mode - politica items */
+[data-theme="dark"] .politica-item {
+  border-color: var(--card-border) !important;
+}
+[data-theme="dark"] .politica-item p {
+  color: var(--text-secondary) !important;
 }
