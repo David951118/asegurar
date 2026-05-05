@@ -2,8 +2,10 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 // Configuración de la API del RNDC (Backend propio - Proxy a Cellvi/RNDC)
+// Usa REACT_APP_GPS_API_URL para alternar dev/prod (mismo backend Node)
 const rndcBackend = axios.create({
-  baseURL: "https://rndc.asegurar.com.co/api", // Cambiar a HTTPS en producción
+  baseURL:
+    process.env.REACT_APP_GPS_API_URL || "https://rndc.asegurar.com.co/api",
   timeout: 15000,
 });
 

@@ -18,6 +18,8 @@
     "crypto-js": "^4.2.0",
     "dotenv": "^8.6.0",
     "jquery": "^3.7.1",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.7",
     "jwt-decode": "^4.0.0",
     "mdb-react-ui-kit": "^6.3.0",
     "pdfjs-dist": "^3.11.174",
@@ -29,7 +31,9 @@
     "react-player": "^2.13.0",
     "react-router-dom": "^6.17.0",
     "react-scripts": "^5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-select": "^5.10.2",
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "set PORT=3001 && react-scripts start",
