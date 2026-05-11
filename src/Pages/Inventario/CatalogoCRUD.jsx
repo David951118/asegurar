@@ -56,7 +56,8 @@ function Content({ service, columns, formFields, defaultModel, searchable, searc
   const [editing, setEditing] = useState(null); // null | { mode: 'create'|'edit', model }
   const [confirmDel, setConfirmDel] = useState(null);
 
-  useEffect(() => { cargar(); /* eslint-disable-next-line */ }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { cargar(); }, []);
 
   const cargar = async () => {
     setLoading(true);

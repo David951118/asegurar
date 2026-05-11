@@ -590,6 +590,7 @@ export default function DashboardRndc() {
       loadStats();
     }, 30000);
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, username, roles, filters]);
 
   // --- Actions ---

@@ -355,7 +355,7 @@ function EquiposContent() {
       <ConfirmModal
         open={!!confirmDel}
         title="Eliminar equipo"
-        message={confirmDel ? `¿Eliminar el equipo IMEI ${confirmDel.imei}? No se puede eliminar si está INSTALADO o EN_TRANSITO.` : ""}
+        message={confirmDel ? `¿Enviar a la papelera el equipo IMEI ${confirmDel.imei}? Quedará desasignado de su técnico y vehículo. Podrás restaurarlo desde la Papelera.` : ""}
         confirmLabel="Eliminar"
         danger
         onCancel={() => setConfirmDel(null)}
@@ -384,9 +384,9 @@ function EquiposContent() {
                 />
               </div>
               <ul style={{
-                margin: "10px 0 0", padding: 0, listStyle: "none",
+                margin: "10px 0 0", padding: "8px 10px", listStyle: "none",
                 maxHeight: 180, overflowY: "auto",
-                background: "var(--bg-tertiary)", borderRadius: 8, padding: "8px 10px",
+                background: "var(--bg-tertiary)", borderRadius: 8,
               }}>
                 {seleccionRecepcionables.map((e) => (
                   <li key={e._id} style={{ fontSize: "0.82rem", padding: "3px 0", color: "var(--text-secondary)" }}>

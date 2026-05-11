@@ -68,7 +68,9 @@ export const MarcasService = {
   get: (id) => get(`/gps/marcas/${id}`),
   create: (body) => post("/gps/marcas", body),
   update: (id, body) => put(`/gps/marcas/${id}`, body),
-  remove: (id) => del(`/gps/marcas/${id}`),
+  remove: (id) => del(`/gps/marcas/${id}`),               // soft delete
+  restore: (id) => post(`/gps/marcas/${id}/restore`),
+  hardDelete: (id) => del(`/gps/marcas/${id}/hard`),
 };
 
 /* ─── Modelos ─── */
@@ -78,6 +80,8 @@ export const ModelosService = {
   create: (body) => post("/gps/modelos", body),
   update: (id, body) => put(`/gps/modelos/${id}`, body),
   remove: (id) => del(`/gps/modelos/${id}`),
+  restore: (id) => post(`/gps/modelos/${id}/restore`),
+  hardDelete: (id) => del(`/gps/modelos/${id}/hard`),
 };
 
 /* ─── Ciudades ─── */
@@ -87,6 +91,8 @@ export const CiudadesService = {
   create: (body) => post("/gps/ciudades", body),
   update: (id, body) => put(`/gps/ciudades/${id}`, body),
   remove: (id) => del(`/gps/ciudades/${id}`),
+  restore: (id) => post(`/gps/ciudades/${id}/restore`),
+  hardDelete: (id) => del(`/gps/ciudades/${id}/hard`),
 };
 
 /* ─── Técnicos ─── */
@@ -96,6 +102,8 @@ export const TecnicosService = {
   create: (body) => post("/gps/tecnicos", body),
   update: (id, body) => put(`/gps/tecnicos/${id}`, body),
   remove: (id) => del(`/gps/tecnicos/${id}`),
+  restore: (id) => post(`/gps/tecnicos/${id}/restore`),
+  hardDelete: (id) => del(`/gps/tecnicos/${id}/hard`),
   equipos: (id, params) => get(`/gps/tecnicos/${id}/equipos`, params),
 };
 
@@ -119,7 +127,9 @@ export const EquiposService = {
   get: (id) => get(`/gps/equipos/${id}`),
   create: (body) => post("/gps/equipos", body),
   update: (id, body) => put(`/gps/equipos/${id}`, body),
-  remove: (id) => del(`/gps/equipos/${id}`),
+  remove: (id) => del(`/gps/equipos/${id}`),              // soft delete (limpia técnico/vehículo)
+  restore: (id) => post(`/gps/equipos/${id}/restore`),
+  hardDelete: (id) => del(`/gps/equipos/${id}/hard`),
 
   /* transiciones individuales */
   enviar: (id, body) => post(`/gps/equipos/${id}/enviar`, body),
@@ -137,10 +147,12 @@ export const EquiposService = {
 
 /* ─── Actividades ─── */
 export const ActividadesService = {
-  list: (params) => get("/gps/actividades", params),
+  list: (params) => get("/gps/actividades", params),       // ?includeDeleted=true para papelera
   get: (id) => get(`/gps/actividades/${id}`),
   create: (body) => post("/gps/actividades", body),
   remove: (id) => del(`/gps/actividades/${id}`),
+  restore: (id) => post(`/gps/actividades/${id}/restore`),
+  hardDelete: (id) => del(`/gps/actividades/${id}/hard`),
 };
 
 /* ─── Reportes ─── */

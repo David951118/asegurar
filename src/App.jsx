@@ -19,22 +19,23 @@ import Pse from "./Pages/Pse";
 import Rndc from "./Pages/Rndc";
 import DashboardRndc from "./Pages/Rndc/Dashboard";
 import Pesv from "./Pages/Pesv/index";
-import Login from "./Components/PSEform/login";
-import Portal from "./Pages/Pse/Portal";
 import Navbar from "./Pages/Navbar";
 import Footer from "./Components/footer";
 import OopsPage from "./Pages/oops";
 import WhatsAppButton from "./Components/whatsapButon";
 import Ubicacion from "./Pages/Ubicacion";
 import UbicacionDetalle from "./Pages/Ubicacion/UbicacionDetalle";
-import AdminDashboard from "./Pages/Admin";
-import AdminLogin from "./Pages/Admin/login";
-import Adminusers from "./Pages/Admin/usuarios";
-import Placas from "./Pages/Admin/placas";
-import RecoveryPortal from "./Pages/Admin/RecoveryPortal";
-import ChangePassword from "./Pages/Admin/ChangePasswrod";
-import PrivateRoute from "./Components/privateRoute";
 import SessionTimeoutModal from "./Components/SessionTimeoutModal";
+// Imports de rutas legacy (admin/PSE wompi) — actualmente deshabilitadas, se mantienen como referencia:
+// import Login from "./Components/PSEform/login";
+// import Portal from "./Pages/Pse/Portal";
+// import AdminDashboard from "./Pages/Admin";
+// import AdminLogin from "./Pages/Admin/login";
+// import Adminusers from "./Pages/Admin/usuarios";
+// import Placas from "./Pages/Admin/placas";
+// import RecoveryPortal from "./Pages/Admin/RecoveryPortal";
+// import ChangePassword from "./Pages/Admin/ChangePasswrod";
+// import PrivateRoute from "./Components/privateRoute";
 import InventarioLogin from "./Pages/Inventario";
 import InventarioDashboard from "./Pages/Inventario/Dashboard";
 import ActividadesList from "./Pages/Inventario/Actividades";
@@ -46,6 +47,7 @@ import EquipoForm from "./Pages/Inventario/EquipoForm";
 import EquipoDetalle from "./Pages/Inventario/EquipoDetalle";
 import InventarioCentral from "./Pages/Inventario/InventarioCentral";
 import TrasladoEquipos from "./Pages/Inventario/TrasladoEquipos";
+import Papelera from "./Pages/Inventario/Papelera";
 import MarcasModelos from "./Pages/Inventario/catalogos/MarcasModelos";
 import Ciudades from "./Pages/Inventario/catalogos/Ciudades";
 import Tecnicos from "./Pages/Inventario/catalogos/Tecnicos";
@@ -98,6 +100,7 @@ const AppRoutes = () => {
     { path: "/inventario/reportes/movimientos", element: <Movimientos /> },
     { path: "/inventario/reportes/inventario-por-ciudad", element: <InventarioPorCiudad /> },
     { path: "/inventario/devueltos", element: <Devueltos /> },
+    { path: "/inventario/papelera", element: <Papelera /> },
     { path: "/*", element: <OopsPage /> },
   ]);
 

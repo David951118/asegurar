@@ -31,7 +31,8 @@ function Content({ id }) {
   const [confirmDel, setConfirmDel] = useState(false);
   const [activeModal, setActiveModal] = useState(null);
 
-  useEffect(() => { fetchEq(); /* eslint-disable-next-line */ }, [id]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { fetchEq(); }, [id]);
 
   const fetchEq = async () => {
     setLoading(true);
@@ -234,7 +235,7 @@ function Content({ id }) {
       <ConfirmModal
         open={confirmDel}
         title="Eliminar equipo"
-        message={`¿Eliminar el equipo IMEI ${eq.imei}? No se puede eliminar si está INSTALADO o EN_TRANSITO.`}
+        message={`¿Enviar a la papelera el equipo IMEI ${eq.imei}? Quedará desasignado de su técnico y vehículo. Podrás restaurarlo desde la Papelera.`}
         confirmLabel="Eliminar"
         danger
         onCancel={() => setConfirmDel(false)}

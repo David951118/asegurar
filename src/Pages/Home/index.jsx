@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Card from "../../Components/card";
 import jefeFoto from "../../Assets/Equipo Asegurar LTDA/Presidente.jpg";
 import getenteFoto from "../../Assets/Equipo Asegurar LTDA/Gerencia.jpg";
 import sgsstFoto from "../../Assets/Equipo Asegurar LTDA/SGSST.jpeg";

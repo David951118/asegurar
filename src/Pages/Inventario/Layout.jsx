@@ -17,6 +17,7 @@ const NAV = [
   { to: "/inventario/reportes/movimientos", label: "Movimientos", icon: Icon.refresh },
   { to: "/inventario/reportes/inventario-por-ciudad", label: "Inv. por ciudad", icon: Icon.grid },
   { to: "/inventario/devueltos", label: "Devueltos al cliente", icon: Icon.undo },
+  { to: "/inventario/papelera", label: "Papelera", icon: Icon.trash },
 ];
 
 export default function InventarioLayout({ title, subtitle, children }) {

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 
 // Configuración de la API del RNDC (Backend propio - Proxy a Cellvi/RNDC)
 // Usa REACT_APP_GPS_API_URL para alternar dev/prod (mismo backend Node)
@@ -27,8 +26,10 @@ rndcBackend.interceptors.response.use(
       localStorage.removeItem("rndc_token");
       localStorage.removeItem("rndc_user");
       localStorage.removeItem("rndc_token_expires");
-      // Opcional: Redirigir si no estamos ya en la ruta de login
-      if (!window.location.pathname.includes("/rndc")) {
+      // Redirigir solo si estamos dentro del módulo RNDC; otros módulos
+      // (ej. inventario) tienen su propio manejo de sesión.
+      const path = typeof window !== "undefined" ? window.location.pathname : "/";
+      if (path.startsWith("/rndc")) {
         window.location.href = "/rndc";
       }
     }

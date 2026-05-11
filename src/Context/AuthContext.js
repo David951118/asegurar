@@ -19,7 +19,15 @@ export const AuthProvider = ({ children }) => {
     await RndcService.logout();
     setIsAuthenticated(false);
     setShowRenewalModal(false);
-    window.location.href = "/rndc"; // Redirigir a home o login
+    // Volver al módulo donde estaba el usuario; por defecto al home.
+    const path = typeof window !== "undefined" ? window.location.pathname : "/";
+    if (path.startsWith("/rndc")) {
+      window.location.href = "/rndc";
+    } else if (path.startsWith("/inventario")) {
+      window.location.href = "/inventario";
+    } else {
+      window.location.href = "/";
+    }
   }, []);
 
   const login = () => {

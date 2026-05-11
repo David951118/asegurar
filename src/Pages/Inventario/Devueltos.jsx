@@ -20,6 +20,7 @@ function Content() {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { cargar(); }, []);
 
   const cargar = async () => {

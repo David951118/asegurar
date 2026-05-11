@@ -21,6 +21,7 @@ function Content() {
   const [data, setData] = useState({ equipos: [], resumen: [] });
   const [loading, setLoading] = useState(false);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { cargar(); }, []);
 
   const cargar = async () => {

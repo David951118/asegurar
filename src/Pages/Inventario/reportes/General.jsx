@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import InventarioLayout from "../Layout";
 import { ReportesService } from "../../../Services/gpsApi";
 import { Icon, InvSelect, InvTable, InvTag, useToast } from "../components";
