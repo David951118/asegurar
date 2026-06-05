@@ -70,10 +70,14 @@ function Content() {
   }, [periodo]);
 
   const num = (v) => v ?? 0;
-  const enviadosASede = data?.enviadosASede || {};
-  const usadosInstalados = data?.usadosInstalados || {};
-  const detallePorModelo = data?.detallePorModelo || [];
+  // El backend agrupa los totales bajo `data.resumen`.
+  const resumen = data?.resumen || {};
+  const enviadosASede = resumen.enviadosASede || {};
+  const usadosInstalados = resumen.usadosInstalados || {};
   const porTipo = data?.actividades?.porTipo || data?.actividadesPorTipo || {};
+  // `detallePorModelo` llega como filas {accion, condicion, marca, modelo, total};
+  // se pivota a una fila por marca/modelo con columnas por tipo de movimiento.
+  const detallePorModelo = pivotDetalle(data?.detallePorModelo || []);
 
   return (
     <>
@@ -107,17 +111,17 @@ function Content() {
 
       {/* KPIs */}
       <div className="inv-kpi-grid">
-        <Kpi label="Recibidos NUEVOS" value={num(data?.recibidosNuevos)} variant="success" />
-        <Kpi label="Recibidos SEGUNDA" value={num(data?.recibidosSegunda)} />
+        <Kpi label="Recibidos NUEVOS" value={num(resumen.recibidosNuevos)} variant="success" />
+        <Kpi label="Recibidos SEGUNDA" value={num(resumen.recibidosSegunda)} />
         <Kpi label="Enviados a sede" value={num(enviadosASede.total)}
           hint={`${num(enviadosASede.nuevos)} nuevos · ${num(enviadosASede.segunda)} segunda`} variant="info" />
-        <Kpi label="Instalados" value={num(usadosInstalados.total ?? data?.instalados)}
+        <Kpi label="Instalados" value={num(usadosInstalados.total)}
           hint={usadosInstalados.nuevos != null ? `${num(usadosInstalados.nuevos)} nuevos · ${num(usadosInstalados.segunda)} segunda` : ""} variant="info" />
-        <Kpi label="Retirados" value={num(data?.retirados)} variant="warning" />
-        <Kpi label="Restaurados" value={num(data?.restaurados)} />
-        <Kpi label="Enviados a garantía" value={num(data?.enviadosGarantia)} variant="warning" />
-        <Kpi label="Recibidos de garantía" value={num(data?.recibidosGarantia)} />
-        <Kpi label="Descartados" value={num(data?.descartados)} variant="danger" />
+        <Kpi label="Retirados" value={num(resumen.retirados)} variant="warning" />
+        <Kpi label="Restaurados" value={num(resumen.restaurados)} />
+        <Kpi label="Enviados a garantía" value={num(resumen.enviadosGarantia)} variant="warning" />
+        <Kpi label="Recibidos de garantía" value={num(resumen.recibidosGarantia)} />
+        <Kpi label="Descartados" value={num(resumen.descartados)} variant="danger" />
       </div>
 
       {/* Actividades por tipo */}
@@ -170,6 +174,44 @@ function Content() {
         </div>
       </div>
     </>
+  );
+}
+
+// Pivota filas {accion, condicion, marca, modelo, total} a una fila por
+// marca/modelo con columnas agregadas por tipo de movimiento.
+function pivotDetalle(filas) {
+  const map = {};
+  for (const f of filas) {
+    const marca = f.marca || "—";
+    const modelo = f.modelo || "—";
+    const key = `${marca} / ${modelo}`;
+    if (!map[key]) {
+      map[key] = { marca, modelo, recibidos: 0, enviados: 0, instalados: 0, retirados: 0 };
+    }
+    const r = map[key];
+    const t = Number(f.total) || 0;
+    switch (f.accion) {
+      case "CREADO":
+      case "RECIBIDO_SEGUNDA":
+      case "RECIBIDO_GARANTIA":
+        r.recibidos += t;
+        break;
+      case "ENVIADO":
+        r.enviados += t;
+        break;
+      case "INSTALADO":
+        r.instalados += t;
+        break;
+      case "RETIRADO":
+      case "DESCARTADO":
+        r.retirados += t;
+        break;
+      default:
+        break;
+    }
+  }
+  return Object.values(map).sort((a, b) =>
+    `${a.marca} ${a.modelo}`.localeCompare(`${b.marca} ${b.modelo}`),
   );
 }
 

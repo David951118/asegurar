@@ -19,7 +19,24 @@ const initial = {
   condicion: "NUEVO",
   ciudad: "",
   observaciones: "",
+  // Estado inicial: DISPONIBLE (entra a inventario) o INSTALADO (directo a producción).
+  estado: "DISPONIBLE",
+  placaInstalada: "",
+  lineaSim: "",
+  numeroSim: "",
+  tipoPropiedad: "COMODATO",
+  propietarioNombre: "",
 };
+
+const ESTADO_INICIAL = [
+  { value: "DISPONIBLE", label: "Disponible (entra a inventario)" },
+  { value: "INSTALADO", label: "Instalado (directo a producción)" },
+];
+
+const TIPOS_PROPIEDAD = [
+  { value: "COMODATO", label: "Comodato (Asegurar Ltda.)" },
+  { value: "PROPIO", label: "Propio del cliente" },
+];
 
 export default function EquipoForm() {
   const { id } = useParams();
@@ -105,12 +122,20 @@ function FormContent({ id, isEdit }) {
 
   const update = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
+  const instaladoDirecto = !isEdit && form.estado === "INSTALADO";
+
   const validar = () => {
     const e = {};
     if (!form.marca) e.marca = "Seleccione una marca";
     if (!form.modelo) e.modelo = "Seleccione un modelo";
     if (!form.imei) e.imei = "IMEI requerido";
     else if (form.imei.length < 10) e.imei = "IMEI debe tener al menos 10 dígitos";
+    if (instaladoDirecto) {
+      if (!form.placaInstalada || form.placaInstalada.length < 3)
+        e.placaInstalada = "Placa del vehículo requerida (mín. 3 caracteres)";
+      if (form.tipoPropiedad === "PROPIO" && !form.propietarioNombre.trim())
+        e.propietarioNombre = "Indique el propietario (equipo propio del cliente)";
+    }
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -129,6 +154,16 @@ function FormContent({ id, isEdit }) {
     if (form.ciudad) payload.ciudad = form.ciudad;
     if (form.observaciones) payload.observaciones = form.observaciones;
 
+    // Registro directo en producción (solo al crear).
+    if (instaladoDirecto) {
+      payload.estado = "INSTALADO";
+      payload.placaInstalada = form.placaInstalada;
+      payload.tipoPropiedad = form.tipoPropiedad;
+      if (form.tipoPropiedad === "PROPIO") payload.propietarioNombre = form.propietarioNombre;
+      if (form.lineaSim) payload.lineaSim = form.lineaSim;
+      if (form.numeroSim) payload.numeroSim = form.numeroSim;
+    }
+
     setSubmitting(true);
     try {
       if (isEdit) {
@@ -136,7 +171,12 @@ function FormContent({ id, isEdit }) {
         toast.success("Actualizado", "Equipo actualizado correctamente");
       } else {
         await EquiposService.create(payload);
-        toast.success("Creado", "Equipo registrado en el inventario");
+        toast.success(
+          "Creado",
+          instaladoDirecto
+            ? "Equipo registrado directo en producción (INSTALADO)"
+            : "Equipo registrado en el inventario",
+        );
       }
       setTimeout(() => navigate("/inventario/equipos"), 500);
     } catch (err) {
@@ -216,6 +256,88 @@ function FormContent({ id, isEdit }) {
             </div>
           </div>
         </div>
+
+        {!isEdit && (
+          <div className="inv-form-section">
+            <h3>Destino inicial</h3>
+            <div className="inv-form-grid">
+              <div className="inv-field">
+                <label>¿Cómo ingresa el equipo?</label>
+                <InvSelect
+                  value={form.estado}
+                  options={ESTADO_INICIAL}
+                  onChange={(v) => update("estado", v || "DISPONIBLE")}
+                  isClearable={false}
+                />
+                <small style={{ color: "#6b7280" }}>
+                  {instaladoDirecto
+                    ? "Se registra como INSTALADO, directo a producción, sin pasar por inventario."
+                    : "Ingresa al inventario de la ciudad seleccionada (por defecto la central)."}
+                </small>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {instaladoDirecto && (
+          <div className="inv-form-section">
+            <h3>Instalación en producción</h3>
+            <div className="inv-form-grid">
+              <div className="inv-field">
+                <label>Placa del vehículo <span className="req">*</span></label>
+                <input
+                  className="inv-input"
+                  value={form.placaInstalada}
+                  onChange={(e) => update("placaInstalada", e.target.value.toUpperCase())}
+                  placeholder="ABC123"
+                  maxLength={20}
+                />
+                {errors.placaInstalada && <small className="err">{errors.placaInstalada}</small>}
+              </div>
+              <div className="inv-field">
+                <label>Línea SIM</label>
+                <input
+                  className="inv-input"
+                  value={form.lineaSim}
+                  onChange={(e) => update("lineaSim", e.target.value)}
+                  placeholder="3001234567"
+                />
+              </div>
+              <div className="inv-field">
+                <label>Número SIM</label>
+                <input
+                  className="inv-input"
+                  value={form.numeroSim}
+                  onChange={(e) => update("numeroSim", e.target.value)}
+                  placeholder="ICCID / número de SIM"
+                />
+              </div>
+              <div className="inv-field">
+                <label>Propiedad</label>
+                <InvSelect
+                  value={form.tipoPropiedad}
+                  options={TIPOS_PROPIEDAD}
+                  onChange={(v) => update("tipoPropiedad", v || "COMODATO")}
+                  isClearable={false}
+                />
+              </div>
+              {form.tipoPropiedad === "PROPIO" && (
+                <div className="inv-field">
+                  <label>Propietario <span className="req">*</span></label>
+                  <input
+                    className="inv-input"
+                    value={form.propietarioNombre}
+                    onChange={(e) => update("propietarioNombre", e.target.value)}
+                    placeholder="Nombre del cliente propietario"
+                  />
+                  {errors.propietarioNombre && (
+                    <small className="err">{errors.propietarioNombre}</small>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         <div className="inv-form-section">
           <h3>Ubicación</h3>

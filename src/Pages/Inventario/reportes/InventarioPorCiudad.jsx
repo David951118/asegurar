@@ -41,8 +41,31 @@ function Content() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const tabla = data?.tabla || data?.items || (Array.isArray(data) ? data : []);
-  const resumenTexto = data?.resumenTexto || data?.resumen || "";
+  // El backend devuelve `tabla` como filas por ciudad con `modelos[]` anidado.
+  // Lo aplanamos a una fila por (ciudad, modelo) para la tabla de detalle.
+  const ciudadesData = data?.tabla || data?.items || (Array.isArray(data) ? data : []);
+  const filas = [];
+  for (const c of ciudadesData) {
+    const ciudadNombre = c.ciudad?.nombre || c.ciudad || "—";
+    const modelos = c.modelos || [];
+    if (modelos.length === 0) {
+      filas.push({
+        ciudad: ciudadNombre, esCentral: c.esCentral,
+        marca: "—", modelo: "—", nuevos: 0, segunda: 0,
+        porEstado: c.porEstado || {}, total: c.totalEquipos ?? 0,
+      });
+    } else {
+      for (const m of modelos) {
+        filas.push({
+          ciudad: ciudadNombre, esCentral: c.esCentral,
+          marca: m.marca, modelo: m.modelo,
+          nuevos: m.nuevos ?? 0, segunda: m.segunda ?? 0,
+          porEstado: m.porEstado || {}, total: m.total ?? 0,
+        });
+      }
+    }
+  }
+  const instalados = data?.instalados || null;
 
   return (
     <>
@@ -72,56 +95,33 @@ function Content() {
         </button>
       </div>
 
-      {resumenTexto && (
-        <div className="inv-card" style={{ marginBottom: 18 }}>
-          <div className="inv-card-body">
-            <h3>Resumen rápido</h3>
-            <p style={{
-              margin: 0,
-              color: "var(--text-secondary)",
-              fontSize: "0.9rem",
-              lineHeight: 1.6,
-              whiteSpace: "pre-wrap",
-              fontFamily: "ui-monospace, Menlo, Consolas, monospace",
-              background: "var(--bg-tertiary)",
-              padding: "12px 14px",
-              borderRadius: 8,
-              border: "1px solid var(--card-border)",
-            }}>
-              {resumenTexto}
-            </p>
-          </div>
-        </div>
-      )}
-
       <div className="inv-card">
         <div className="inv-card-body">
           <h3>Detalle ciudad → modelo</h3>
+          <p style={{ margin: "0 0 12px", color: "var(--text-muted)", fontSize: "0.82rem" }}>
+            Los equipos instalados no se cuentan dentro de ninguna ciudad; se listan aparte abajo.
+          </p>
           <InvTable
             loading={loading}
-            data={tabla}
+            data={filas}
             rowsPerPage={30}
             emptyMessage="Sin datos"
             columns={[
               { key: "ciudad", header: "Ciudad",
                 render: (r) => (
                   <span>
-                    <strong>{r.ciudad?.nombre || r.ciudad || "—"}</strong>
-                    {(r.ciudad?.esCentral || r.esCentral) && (
-                      <InvTag value="Central" severity="info" />
-                    )}
+                    <strong>{r.ciudad || "—"}</strong>
+                    {r.esCentral && <InvTag value="Central" severity="info" />}
                   </span>
                 ) },
-              { key: "marca", header: "Marca", render: (r) => r.marca?.nombre || r.marca || "—" },
-              { key: "modelo", header: "Modelo", render: (r) => r.modelo?.nombre || r.modelo || "—" },
+              { key: "marca", header: "Marca", render: (r) => r.marca || "—" },
+              { key: "modelo", header: "Modelo", render: (r) => r.modelo || "—" },
               { key: "nuevos", header: "Nuevos", align: "right", render: (r) => r.nuevos ?? 0 },
               { key: "segunda", header: "Segunda", align: "right", render: (r) => r.segunda ?? 0 },
               { key: "disp", header: "Disp", align: "right",
                 render: (r) => r.porEstado?.DISPONIBLE ?? 0 },
               { key: "trans", header: "Tránsito", align: "right",
-                render: (r) => r.porEstado?.EN_TRANSITO ?? 0 },
-              { key: "inst", header: "Instalados", align: "right",
-                render: (r) => r.porEstado?.INSTALADO ?? 0 },
+                render: (r) => (r.porEstado?.EN_TRANSITO ?? 0) + (r.porEstado?.EN_POSESION_TECNICO ?? 0) },
               { key: "rev", header: "Revisión", align: "right",
                 render: (r) => r.porEstado?.EN_REVISION ?? 0 },
               { key: "total", header: "Total", align: "right",
@@ -130,6 +130,31 @@ function Content() {
           />
         </div>
       </div>
+
+      {filters.incluirInstalados && instalados && (
+        <div className="inv-card" style={{ marginTop: 18 }}>
+          <div className="inv-card-body">
+            <h3>Instalados (fuera de ciudad) · {instalados.totalEquipos ?? 0}</h3>
+            <p style={{ margin: "0 0 12px", color: "var(--text-muted)", fontSize: "0.82rem" }}>
+              Equipos actualmente instalados en vehículos. No pertenecen al inventario de ninguna ciudad.
+            </p>
+            <InvTable
+              loading={loading}
+              data={instalados.modelos || []}
+              rowsPerPage={30}
+              emptyMessage="Sin equipos instalados"
+              columns={[
+                { key: "marca", header: "Marca", render: (r) => r.marca || "—" },
+                { key: "modelo", header: "Modelo", render: (r) => r.modelo || "—" },
+                { key: "nuevos", header: "Nuevos", align: "right", render: (r) => r.nuevos ?? 0 },
+                { key: "segunda", header: "Segunda", align: "right", render: (r) => r.segunda ?? 0 },
+                { key: "total", header: "Total", align: "right",
+                  render: (r) => <strong>{r.total ?? 0}</strong> },
+              ]}
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 }

@@ -226,6 +226,12 @@ function EquiposContent() {
                 className="inv-input"
                 value={filters.imei}
                 onChange={(e) => setFilters((f) => ({ ...f, imei: e.target.value }))}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    cargar();
+                  }
+                }}
                 placeholder="Buscar IMEI..."
               />
             </div>

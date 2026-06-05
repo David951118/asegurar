@@ -150,6 +150,7 @@ export const ActividadesService = {
   list: (params) => get("/gps/actividades", params),       // ?includeDeleted=true para papelera
   get: (id) => get(`/gps/actividades/${id}`),
   create: (body) => post("/gps/actividades", body),
+  update: (id, body) => put(`/gps/actividades/${id}`, body), // edición segura (no mueve inventario)
   remove: (id) => del(`/gps/actividades/${id}`),
   restore: (id) => post(`/gps/actividades/${id}/restore`),
   hardDelete: (id) => del(`/gps/actividades/${id}/hard`),
