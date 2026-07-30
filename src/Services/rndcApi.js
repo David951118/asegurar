@@ -182,6 +182,74 @@ const RndcService = {
     const response = await rndcBackend.delete(`/manifiestos/${id}`);
     return response.data;
   },
+
+  // ═══════════════════════════════════════════════════════════════
+  // EXPEDICIÓN de remesas/manifiestos (rol empresa de transporte)
+  // Solo ADMIN / CLIENTE_ADMIN — el backend rechaza al resto (403)
+  // ═══════════════════════════════════════════════════════════════
+
+  expedicion: {
+    // Credencial RNDC de la empresa
+    getCredencial: async () =>
+      (await rndcBackend.get("/expedicion/credencial")).data,
+    guardarCredencial: async (payload) =>
+      (await rndcBackend.put("/expedicion/credencial", payload)).data,
+    verificarCredencial: async () =>
+      (await rndcBackend.post("/expedicion/credencial/verificar")).data,
+
+    // Maestros
+    registrarTercero: async (variables) =>
+      (await rndcBackend.post("/expedicion/terceros", { variables })).data,
+    registrarVehiculo: async (variables) =>
+      (await rndcBackend.post("/expedicion/vehiculos", { variables })).data,
+
+    // Remesas
+    expedirRemesa: async (consecutivoRemesa, variables) =>
+      (
+        await rndcBackend.post("/expedicion/remesas", {
+          consecutivoRemesa,
+          variables,
+        })
+      ).data,
+    getRemesas: async (params = {}) =>
+      (await rndcBackend.get("/expedicion/remesas", { params })).data,
+    anularRemesa: async (id, motivo) =>
+      (await rndcBackend.post(`/expedicion/remesas/${id}/anular`, { motivo }))
+        .data,
+
+    // Manifiestos
+    expedirManifiesto: async (numManifiestoCarga, consecutivosRemesas, variables) =>
+      (
+        await rndcBackend.post("/expedicion/manifiestos", {
+          numManifiestoCarga,
+          consecutivosRemesas,
+          variables,
+        })
+      ).data,
+    getManifiestos: async (params = {}) =>
+      (await rndcBackend.get("/expedicion/manifiestos", { params })).data,
+    anularManifiesto: async (id, motivo) =>
+      (
+        await rndcBackend.post(`/expedicion/manifiestos/${id}/anular`, {
+          motivo,
+        })
+      ).data,
+    consultarAceptacion: async (id) =>
+      (
+        await rndcBackend.post(
+          `/expedicion/manifiestos/${id}/consultar-aceptacion`,
+        )
+      ).data,
+
+    // Consumo (monetización)
+    getConsumo: async () => (await rndcBackend.get("/expedicion/consumo")).data,
+    getResumenConsumos: async (periodo) =>
+      (
+        await rndcBackend.get("/expedicion/consumo/resumen", {
+          params: periodo ? { periodo } : {},
+        })
+      ).data,
+  },
 };
 
 export default RndcService;

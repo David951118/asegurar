@@ -18,6 +18,7 @@ import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import Pse from "./Pages/Pse";
 import Rndc from "./Pages/Rndc";
 import DashboardRndc from "./Pages/Rndc/Dashboard";
+import ExpedicionRndc from "./Pages/Rndc/Expedicion";
 import Pesv from "./Pages/Pesv/index";
 import Navbar from "./Pages/Navbar";
 import Footer from "./Components/footer";
@@ -81,6 +82,7 @@ const AppRoutes = () => {
     { path: "/politica-de-privacidad", element: <PrivacyPolicy /> },
     { path: "/rndc", element: <Rndc /> },
     { path: "/rndc/dashboard", element: <DashboardRndc /> },
+    { path: "/rndc/expedicion", element: <ExpedicionRndc /> },
     { path: "/pesv", element: <Pesv /> },
     { path: "/inventario", element: <InventarioLogin /> },
     { path: "/inventario/dashboard", element: <InventarioDashboard /> },

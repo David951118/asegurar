@@ -733,13 +733,22 @@ export default function DashboardRndc() {
               <strong>{username}</strong>
             </p>
           </div>
-          <Button
-            label="Cerrar Sesión"
-            icon="pi pi-power-off"
-            severity="secondary"
-            outlined
-            onClick={onLogout}
-          />
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {(isAdmin || roles?.includes("ROLE_CLIENTE_ADMIN")) && (
+              <Button
+                label="Expedición de Manifiestos"
+                icon="pi pi-file-edit"
+                onClick={() => (window.location.href = "/rndc/expedicion")}
+              />
+            )}
+            <Button
+              label="Cerrar Sesión"
+              icon="pi pi-power-off"
+              severity="secondary"
+              outlined
+              onClick={onLogout}
+            />
+          </div>
         </header>
 
         {/* Estadísticas */}
