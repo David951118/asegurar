@@ -8,14 +8,18 @@ import { Dialog } from "primereact/dialog";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import RndcService from "../../Services/rndcApi";
 import { useAuth } from "../../Context/AuthContext";
+import { RNDC_EXPEDICION_HABILITADA } from "../../config/featureFlags";
+import "./rndc-theme.css";
 
-// Estilos CSS del Dashboard original
+// Estilos del Dashboard — línea de diseño del sitio/PESV (tokens de index.css)
+// con soporte de modo claro/oscuro; la tipografía se hereda del body (Roboto).
 const styles = `
   .dashboard-container {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: inherit;
     min-height: 100vh;
-    padding: 20px;
-    background: linear-gradient(13deg, #0c508f 0%, #ffffff 100%);
+    padding: 24px 20px 40px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
   }
 
   .main-wrapper {
@@ -24,34 +28,42 @@ const styles = `
   }
 
   .dash-header {
-    background: white;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
+    background: var(--hero-gradient);
+    color: #fff;
+    padding: 22px 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px var(--card-shadow);
+    margin-bottom: 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
   }
-  
+
   .dash-header h1 {
-    color: #094aa0;
-    font-size: 28px;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 800;
     margin: 0 0 5px 0;
+    letter-spacing: 0.2px;
   }
+  .dash-header p { color: rgba(255,255,255,0.75) !important; }
+  .dash-header p strong { color: #ffd54f; }
 
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
+    gap: 18px;
+    margin-bottom: 24px;
   }
 
   .stat-card {
-    background: white;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 14px;
+    box-shadow: 0 4px 10px var(--card-shadow);
     transition: transform 0.2s;
     display: flex;
     flex-direction: column;
@@ -62,8 +74,8 @@ const styles = `
   }
 
   .stat-card h3 {
-    color: #666;
-    font-size: 14px;
+    color: var(--text-muted);
+    font-size: 13px;
     margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -71,13 +83,13 @@ const styles = `
 
   .stat-value {
     font-size: 36px;
-    font-weight: bold;
-    color: #094aa0;
+    font-weight: 800;
+    color: var(--accent);
   }
 
   .stat-label {
     font-size: 12px;
-    color: #999;
+    color: var(--text-muted);
     margin-top: 5px;
   }
 
@@ -89,42 +101,49 @@ const styles = `
   }
 
   .custom-tab {
-    background: white;
-    padding: 12px 24px;
-    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    padding: 11px 22px;
+    border-radius: 10px;
     cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: none;
+    font-weight: 600;
+    font-family: inherit;
+    transition: all 0.25s;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 2px 4px var(--card-shadow);
     font-size: 14px;
   }
 
   .custom-tab:hover {
-    background: #f0f0f0;
+    background: var(--bg-tertiary);
   }
 
   .custom-tab.active {
-    background: #094aa0;
+    background: var(--accent);
+    border-color: var(--accent);
     color: white;
   }
 
   .content-card {
-    background: white;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 14px;
+    box-shadow: 0 4px 10px var(--card-shadow);
     min-height: 400px;
   }
+  .content-card h2 { color: var(--accent-dark); }
 
   .filters {
     display: flex;
     gap: 15px;
     margin-bottom: 20px;
     flex-wrap: wrap;
-    background: #f8f9fa;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--card-border);
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 10px;
     align-items: flex-end;
   }
 
@@ -133,32 +152,36 @@ const styles = `
     flex-direction: column;
     gap: 5px;
   }
-  
+
   .filter-group label {
-      font-size: 12px; 
-      font-weight: bold; 
-      color: #666;
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--text-secondary);
   }
 
   .filter-input {
       padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text-primary);
+      border-radius: 6px;
       min-width: 150px;
+      font-family: inherit;
   }
-  
+
   .refresh-btn {
-      background: #28a745; 
-      color: white; 
-      border: none; 
-      padding: 8px 15px; 
-      border-radius: 5px; 
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
+      font-family: inherit;
       margin-left: auto;
   }
-  
-  .refresh-btn:hover { background: #218838; }
+
+  .refresh-btn:hover { filter: brightness(0.92); }
 
   /* Delete Button Fix */
   .delete-btn {
@@ -166,7 +189,7 @@ const styles = `
       color: white;
       border: none;
       padding: 8px 12px;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
       font-size: 13px;
       display: inline-flex;
@@ -177,6 +200,15 @@ const styles = `
   }
   .delete-btn:hover { background-color: #c82333; }
   .delete-btn i { font-size: 14px; }
+
+  /* Paneles de detalle expandido (filas de la tabla) */
+  .detail-panel {
+    padding: 20px;
+    background: var(--bg-tertiary);
+    border-left: 4px solid var(--accent);
+    color: var(--text-primary);
+  }
+  .detail-panel h4 { color: var(--text-primary); }
 `;
 
 const getPlacasFilter = (username, vehiculos, roles = []) => {
@@ -249,13 +281,7 @@ function ManifiestoDetail({ manifiesto }) {
   };
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        background: "#f8f9fa",
-        borderLeft: "4px solid #667eea",
-      }}
-    >
+    <div className="detail-panel">
       <div
         style={{
           display: "flex",
@@ -264,7 +290,7 @@ function ManifiestoDetail({ manifiesto }) {
           marginBottom: 15,
         }}
       >
-        <h4 style={{ margin: 0, color: "#333" }}>
+        <h4 style={{ margin: 0 }}>
           📍 Puntos de Control - {manifiesto.placa}
         </h4>
         {manifiesto.esMonitoreable && (
@@ -734,13 +760,14 @@ export default function DashboardRndc() {
             </p>
           </div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            {(isAdmin || roles?.includes("ROLE_CLIENTE_ADMIN")) && (
-              <Button
-                label="Expedición de Manifiestos"
-                icon="pi pi-file-edit"
-                onClick={() => (window.location.href = "/rndc/expedicion")}
-              />
-            )}
+            {RNDC_EXPEDICION_HABILITADA &&
+              (isAdmin || roles?.includes("ROLE_CLIENTE_ADMIN")) && (
+                <Button
+                  label="Expedición de Manifiestos"
+                  icon="pi pi-file-edit"
+                  onClick={() => (window.location.href = "/rndc/expedicion")}
+                />
+              )}
             <Button
               label="Cerrar Sesión"
               icon="pi pi-power-off"
@@ -815,12 +842,6 @@ export default function DashboardRndc() {
               🐛 Bitácora
             </button>
           )}
-          <button
-            className={`custom-tab ${activeTab === "fuec" ? "active" : ""}`}
-            onClick={() => setActiveTab("fuec")}
-          >
-            📄 Contratos FUEC
-          </button>
         </div>
 
         {/* Contenido */}
@@ -1208,113 +1229,6 @@ export default function DashboardRndc() {
             </div>
           )}
 
-          {activeTab === "fuec" && (
-            <div>
-              <h2 style={{ color: "#094aa0", marginBottom: 8 }}>📄 Contratos FUEC</h2>
-              <p style={{ color: "#666", marginBottom: 24 }}>
-                Gestione los <strong>Formatos Únicos de Extracto de Contrato (FUEC)</strong> requeridos
-                para el transporte especial en Colombia.
-              </p>
-
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20, marginBottom: 32 }}>
-                {/* Card: ¿Qué es FUEC? */}
-                <div style={{ background: "#f0f6ff", border: "1px solid #bcd4f5", borderRadius: 12, padding: "24px 20px" }}>
-                  <div style={{ fontSize: 32, marginBottom: 12 }}>📋</div>
-                  <h3 style={{ color: "#094aa0", fontSize: "1.1rem", marginBottom: 10 }}>¿Qué es el FUEC?</h3>
-                  <p style={{ color: "#555", fontSize: "0.9rem", lineHeight: 1.65, margin: 0 }}>
-                    El Formato Único de Extracto de Contrato es el documento oficial que acredita
-                    la existencia de un contrato de transporte especial. Es obligatorio para
-                    vehículos que prestan servicio de transporte escolar, empresarial o turístico.
-                  </p>
-                </div>
-
-                {/* Card: Requisitos */}
-                <div style={{ background: "#f0fff4", border: "1px solid #b2dfdb", borderRadius: 12, padding: "24px 20px" }}>
-                  <div style={{ fontSize: 32, marginBottom: 12 }}>✅</div>
-                  <h3 style={{ color: "#1b5e20", fontSize: "1.1rem", marginBottom: 10 }}>Requisitos para generarlo</h3>
-                  <ul style={{ color: "#555", fontSize: "0.9rem", lineHeight: 2, margin: 0, paddingLeft: 18 }}>
-                    <li>NIT y razón social de la empresa transportadora</li>
-                    <li>Placa y datos del vehículo</li>
-                    <li>Nombre y cédula del conductor</li>
-                    <li>Datos del contratante (empresa o persona)</li>
-                    <li>Vigencia del contrato</li>
-                  </ul>
-                </div>
-
-                {/* Card: Pasos */}
-                <div style={{ background: "#fffde7", border: "1px solid #ffe082", borderRadius: 12, padding: "24px 20px" }}>
-                  <div style={{ fontSize: 32, marginBottom: 12 }}>🔢</div>
-                  <h3 style={{ color: "#e65100", fontSize: "1.1rem", marginBottom: 10 }}>Pasos para crear su FUEC</h3>
-                  <ol style={{ color: "#555", fontSize: "0.9rem", lineHeight: 2.1, margin: 0, paddingLeft: 18 }}>
-                    <li>Ingrese al sistema RNDC del Ministerio de Transporte</li>
-                    <li>Seleccione la opción <strong>Contratos FUEC</strong></li>
-                    <li>Complete los datos del contrato</li>
-                    <li>Genere y descargue el PDF del FUEC</li>
-                    <li>Entregue una copia al conductor del vehículo</li>
-                  </ol>
-                </div>
-              </div>
-
-              <div style={{
-                background: "linear-gradient(135deg, #094aa0 0%, #1565c0 100%)",
-                borderRadius: 14,
-                padding: "28px 32px",
-                color: "#fff",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                flexWrap: "wrap",
-                gap: 16,
-              }}>
-                <div>
-                  <h3 style={{ margin: "0 0 8px 0", fontSize: "1.2rem" }}>Acceder al sistema RNDC oficial</h3>
-                  <p style={{ margin: 0, color: "rgba(255,255,255,0.8)", fontSize: "0.9rem" }}>
-                    Los contratos FUEC se generan directamente en el portal del Ministerio de Transporte.
-                    Use sus credenciales CELLVI registradas ante el RNDC.
-                  </p>
-                </div>
-                <a
-                  href="https://rndc.mintransporte.gov.co"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    background: "#ffd54f",
-                    color: "#0a2d6e",
-                    fontWeight: 800,
-                    padding: "14px 28px",
-                    borderRadius: 50,
-                    textDecoration: "none",
-                    fontSize: "0.95rem",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 8,
-                    whiteSpace: "nowrap",
-                    flexShrink: 0,
-                  }}
-                >
-                  <i className="pi pi-external-link" /> Ir al RNDC Ministerio
-                </a>
-              </div>
-
-              <div style={{
-                marginTop: 20,
-                background: "#fff3e0",
-                border: "1px solid #ffe0b2",
-                borderRadius: 10,
-                padding: "14px 18px",
-                display: "flex",
-                gap: 12,
-                alignItems: "flex-start",
-              }}>
-                <i className="pi pi-exclamation-triangle" style={{ color: "#e65100", fontSize: "1.2rem", marginTop: 2 }} />
-                <p style={{ margin: 0, color: "#6d4c41", fontSize: "0.9rem", lineHeight: 1.6 }}>
-                  <strong>Importante:</strong> El FUEC tiene una vigencia máxima de un año y debe
-                  renovarse antes de su vencimiento. Conducir sin el FUEC vigente puede generar
-                  inmovilización del vehículo y sanciones económicas según el Código Nacional de Tránsito.
-                </p>
-              </div>
-            </div>
-          )}
         </div>
       </div>
 

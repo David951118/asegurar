@@ -534,7 +534,7 @@ export default function RndcPage() {
                 </div>
 
                 <div className="rndc-footer">
-                  <p className="rndc-footer-text">Powered by Asegurar Ltda.</p>
+                  <p className="rndc-footer-text">Asegurar Ltda.</p>
                 </div>
               </div>
             </div>

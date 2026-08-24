@@ -1,0 +1,236 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Tema compartido del módulo RNDC (Dashboard + Expedición)
+   Sigue la línea de diseño del sitio/PESV: tokens de index.css
+   (--bg-*, --card-*, --text-*, --accent, --hero-gradient), tipografía
+   Roboto heredada del body y soporte completo de modo claro/oscuro.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Shell de página ── */
+.rndc-page {
+  font-family: inherit; /* Roboto del sitio, no Segoe UI */
+  min-height: 100vh;
+  padding: 24px 20px 40px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+.rndc-wrapper { max-width: 1400px; margin: 0 auto; }
+
+/* ── Encabezado estilo hero PESV ── */
+.rndc-header {
+  background: var(--hero-gradient);
+  color: #fff;
+  padding: 22px 30px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px var(--card-shadow);
+  margin-bottom: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.rndc-header h1 {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 0.2px;
+}
+.rndc-header .rndc-sub {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+  margin-top: 4px;
+}
+.rndc-header .rndc-sub b { color: #ffd54f; }
+.rndc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 8px;
+}
+
+/* ── Pestañas ── */
+.rndc-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+.rndc-tab {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  padding: 11px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.25s;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 2px 4px var(--card-shadow);
+}
+.rndc-tab:hover { background: var(--bg-tertiary); }
+.rndc-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ── Cards ── */
+.rndc-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-primary);
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px var(--card-shadow);
+  margin-bottom: 20px;
+}
+.rndc-card h2, .rndc-card h3 { color: var(--accent-dark); }
+
+.rndc-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.rndc-stat {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px var(--card-shadow);
+  transition: transform 0.2s;
+}
+.rndc-stat:hover { transform: translateY(-4px); }
+.rndc-stat h3 {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.rndc-stat .rndc-stat-valor { font-size: 32px; font-weight: 800; color: var(--accent); }
+.rndc-stat .rndc-stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+/* ── Formularios ── */
+.rndc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+.rndc-field { display: flex; flex-direction: column; gap: 4px; }
+.rndc-field label { font-size: 12px; color: var(--text-secondary); font-weight: 600; }
+.rndc-field small { color: var(--text-muted); font-size: 11px; }
+.rndc-filters {
+  display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--card-border);
+  padding: 15px; border-radius: 10px; align-items: flex-end;
+}
+
+/* ── Avisos ── */
+.rndc-aviso {
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  color: var(--text-primary);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+.rndc-restringido {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-primary);
+  border-radius: 14px;
+}
+
+/* ═══ PrimeReact: adaptación al modo oscuro del sitio ═══
+   El tema lara-light-cyan es fijo claro; estos overrides usan los
+   tokens del sitio cuando data-theme="dark" (aplican también a los
+   diálogos, que se montan en <body>). */
+
+[data-theme="dark"] .p-component { color: var(--text-primary); }
+
+[data-theme="dark"] .p-datatable .p-datatable-header,
+[data-theme="dark"] .p-datatable .p-datatable-thead > tr > th,
+[data-theme="dark"] .p-datatable .p-datatable-tbody > tr,
+[data-theme="dark"] .p-datatable .p-datatable-tbody > tr > td,
+[data-theme="dark"] .p-datatable .p-datatable-footer,
+[data-theme="dark"] .p-paginator {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--card-border);
+}
+[data-theme="dark"] .p-datatable .p-datatable-tbody > tr.p-row-odd {
+  background: var(--bg-tertiary);
+}
+[data-theme="dark"] .p-datatable .p-datatable-tbody > tr:hover {
+  background: var(--accent-bg);
+}
+[data-theme="dark"] .p-datatable .p-sortable-column .p-sortable-column-icon { color: var(--text-muted); }
+[data-theme="dark"] .p-paginator .p-paginator-page,
+[data-theme="dark"] .p-paginator .p-paginator-next,
+[data-theme="dark"] .p-paginator .p-paginator-prev,
+[data-theme="dark"] .p-paginator .p-paginator-first,
+[data-theme="dark"] .p-paginator .p-paginator-last { color: var(--text-secondary); }
+[data-theme="dark"] .p-paginator .p-paginator-page.p-highlight { background: var(--accent-bg); color: var(--accent); }
+
+[data-theme="dark"] .p-dialog .p-dialog-header,
+[data-theme="dark"] .p-dialog .p-dialog-content,
+[data-theme="dark"] .p-dialog .p-dialog-footer {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--card-border);
+}
+[data-theme="dark"] .p-dialog .p-dialog-header .p-dialog-title { color: var(--text-primary); }
+[data-theme="dark"] .p-dialog-mask { background: rgba(0, 0, 0, 0.6); }
+
+[data-theme="dark"] .p-inputtext,
+[data-theme="dark"] .p-password input,
+[data-theme="dark"] .p-dropdown,
+[data-theme="dark"] .p-multiselect,
+[data-theme="dark"] .p-inputnumber input {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--card-border);
+}
+[data-theme="dark"] .p-inputtext::placeholder { color: var(--text-muted); }
+[data-theme="dark"] .p-dropdown .p-dropdown-label,
+[data-theme="dark"] .p-multiselect .p-multiselect-label { color: var(--text-primary); }
+[data-theme="dark"] .p-dropdown-panel,
+[data-theme="dark"] .p-multiselect-panel {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--card-border);
+}
+[data-theme="dark"] .p-dropdown-panel .p-dropdown-item,
+[data-theme="dark"] .p-multiselect-panel .p-multiselect-item {
+  color: var(--text-primary);
+}
+[data-theme="dark"] .p-dropdown-panel .p-dropdown-item:hover,
+[data-theme="dark"] .p-multiselect-panel .p-multiselect-item:hover {
+  background: var(--accent-bg);
+}
+[data-theme="dark"] .p-dropdown-panel .p-dropdown-header,
+[data-theme="dark"] .p-multiselect-panel .p-multiselect-header {
+  background: var(--bg-tertiary);
+  border-color: var(--card-border);
+  color: var(--text-primary);
+}
+[data-theme="dark"] .p-multiselect-token { background: var(--accent-bg); color: var(--accent); }
+
+[data-theme="dark"] .p-toast .p-toast-message {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--card-border);
+}
+[data-theme="dark"] .p-tag { filter: brightness(1.1); }
+[data-theme="dark"] .p-button.p-button-outlined { color: var(--accent); border-color: var(--accent-border); }
+[data-theme="dark"] .p-button.p-button-text { color: var(--accent); }
+[data-theme="dark"] .p-inputswitch .p-inputswitch-slider { background: var(--card-border); }
+[data-theme="dark"] .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider { background: var(--accent); }
+[data-theme="dark"] .p-datatable .p-datatable-emptymessage td { color: var(--text-muted); }

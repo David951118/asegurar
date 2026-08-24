@@ -13,54 +13,14 @@ import { MultiSelect } from "primereact/multiselect";
 import { Dropdown } from "primereact/dropdown";
 import RndcService from "../../Services/rndcApi";
 import { useAuth } from "../../Context/AuthContext";
+import { RNDC_EXPEDICION_HABILITADA } from "../../config/featureFlags";
+import "./rndc-theme.css";
 
 /**
  * EXPEDICIÓN DE MANIFIESTOS RNDC (rol empresa de transporte)
  * Acceso exclusivo CLIENTE_ADMIN / ADMIN — el backend valida de nuevo (403).
+ * Diseño: tokens del sitio (rndc-theme.css) con modo claro/oscuro.
  */
-
-const styles = `
-  .exp-container {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    min-height: 100vh;
-    padding: 20px;
-    background: linear-gradient(13deg, #0c508f 0%, #ffffff 100%);
-  }
-  .exp-wrapper { max-width: 1400px; margin: 0 auto; }
-  .exp-header {
-    background: white; padding: 20px 30px; border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px;
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
-  }
-  .exp-header h1 { color: #094aa0; font-size: 26px; margin: 0; }
-  .exp-header .sub { color: #666; font-size: 13px; margin-top: 4px; }
-  .exp-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-  .exp-tab {
-    background: white; padding: 12px 24px; border-radius: 8px; cursor: pointer;
-    font-weight: 500; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    border: none; font-size: 14px;
-  }
-  .exp-tab:hover { background: #f0f0f0; }
-  .exp-tab.active { background: #094aa0; color: white; }
-  .exp-card {
-    background: white; padding: 25px; border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); min-height: 300px; margin-bottom: 20px;
-  }
-  .exp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
-  .exp-field { display: flex; flex-direction: column; gap: 4px; }
-  .exp-field label { font-size: 12px; color: #555; font-weight: 600; }
-  .exp-field small { color: #999; font-size: 11px; }
-  .exp-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px; }
-  .exp-stat { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-  .exp-stat h3 { color: #666; font-size: 12px; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px; }
-  .exp-stat .valor { font-size: 32px; font-weight: bold; color: #094aa0; }
-  .exp-aviso {
-    background: #fff8e1; border: 1px solid #ffe082; border-radius: 8px;
-    padding: 12px 16px; font-size: 13px; color: #795548; margin-bottom: 16px;
-  }
-  .exp-ambiente { font-weight: 700; }
-  .exp-restringido { text-align: center; padding: 60px 20px; background: white; border-radius: 10px; }
-`;
 
 const ESTADO_SEVERITY = {
   BORRADOR: "secondary",
@@ -72,6 +32,9 @@ const ESTADO_SEVERITY = {
   ANULADA: "danger",
   ANULADO: "danger",
 };
+
+// Equivalencia tipo de identificación local → código RNDC
+const TIPO_ID_RNDC = { CC: "C", NIT: "N", CE: "E", PASAPORTE: "P", PEP: "C" };
 
 // Campos comunes del diccionario RNDC (guía oficial v4/2023)
 const CAMPOS_REMESA = [
@@ -98,6 +61,7 @@ const CAMPOS_REMESA = [
   ["MINUTOSPACTODESCARGUE", "Minutos pacto descargue", ""],
 ];
 
+// Manifiesto: placa y conductor van con selectores (flota y conductores de la bd)
 const CAMPOS_MANIFIESTO = [
   ["CODOPERACIONTRANSPORTE", "Cód. operación transporte", "Ej: G (General)"],
   ["FECHAEXPEDICIONMANIFIESTO", "Fecha expedición", "DD/MM/AAAA"],
@@ -105,10 +69,7 @@ const CAMPOS_MANIFIESTO = [
   ["CODMUNICIPIODESTINOMANIFIESTO", "Municipio destino", "Cód. DANE, ej: 11001000"],
   ["CODIDTITULARMANIFIESTO", "Tipo ID titular", "C=Cédula, N=NIT"],
   ["NUMIDTITULARMANIFIESTO", "Número ID titular", ""],
-  ["NUMPLACA", "Placa del vehículo", "Ej: WZH111"],
   ["NUMPLACAREMOLQUE", "Placa remolque (opcional)", ""],
-  ["CODIDCONDUCTOR", "Tipo ID conductor", "C=Cédula"],
-  ["NUMIDCONDUCTOR", "Número ID conductor", ""],
   ["VALORFLETEPACTADOVIAJE", "Valor flete pactado", "Ej: 3250000"],
   ["RETENCIONICAMANIFIESTOCARGA", "Retención ICA (x mil)", "Ej: 3"],
   ["VALORANTICIPOMANIFIESTO", "Valor anticipo", "Ej: 1000000"],
@@ -134,7 +95,6 @@ const CAMPOS_TERCERO = [
 ];
 
 const CAMPOS_VEHICULO = [
-  ["NUMPLACA", "Placa", ""],
   ["CODCONFIGURACIONUNIDADCARGA", "Configuración unidad de carga", "Ej: 55"],
   ["CODMARCAVEHICULOCARGA", "Cód. marca", ""],
   ["CODLINEAVEHICULOCARGA", "Cód. línea", ""],
@@ -154,9 +114,9 @@ const CAMPOS_VEHICULO = [
 /** Formulario genérico de variables del diccionario RNDC */
 function FormVariables({ campos, valores, onChange }) {
   return (
-    <div className="exp-grid">
+    <div className="rndc-grid">
       {campos.map(([clave, etiqueta, ayuda]) => (
-        <div className="exp-field" key={clave}>
+        <div className="rndc-field" key={clave}>
           <label htmlFor={`f-${clave}`}>{etiqueta}</label>
           <InputText
             id={`f-${clave}`}
@@ -164,7 +124,7 @@ function FormVariables({ campos, valores, onChange }) {
             onChange={(e) => onChange(clave, e.target.value)}
             placeholder={ayuda}
           />
-          {ayuda ? <small>{clave}</small> : <small>{clave}</small>}
+          <small>{clave}</small>
         </div>
       ))}
     </div>
@@ -206,10 +166,13 @@ export default function ExpedicionRndc() {
   });
   const [verificando, setVerificando] = useState(false);
 
-  // Remesas / Manifiestos
+  // Datos
   const [remesas, setRemesas] = useState([]);
   const [manifiestos, setManifiestos] = useState([]);
   const [consumo, setConsumo] = useState(null);
+  // Flota y conductores desde la bd (Mongo), acotados a la empresa
+  const [vehiculosEmpresa, setVehiculosEmpresa] = useState([]);
+  const [conductores, setConductores] = useState([]);
 
   // Formularios
   const [showRemesa, setShowRemesa] = useState(false);
@@ -220,10 +183,13 @@ export default function ExpedicionRndc() {
   const [numManifiesto, setNumManifiesto] = useState("");
   const [remesasSeleccionadas, setRemesasSeleccionadas] = useState([]);
   const [varsManifiesto, setVarsManifiesto] = useState({});
+  const [placaSeleccionada, setPlacaSeleccionada] = useState(null);
+  const [conductorSeleccionado, setConductorSeleccionado] = useState(null);
   const [aceptacionElectronica, setAceptacionElectronica] = useState("SI");
 
   const [showMaestro, setShowMaestro] = useState(null); // 'tercero' | 'vehiculo'
   const [varsMaestro, setVarsMaestro] = useState({});
+  const [placaMaestro, setPlacaMaestro] = useState(null);
 
   const [anulando, setAnulando] = useState(null); // {tipo, registro}
   const [motivoAnulacion, setMotivoAnulacion] = useState("");
@@ -234,11 +200,13 @@ export default function ExpedicionRndc() {
   const cargarTodo = useCallback(async () => {
     setLoading(true);
     try {
-      const [cred, rem, man, cons] = await Promise.all([
+      const [cred, rem, man, cons, vehs, conds] = await Promise.all([
         RndcService.expedicion.getCredencial(),
         RndcService.expedicion.getRemesas(),
         RndcService.expedicion.getManifiestos(),
         RndcService.expedicion.getConsumo(),
+        RndcService.expedicion.getVehiculosEmpresa(),
+        RndcService.expedicion.getConductores(),
       ]);
       setCredencial(cred.data);
       if (cred.data) {
@@ -252,10 +220,10 @@ export default function ExpedicionRndc() {
       setRemesas(rem.data || []);
       setManifiestos(man.data || []);
       setConsumo(cons.data || null);
+      setVehiculosEmpresa(vehs.data || []);
+      setConductores(conds.data || []);
     } catch (e) {
-      if (e.response?.status === 403) {
-        // El backend confirma que este usuario no puede expedir
-      } else {
+      if (e.response?.status !== 403) {
         notificar("error", "Error", e.response?.data?.message || e.message);
       }
     } finally {
@@ -320,8 +288,19 @@ export default function ExpedicionRndc() {
     if (!numManifiesto) return notificar("warn", "Falta", "Indique el consecutivo del manifiesto");
     if (!remesasSeleccionadas.length)
       return notificar("warn", "Falta", "Seleccione al menos una remesa radicada");
+    if (!placaSeleccionada)
+      return notificar("warn", "Falta", "Seleccione el vehículo (placa) de su flota");
+    if (!conductorSeleccionado)
+      return notificar("warn", "Falta", "Seleccione el conductor");
     try {
-      const variables = { ...varsManifiesto, ACEPTACIONELECTRONICA: aceptacionElectronica };
+      const cond = conductores.find((c) => c._id === conductorSeleccionado);
+      const variables = {
+        ...varsManifiesto,
+        NUMPLACA: placaSeleccionada,
+        CODIDCONDUCTOR: TIPO_ID_RNDC[cond?.tipoId] || "C",
+        NUMIDCONDUCTOR: cond?.identificacion || "",
+        ACEPTACIONELECTRONICA: aceptacionElectronica,
+      };
       const r = await RndcService.expedicion.expedirManifiesto(
         numManifiesto,
         remesasSeleccionadas,
@@ -333,6 +312,8 @@ export default function ExpedicionRndc() {
         setNumManifiesto("");
         setRemesasSeleccionadas([]);
         setVarsManifiesto({});
+        setPlacaSeleccionada(null);
+        setConductorSeleccionado(null);
       }
       cargarTodo();
     } catch (e) {
@@ -342,14 +323,22 @@ export default function ExpedicionRndc() {
 
   const registrarMaestro = async () => {
     try {
-      const r =
-        showMaestro === "tercero"
-          ? await RndcService.expedicion.registrarTercero(varsMaestro)
-          : await RndcService.expedicion.registrarVehiculo(varsMaestro);
+      let r;
+      if (showMaestro === "tercero") {
+        r = await RndcService.expedicion.registrarTercero(varsMaestro);
+      } else {
+        if (!placaMaestro)
+          return notificar("warn", "Falta", "Seleccione la placa del vehículo de su flota");
+        r = await RndcService.expedicion.registrarVehiculo({
+          ...varsMaestro,
+          NUMPLACA: placaMaestro,
+        });
+      }
       notificar(r.success ? "success" : "error", r.success ? "Registrado en el RNDC" : "RNDC rechazó el registro", r.message);
       if (r.success) {
         setShowMaestro(null);
         setVarsMaestro({});
+        setPlacaMaestro(null);
       }
     } catch (e) {
       notificar("error", "Error", e.response?.data?.message || e.message);
@@ -387,13 +376,12 @@ export default function ExpedicionRndc() {
 
   if (!puedeExpedir) {
     return (
-      <div className="exp-container">
-        <style>{styles}</style>
-        <div className="exp-wrapper">
-          <div className="exp-restringido">
-            <i className="pi pi-lock" style={{ fontSize: 40, color: "#094aa0" }} />
-            <h2 style={{ color: "#094aa0" }}>Acceso restringido</h2>
-            <p style={{ color: "#666" }}>
+      <div className="rndc-page">
+        <div className="rndc-wrapper">
+          <div className="rndc-restringido">
+            <i className="pi pi-lock" style={{ fontSize: 40, color: "var(--accent)" }} />
+            <h2 style={{ color: "var(--accent-dark)" }}>Acceso restringido</h2>
+            <p style={{ color: "var(--text-secondary)" }}>
               La expedición de manifiestos está disponible únicamente para el
               administrador de la empresa. Si necesita acceso, contacte a Asegurar Ltda.
             </p>
@@ -407,23 +395,27 @@ export default function ExpedicionRndc() {
   const ambiente = credencial?.modoPruebas === false ? "PRODUCCIÓN" : "PRUEBAS";
   const remesasRadicadas = remesas.filter((r) => r.estado === "RADICADA");
 
+  const opcionesPlacas = vehiculosEmpresa.map((v) => ({ label: v.placa, value: v.placa }));
+  const opcionesConductores = conductores.map((c) => ({
+    label: `${[c.nombres, c.apellidos].filter(Boolean).join(" ")} — ${c.tipoId || "CC"} ${c.identificacion}`,
+    value: c._id,
+  }));
+
   const tagEstado = (row) => (
     <Tag value={row.estado} severity={ESTADO_SEVERITY[row.estado] || "secondary"} />
   );
 
   return (
-    <div className="exp-container">
-      <style>{styles}</style>
+    <div className="rndc-page">
       <Toast ref={toast} />
-      <div className="exp-wrapper">
-        <div className="exp-header">
+      <div className="rndc-wrapper">
+        <div className="rndc-header">
           <div>
-            <h1>Expedición de Manifiestos — RNDC</h1>
-            <div className="sub">
+            <span className="rndc-badge">RNDC · Ministerio de Transporte</span>
+            <h1>Expedición de Manifiestos</h1>
+            <div className="rndc-sub">
               {userData.persona} · Ambiente:{" "}
-              <span className="exp-ambiente" style={{ color: ambiente === "PRUEBAS" ? "#f57c00" : "#2e7d32" }}>
-                {ambiente}
-              </span>
+              <b style={{ color: ambiente === "PRUEBAS" ? "#ffd54f" : "#a5d6a7" }}>{ambiente}</b>
               {consumo?.actual && (
                 <> · Manifiestos este mes: <b>{consumo.actual.manifiestosExpedidos}</b></>
               )}
@@ -435,25 +427,38 @@ export default function ExpedicionRndc() {
           </div>
         </div>
 
-        {!credencial && (
-          <div className="exp-aviso">
+        {!credencial && RNDC_EXPEDICION_HABILITADA && (
+          <div className="rndc-aviso">
             <b>Configure primero la credencial RNDC de su empresa</b> (pestaña
             Configuración): usuario del Web Service del RNDC y NIT de la empresa de
             transporte. Sin ella no es posible expedir.
           </div>
         )}
 
-        <div className="exp-tabs">
+        {!RNDC_EXPEDICION_HABILITADA && (
+          <div className="rndc-aviso">
+            <b>Módulo en habilitación.</b> La expedición de remesas y manifiestos
+            estará disponible cuando el Ministerio de Transporte active la cuenta
+            con rol de Empresa de Transporte. Mientras tanto la configuración de
+            credenciales permanece deshabilitada.
+          </div>
+        )}
+
+        <div className="rndc-tabs">
           {[
             ["manifiestos", "Manifiestos"],
             ["remesas", "Remesas"],
             ["maestros", "Terceros y Vehículos"],
             ["consumo", "Consumo"],
-            ["configuracion", "Configuración"],
+            // Configuración de credencial: oculta mientras la expedición esté
+            // deshabilitada (ver src/config/featureFlags.js).
+            ...(RNDC_EXPEDICION_HABILITADA
+              ? [["configuracion", "Configuración"]]
+              : []),
           ].map(([id, label]) => (
             <button
               key={id}
-              className={`exp-tab ${activeTab === id ? "active" : ""}`}
+              className={`rndc-tab ${activeTab === id ? "active" : ""}`}
               onClick={() => setActiveTab(id)}
             >
               {label}
@@ -463,9 +468,9 @@ export default function ExpedicionRndc() {
 
         {/* ═══ MANIFIESTOS ═══ */}
         {activeTab === "manifiestos" && (
-          <div className="exp-card">
+          <div className="rndc-card">
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 15, flexWrap: "wrap", gap: 8 }}>
-              <h3 style={{ margin: 0, color: "#094aa0" }}>Manifiestos expedidos</h3>
+              <h3 style={{ margin: 0 }}>Manifiestos expedidos</h3>
               <Button
                 label="Expedir Manifiesto"
                 icon="pi pi-plus"
@@ -504,9 +509,9 @@ export default function ExpedicionRndc() {
 
         {/* ═══ REMESAS ═══ */}
         {activeTab === "remesas" && (
-          <div className="exp-card">
+          <div className="rndc-card">
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 15, flexWrap: "wrap", gap: 8 }}>
-              <h3 style={{ margin: 0, color: "#094aa0" }}>Remesas terrestres de carga</h3>
+              <h3 style={{ margin: 0 }}>Remesas terrestres de carga</h3>
               <Button label="Expedir Remesa" icon="pi pi-plus" disabled={!credencial} onClick={() => setShowRemesa(true)} />
             </div>
             <DataTable value={remesas} loading={loading} paginator rows={10} emptyMessage="Sin remesas aún" size="small" stripedRows>
@@ -534,16 +539,16 @@ export default function ExpedicionRndc() {
 
         {/* ═══ MAESTROS ═══ */}
         {activeTab === "maestros" && (
-          <div className="exp-card">
-            <h3 style={{ marginTop: 0, color: "#094aa0" }}>Maestros del RNDC</h3>
-            <p style={{ color: "#666", fontSize: 13 }}>
+          <div className="rndc-card">
+            <h3 style={{ marginTop: 0 }}>Maestros del RNDC</h3>
+            <p style={{ color: "var(--text-secondary)", fontSize: 13 }}>
               Antes de expedir, los conductores, titulares, remitentes/destinatarios
               (terceros) y los vehículos deben existir en el RNDC. Solo se registran
               una vez, o cuando cambie su información.
             </p>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               <Button label="Registrar Tercero" icon="pi pi-user-plus" disabled={!credencial} onClick={() => { setVarsMaestro({}); setShowMaestro("tercero"); }} />
-              <Button label="Registrar Vehículo" icon="pi pi-truck" disabled={!credencial} onClick={() => { setVarsMaestro({}); setShowMaestro("vehiculo"); }} outlined />
+              <Button label="Registrar Vehículo" icon="pi pi-truck" disabled={!credencial} onClick={() => { setVarsMaestro({}); setPlacaMaestro(null); setShowMaestro("vehiculo"); }} outlined />
             </div>
           </div>
         )}
@@ -551,28 +556,28 @@ export default function ExpedicionRndc() {
         {/* ═══ CONSUMO ═══ */}
         {activeTab === "consumo" && (
           <>
-            <div className="exp-stats">
-              <div className="exp-stat">
+            <div className="rndc-stats">
+              <div className="rndc-stat">
                 <h3>Manifiestos este mes</h3>
-                <div className="valor">{consumo?.actual?.manifiestosExpedidos ?? 0}</div>
+                <div className="rndc-stat-valor">{consumo?.actual?.manifiestosExpedidos ?? 0}</div>
               </div>
-              <div className="exp-stat">
+              <div className="rndc-stat">
                 <h3>Remesas este mes</h3>
-                <div className="valor">{consumo?.actual?.remesasExpedidas ?? 0}</div>
+                <div className="rndc-stat-valor">{consumo?.actual?.remesasExpedidas ?? 0}</div>
               </div>
-              <div className="exp-stat">
+              <div className="rndc-stat">
                 <h3>Anulaciones</h3>
-                <div className="valor">{consumo?.actual?.anulaciones ?? 0}</div>
+                <div className="rndc-stat-valor">{consumo?.actual?.anulaciones ?? 0}</div>
               </div>
-              <div className="exp-stat">
+              <div className="rndc-stat">
                 <h3>En ambiente de pruebas</h3>
-                <div className="valor">
+                <div className="rndc-stat-valor">
                   {(consumo?.actual?.manifiestosPruebas ?? 0) + (consumo?.actual?.remesasPruebas ?? 0)}
                 </div>
               </div>
             </div>
-            <div className="exp-card">
-              <h3 style={{ marginTop: 0, color: "#094aa0" }}>Histórico mensual</h3>
+            <div className="rndc-card">
+              <h3 style={{ marginTop: 0 }}>Histórico mensual</h3>
               <DataTable value={consumo?.historico || []} size="small" stripedRows emptyMessage="Sin consumos registrados">
                 <Column field="periodo" header="Periodo" sortable />
                 <Column field="manifiestosExpedidos" header="Manifiestos" />
@@ -586,17 +591,17 @@ export default function ExpedicionRndc() {
         )}
 
         {/* ═══ CONFIGURACIÓN ═══ */}
-        {activeTab === "configuracion" && (
-          <div className="exp-card">
-            <h3 style={{ marginTop: 0, color: "#094aa0" }}>Credencial RNDC de la empresa</h3>
-            <div className="exp-aviso">
+        {RNDC_EXPEDICION_HABILITADA && activeTab === "configuracion" && (
+          <div className="rndc-card">
+            <h3 style={{ marginTop: 0 }}>Credencial RNDC de la empresa</h3>
+            <div className="rndc-aviso">
               La expedición se hace <b>en nombre de su empresa de transporte</b> con su
               usuario del Web Service del RNDC. Recomendamos crear un{" "}
               <b>usuario dependiente</b> en rndc.mintransporte.gov.co dedicado a la
               plataforma. La contraseña se guarda <b>cifrada</b> y nunca se muestra.
             </div>
-            <div className="exp-grid" style={{ maxWidth: 900 }}>
-              <div className="exp-field">
+            <div className="rndc-grid" style={{ maxWidth: 900 }}>
+              <div className="rndc-field">
                 <label>NIT empresa de transporte (sin dígito de verificación)</label>
                 <InputText
                   value={formCred.nitEmpresaTransporte}
@@ -604,7 +609,7 @@ export default function ExpedicionRndc() {
                   placeholder="Ej: 900301001"
                 />
               </div>
-              <div className="exp-field">
+              <div className="rndc-field">
                 <label>Usuario Web Service RNDC</label>
                 <InputText
                   value={formCred.usuarioWS}
@@ -612,8 +617,8 @@ export default function ExpedicionRndc() {
                   placeholder="usuario@empresa"
                 />
               </div>
-              <div className="exp-field">
-                <label>Contraseña {credencial ? "(dejar en blanco solo si va a reemplazarla)" : ""}</label>
+              <div className="rndc-field">
+                <label>Contraseña</label>
                 <Password
                   value={formCred.password}
                   onChange={(e) => setFormCred({ ...formCred, password: e.target.value })}
@@ -622,14 +627,14 @@ export default function ExpedicionRndc() {
                   placeholder={credencial ? "••••••• (guardada cifrada)" : "Contraseña del WS"}
                 />
               </div>
-              <div className="exp-field">
+              <div className="rndc-field">
                 <label>Ambiente de pruebas del Ministerio</label>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <InputSwitch
                     checked={formCred.modoPruebas}
                     onChange={(e) => setFormCred({ ...formCred, modoPruebas: e.value })}
                   />
-                  <span style={{ fontSize: 13, color: formCred.modoPruebas ? "#f57c00" : "#2e7d32", fontWeight: 600 }}>
+                  <span style={{ fontSize: 13, color: formCred.modoPruebas ? "#f57c00" : "var(--green)", fontWeight: 600 }}>
                     {formCred.modoPruebas ? "PRUEBAS (recomendado hasta validar)" : "PRODUCCIÓN (registros reales)"}
                   </span>
                 </div>
@@ -647,7 +652,7 @@ export default function ExpedicionRndc() {
               />
             </div>
             {credencial?.ultimaVerificacion && (
-              <p style={{ fontSize: 13, marginTop: 15, color: credencial.ultimaVerificacionOk ? "#2e7d32" : "#c62828" }}>
+              <p style={{ fontSize: 13, marginTop: 15, color: credencial.ultimaVerificacionOk ? "var(--green)" : "#e53935" }}>
                 Última verificación: {new Date(credencial.ultimaVerificacion).toLocaleString("es-CO")} —{" "}
                 {credencial.ultimaVerificacionOk ? "válida" : `rechazada: ${credencial.ultimaVerificacionError}`}
               </p>
@@ -657,11 +662,11 @@ export default function ExpedicionRndc() {
 
         {/* ═══ DIALOGO: REMESA ═══ */}
         <Dialog header="Expedir Remesa Terrestre de Carga (proceso 3 RNDC)" visible={showRemesa} style={{ width: "min(950px, 95vw)" }} modal onHide={() => setShowRemesa(false)}>
-          <div className="exp-aviso">
+          <div className="rndc-aviso">
             Ambiente actual: <b>{ambiente}</b>. El NIT de rastreo GPS de Asegurar se
             agrega automáticamente a la remesa.
           </div>
-          <div className="exp-field" style={{ maxWidth: 300, marginBottom: 14 }}>
+          <div className="rndc-field" style={{ maxWidth: 300, marginBottom: 14 }}>
             <label>Consecutivo de la remesa *</label>
             <InputText value={consecutivoRemesa} onChange={(e) => setConsecutivoRemesa(e.target.value)} placeholder="Ej: 0001" />
           </div>
@@ -674,16 +679,16 @@ export default function ExpedicionRndc() {
 
         {/* ═══ DIALOGO: MANIFIESTO ═══ */}
         <Dialog header="Expedir Manifiesto de Carga (proceso 4 RNDC)" visible={showManifiesto} style={{ width: "min(950px, 95vw)" }} modal onHide={() => setShowManifiesto(false)}>
-          <div className="exp-aviso">
+          <div className="rndc-aviso">
             Ambiente actual: <b>{ambiente}</b>. Solo puede asociar remesas ya
             radicadas. {remesasRadicadas.length === 0 && <b>No tiene remesas radicadas: expida primero la remesa.</b>}
           </div>
-          <div className="exp-grid" style={{ marginBottom: 14 }}>
-            <div className="exp-field">
+          <div className="rndc-grid" style={{ marginBottom: 14 }}>
+            <div className="rndc-field">
               <label>Consecutivo del manifiesto *</label>
               <InputText value={numManifiesto} onChange={(e) => setNumManifiesto(e.target.value)} placeholder="Ej: 0001" />
             </div>
-            <div className="exp-field">
+            <div className="rndc-field">
               <label>Remesas a asociar *</label>
               <MultiSelect
                 value={remesasSeleccionadas}
@@ -693,7 +698,31 @@ export default function ExpedicionRndc() {
                 display="chip"
               />
             </div>
-            <div className="exp-field">
+            <div className="rndc-field">
+              <label>Vehículo (placa de su flota) *</label>
+              <Dropdown
+                value={placaSeleccionada}
+                options={opcionesPlacas}
+                onChange={(e) => setPlacaSeleccionada(e.value)}
+                placeholder={opcionesPlacas.length ? "Seleccione la placa" : "Su empresa no tiene vehículos registrados"}
+                filter
+                showClear
+              />
+              <small>NUMPLACA — vehículos asignados a su empresa</small>
+            </div>
+            <div className="rndc-field">
+              <label>Conductor *</label>
+              <Dropdown
+                value={conductorSeleccionado}
+                options={opcionesConductores}
+                onChange={(e) => setConductorSeleccionado(e.value)}
+                placeholder={opcionesConductores.length ? "Seleccione el conductor" : "Sin conductores registrados"}
+                filter
+                showClear
+              />
+              <small>NUMIDCONDUCTOR — conductores registrados de su empresa</small>
+            </div>
+            <div className="rndc-field">
               <label>Aceptación electrónica</label>
               <Dropdown
                 value={aceptacionElectronica}
@@ -720,6 +749,20 @@ export default function ExpedicionRndc() {
           modal
           onHide={() => setShowMaestro(null)}
         >
+          {showMaestro === "vehiculo" && (
+            <div className="rndc-field" style={{ maxWidth: 320, marginBottom: 14 }}>
+              <label>Placa (vehículo de su flota) *</label>
+              <Dropdown
+                value={placaMaestro}
+                options={opcionesPlacas}
+                onChange={(e) => setPlacaMaestro(e.value)}
+                placeholder={opcionesPlacas.length ? "Seleccione la placa" : "Su empresa no tiene vehículos registrados"}
+                filter
+                showClear
+              />
+              <small>NUMPLACA — vehículos asignados a su empresa</small>
+            </div>
+          )}
           <FormVariables
             campos={showMaestro === "tercero" ? CAMPOS_TERCERO : CAMPOS_VEHICULO}
             valores={varsMaestro}
@@ -739,10 +782,10 @@ export default function ExpedicionRndc() {
           modal
           onHide={() => setAnulando(null)}
         >
-          <p style={{ fontSize: 13, color: "#666" }}>
+          <p style={{ fontSize: 13, color: "var(--text-secondary)" }}>
             La anulación se radica ante el RNDC y no se puede deshacer.
           </p>
-          <div className="exp-field">
+          <div className="rndc-field">
             <label>Motivo de la anulación *</label>
             <InputText value={motivoAnulacion} onChange={(e) => setMotivoAnulacion(e.target.value)} placeholder="Mínimo 5 caracteres" />
           </div>

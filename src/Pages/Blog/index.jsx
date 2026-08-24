@@ -1,21 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
 import Noticia from "./noticia";
+import articleStyles from "./articleStyles";
+import RndcService from "../../Services/rndcApi";
 import fotoCliente1 from "../../Assets/iconsEnter/Coopsetrans.png";
 import fotoCliente2 from "../../Assets/iconsEnter/Samy-Salud-png.png";
 import fotoCliente3 from "../../Assets/iconsEnter/Lacteos Santa Maria png.png";
-import chucunes from "../../Assets/blog/chucunes.jpeg";
-import chucunesinseguro from "../../Assets/blog/inseguridad_0_1.jpeg";
 import fotoApp from "../../Assets/Foto Portada/cellvi.jpg";
-import lanchaVertial from "../../Assets/blog/lanchavertical.jpeg";
-import lanchaHorizontal from "../../Assets/blog/lanchaHorizontal.jpeg";
-import reunionSeguridadVial from "../../Assets/blog/policia.jpeg";
-import reunionMesaTrabajo from "../../Assets/blog/policia2.jpeg";
-import reunionRistra from "../../Assets/blog/portadapolicia.jpeg";
-import policiaRistra from "../../Assets/blog/ereunion.jpeg";
-// Imágenes del caso de recuperación del café
-import cafePortada from "../../Assets/blog/cafe-recuperado-portada.jpeg";
-import cafeFrente from "../../Assets/blog/cafe-recuperado-frente.jpeg";
-import cafePolicia from "../../Assets/blog/cafe-recuperado-policia.jpeg";
 
 const styles = `
   .blog-page { background: var(--bg-secondary, #f8fafc); min-height: 100vh; }
@@ -116,68 +106,7 @@ const styles = `
   }
   @media (max-width: 576px) { .blog-article-card { padding: 24px 18px; } }
 
-  /* Article (post) typography */
-  .blog-post-cat {
-    display: inline-block; background: #ffd54f; color: #0a2d6e;
-    border-radius: 6px; padding: 3px 12px; font-size: 0.72rem; font-weight: 800;
-    text-transform: uppercase; letter-spacing: .5px; margin-bottom: 14px;
-  }
-  .blog-post-title { font-size: clamp(1.5rem,3vw,2.1rem); font-weight: 900; color: var(--accent-dark, #0a2d6e); margin: 0 0 8px; line-height: 1.2; }
-  .blog-post-subtitle { font-size: 1.05rem; color: var(--text-secondary, #555); font-style: italic; margin: 0 0 16px; }
-  .blog-post-meta {
-    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
-    font-size: 0.82rem; color: #8a93a0; padding-bottom: 18px; margin-bottom: 22px;
-    border-bottom: 1px solid var(--card-border, #eef1f6);
-  }
-  .blog-post-meta i { margin-right: 4px; color: #1565c0; }
-  .blog-post-dot { color: #ccc; }
-  .blog-post-cover { margin: 0 0 24px; border-radius: 14px; overflow: hidden; }
-  .blog-post-cover img { width: 100%; display: block; }
-
-  .blog-post-body { font-size: 1rem; color: var(--text-primary, #2b3440); line-height: 1.75; }
-  .blog-content-p { margin: 0 0 18px; }
-  .blog-content-h4 { font-size: 1.25rem; font-weight: 800; color: var(--accent-dark, #0a2d6e); margin: 28px 0 12px; }
-  .blog-content-h5 { font-size: 1.05rem; font-weight: 800; color: var(--accent-dark, #0a2d6e); margin: 22px 0 10px; }
-  .blog-content-figure { margin: 22px 0; border-radius: 14px; overflow: hidden; }
-  .blog-content-img { width: 100%; display: block; border-radius: 14px; }
-  .blog-content-figure figcaption { font-size: 0.82rem; color: #8a93a0; text-align: center; margin-top: 8px; font-style: italic; }
-
-  .blog-content-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0; }
-  @media (max-width: 576px) { .blog-content-gallery { grid-template-columns: 1fr; } }
-  .blog-content-gallery-item { margin: 0; border-radius: 12px; overflow: hidden; }
-  .blog-content-gallery-item img { width: 100%; height: 220px; object-fit: cover; display: block; border-radius: 12px; }
-  .blog-content-gallery-item figcaption { font-size: 0.78rem; color: #8a93a0; text-align: center; margin-top: 6px; font-style: italic; }
-
-  .blog-content-quote {
-    border-left: 4px solid #ffd54f; background: var(--accent-bg, #f0f6ff);
-    padding: 18px 22px; border-radius: 0 12px 12px 0; margin: 24px 0;
-  }
-  .blog-content-quote p { font-size: 1.08rem; font-style: italic; color: var(--accent-dark, #0a2d6e); margin: 0 0 6px; line-height: 1.6; }
-  .blog-content-quote cite { font-size: 0.85rem; color: var(--text-secondary, #666); font-style: normal; font-weight: 700; }
-
-  .blog-content-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; margin: 24px 0; }
-  .blog-content-stat {
-    background: linear-gradient(135deg, #0a2d6e, #1565c0); color: #fff;
-    border-radius: 14px; padding: 18px 16px; text-align: center;
-  }
-  .blog-content-stat .num { display: block; font-size: 1.7rem; font-weight: 900; color: #ffd54f; line-height: 1.1; }
-  .blog-content-stat .lbl { display: block; font-size: 0.76rem; color: rgba(255,255,255,0.85); margin-top: 4px; }
-
-  .blog-content-callout {
-    display: flex; gap: 12px; align-items: flex-start;
-    background: var(--green-bg, #e8f5e9); border: 1px solid var(--green-border, #c8e6c9);
-    border-radius: 12px; padding: 16px 18px; margin: 22px 0;
-  }
-  .blog-content-callout .ic { font-size: 1.3rem; }
-  .blog-content-callout p { margin: 0; font-size: 0.95rem; color: var(--text-primary, #2b3440); line-height: 1.6; }
-
-  .blog-content-link { color: #1565c0; font-weight: 700; text-decoration: none; border-bottom: 1.5px solid #bbdefb; }
-  .blog-content-link:hover { border-bottom-color: #1565c0; }
-  .blog-content-list { margin: 0 0 18px; padding-left: 22px; }
-  .blog-content-list li { margin-bottom: 8px; line-height: 1.6; }
-
-  .blog-post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--card-border, #eef1f6); }
-  .blog-post-tag { font-size: 0.78rem; color: #1565c0; background: var(--accent-bg, #e3f0ff); padding: 4px 11px; border-radius: 999px; font-weight: 600; }
+  ${articleStyles}
 
   /* Nav */
   .blog-nav-row { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; align-items: center; }
@@ -220,193 +149,62 @@ const styles = `
   .blog-empty { text-align: center; padding: 40px; color: var(--text-muted, #999); }
 `;
 
-/* ──────────────────────────────────────────────
-   Datos (estructura lista para mapear desde la API)
-   ────────────────────────────────────────────── */
-const noticia = [
-  {
-    id: "recuperacion-cafe-popayan-2025",
-    categoria: "Caso de éxito",
-    titulo: "RECUPERACIÓN DE 10 TONELADAS DE CAFÉ EN TIEMPO RÉCORD",
-    titulo2: "Monitoreo satelital y coordinación con la Policía logran recuperar carga y vehículo en una hora",
-    fecha: "19 Mayo 2025",
-    lectura: "3 min",
-    creador: "Central de Monitoreo ASEGURAR LTDA.",
-    minifoto: cafePortada,
-    portada: cafePortada,
-    resumen1:
-      "Un vehículo cargado con 10 toneladas de café fue hurtado en la ruta La Unión (Nariño) – Popayán (Cauca) y recuperado aproximadamente una hora después gracias al dispositivo satelital de ASEGURAR y la articulación con la Policía de Carreteras.",
-    tags: ["SeguridadVial", "MonitoreoSatelital", "Café", "Cauca", "Recuperación", "PirateríaTerrestre"],
-    contenido: [
-      {
-        tipo: "parrafo",
-        texto:
-          "El 19 de mayo de 2025, el señor Luis Carlos Burbano Gómez reportó el hurto de un vehículo cargado con 10 toneladas de café mientras cubría la ruta entre La Unión (Nariño) y Popayán (Cauca). De inmediato, la Central de Monitoreo de ASEGURAR LTDA. activó su protocolo de búsqueda y reacción.",
-      },
-      {
-        tipo: "datos",
-        items: [
-          { valor: "10 t", etiqueta: "de café a bordo" },
-          { valor: "~1 h", etiqueta: "para recuperar" },
-          { valor: "100%", etiqueta: "carga recuperada" },
-        ],
-      },
-      { tipo: "subtitulo", texto: "Activación inmediata del protocolo" },
-      {
-        tipo: "parrafo",
-        texto:
-          "Tras el reporte, la central suministró las coordenadas en tiempo real del dispositivo satelital instalado en la carga y coordinó acciones con la Policía de Carreteras del Cauca, con especial apoyo de la patrullera Yenni Guerrero, manteniendo un intercambio constante de información durante todo el operativo.",
-      },
-      {
-        tipo: "imagen",
-        url: cafePortada,
-        alt: "Vehículo recuperado con la carga de café",
-        caption: "Vehículo de placa TKF-528 recuperado en el sector Loma de la Virgen, Popayán.",
-      },
-      { tipo: "subtitulo", texto: "Ubicación y recuperación" },
-      {
-        tipo: "parrafo",
-        texto:
-          "Gracias al monitoreo en tiempo real y al apoyo de la Policía Nacional, el vehículo y la mercancía fueron ubicados y recuperados en el sector Loma de la Virgen, en Popayán, aproximadamente una hora después del reporte inicial. La totalidad de la carga de café fue puesta a disposición de las autoridades.",
-      },
-      {
-        tipo: "galeria",
-        imagenes: [
-          { url: cafeFrente, alt: "Camión recuperado de frente", caption: "Vehículo recuperado en buen estado." },
-          { url: cafePolicia, alt: "Entrega de la carga a las autoridades", caption: "Carga de café entregada a la Policía Nacional y la Fiscalía." },
-        ],
-      },
-      {
-        tipo: "cita",
-        texto:
-          "La rapidez de la recuperación demuestra que la tecnología satelital, combinada con la coordinación entre la central de monitoreo y las autoridades, es la mejor herramienta contra la piratería terrestre.",
-        autor: "Central de Monitoreo ASEGURAR LTDA.",
-      },
-      { tipo: "subtitulo", texto: "Lecciones y recomendaciones" },
-      {
-        tipo: "parrafo",
-        texto:
-          "El caso evidenció la efectividad del dispositivo satelital y de la coordinación interinstitucional entre las autoridades y la central de monitoreo. Ante el alto riesgo de piratería terrestre en la zona, se recomendó a los transportadores reforzar la seguridad en las vías del Cauca mediante caravanas o escoltas armados.",
-      },
-      {
-        tipo: "destacado",
-        icono: "✅",
-        texto:
-          "¿Transporta carga de alto valor por el sur del país? El monitoreo satelital 24/7 de ASEGURAR LTDA. puede marcar la diferencia entre perder su mercancía o recuperarla en minutos.",
-      },
-      {
-        tipo: "parrafo",
-        texto:
-          "Agradecemos a la Policía de Carreteras del Cauca, a la patrullera Yenni Guerrero y a todas las autoridades que hicieron posible esta recuperación. En ASEGURAR LTDA. reafirmamos nuestro compromiso con la protección de los transportadores de la región.",
-      },
-    ],
-  },
-  {
-    id: "ristra-2024",
-    categoria: "Empresarial",
-    titulo: "ASEGURAR LTDA. SE INTEGRA AL SISTEMA RISTRA",
-    titulo2: "Un paso más hacia la seguridad vial inteligente",
-    fecha: "28 Mayo 2024",
-    lectura: "2 min",
-    creador: "Romulo Bolaños",
-    minifoto: reunionRistra,
-    portada: reunionRistra,
-    resumen1:
-      "La empresa ASEGURAR LTDA. fue integrada al Registro Integral de Seguridad en el Transporte (RISTRA), en colaboración con autoridades de tránsito del Departamento de Policía Nariño.",
-    tags: ["RISTRA", "SeguridadVial", "PolicíaNariño"],
-    contenido: [
-      { tipo: "parrafo", texto: "El pasado 28 de mayo de 2024, en las instalaciones de ASEGURAR LTDA., se llevó a cabo una importante reunión con los directivos del RISTRA (Registro Integral de Seguridad en el Transporte), con el objetivo de integrar a nuestra empresa en esta plataforma tecnológica de alto impacto para la seguridad vial." },
-      { tipo: "parrafo", texto: "El encuentro contó con la participación de destacados miembros de la Dirección de Transportes y Tránsito del Departamento de Policía Nariño, entre ellos el Subteniente Kevin Saavedra, el Intendente Gabriel Ortega y el Intendente Víctor Yela." },
-      { tipo: "imagen", url: policiaRistra, alt: "Reunión con directivos del RISTRA", caption: "Directivos de ASEGURAR LTDA. junto a la Policía de Tránsito de Nariño." },
-      { tipo: "parrafo", texto: "La incorporación de ASEGURAR LTDA. a esta herramienta representa un avance significativo en el monitoreo, análisis y prevención de incidentes en las vías." },
-      { tipo: "parrafo", texto: "Expresamos nuestro sincero agradecimiento a la Policía de Carreteras por su permanente acompañamiento y compromiso con la protección de los transportadores." },
-      { tipo: "parrafo", texto: "Con esta alianza, reafirmamos nuestro compromiso de trabajar articuladamente en soluciones tecnológicas y operativas que contribuyan a fortalecer la seguridad en el transporte terrestre." },
-    ],
-  },
-  {
-    id: "reunion-interinstitucional-2025",
-    categoria: "Seguridad vial",
-    titulo: "REUNIÓN INTERINSTITUCIONAL POR LA SEGURIDAD VIAL EN EL SUR DEL PAÍS",
-    titulo2: "Acciones conjuntas frente a la piratería terrestre",
-    fecha: "22 Mayo 2025",
-    lectura: "2 min",
-    creador: "Romulo Bolaños",
-    minifoto: reunionSeguridadVial,
-    portada: reunionSeguridadVial,
-    resumen1:
-      "ASEGURAR LTDA. participó en una reunión clave con autoridades para abordar la creciente inseguridad en las vías del Cauca y Nariño.",
-    tags: ["SeguridadVial", "PirateríaTerrestre", "Cauca", "Nariño"],
-    contenido: [
-      { tipo: "parrafo", texto: "Ante la creciente racha de inseguridad en las vías de los departamentos del Cauca y Nariño, se llevó a cabo una importante reunión interinstitucional en las instalaciones de ASEGURAR LTDA." },
-      { tipo: "parrafo", texto: "Participaron representantes de la Policía de Tránsito y Transporte, así como delegados de las Unidades de Investigación Criminal, quienes analizaron los recientes casos de piratería terrestre." },
-      { tipo: "imagen", url: reunionMesaTrabajo, alt: "Reunión de seguridad vial", caption: "Mesa de trabajo interinstitucional en ASEGURAR LTDA." },
-      { tipo: "parrafo", texto: "ASEGURAR LTDA. expuso datos recolectados a través de su sistema de monitoreo vehicular, evidenciando puntos críticos y patrones de comportamiento delictivo." },
-      { tipo: "parrafo", texto: "ASEGURAR LTDA. reitera su compromiso con la seguridad vial y la protección de los activos de sus clientes." },
-    ],
-  },
-  {
-    id: "manual-cellvi-android-2024",
-    categoria: "Tutorial",
-    titulo: "MANUAL ACTUALIZACIÓN APP CELLVI ANDROID",
-    titulo2: "Actualiza la app de Asegurar",
-    fecha: "14 Noviembre 2024",
-    lectura: "1 min",
-    creador: "David Montes",
-    minifoto: fotoApp,
-    resumen1: "Manual paso a paso para actualizar la aplicación móvil CELLVI en dispositivos Android.",
-    tags: ["CELLVI", "App", "Android", "Tutorial"],
-    contenido: [{ tipo: "pdf", texto: "/Manual de Actualizacion de app móvil CELLVI Android.pdf" }],
-  },
-  {
-    id: "novedades-octubre-2024",
-    categoria: "Empresarial",
-    titulo: "NOVEDADES ASEGURAR OCTUBRE",
-    titulo2: "Noticias importantes en Asegurar",
-    fecha: "16 Octubre 2024",
-    lectura: "2 min",
-    creador: "Romulo Bolaños",
-    minifoto: lanchaVertial,
-    portada: lanchaVertial,
-    resumen1: "Resumen de novedades del mes: nuevos servicios fluviales, cambios en recaudo y portal de pagos.",
-    tags: ["Novedades", "Putumayo", "PortalDePagos"],
-    contenido: [
-      { tipo: "parrafo", texto: "1.- ASEGURAR LTDA. se une a los sentimientos de dolor por la sensible pérdida de la Señora BLANCA LUCINDA CÓRDOBA DE RAMOS." },
-      { tipo: "parrafo", texto: "2.- ASEGURAR LTDA. ha incursionado en los servicios de ubicación vehicular a flotas de transporte fluvial en el Departamento del Putumayo." },
-      { tipo: "imagen", url: lanchaHorizontal, alt: "Transporte fluvial monitoreado", caption: "Monitoreo de flotas de transporte fluvial en Putumayo." },
-      { tipo: "parrafo", texto: "3.- Se informa que el punto de recaudo en Ipiales quedó desactivado. Los pagos deben realizarse por medios electrónicos." },
-      { tipo: "parrafo", texto: "4.- A partir del 01 de noviembre de 2024 podrán ejecutar sus pagos a través de nuestra página web por el portal de pagos WOMPI y BANCO DE COLOMBIA con código QR." },
-      { tipo: "link", texto: "https://www.asegurar.com.co/portaldepagos", label: "Ir al portal de pagos" },
-    ],
-  },
-  {
-    id: "efectividad-chucunes-2024",
-    categoria: "Caso de éxito",
-    titulo: "EFECTIVIDAD DE ASEGURAR",
-    titulo2: "¡Acciones inmediatas y efectivas!",
-    fecha: "5 Mayo 2024",
-    lectura: "2 min",
-    creador: "Ing. David Montes",
-    minifoto: chucunes,
-    portada: chucunes,
-    resumen1: "Caso de éxito: recuperación de vehículo asaltado en la ruta Pasto–Tumaco, sector Chucunes.",
-    tags: ["CasoDeÉxito", "Recuperación", "PastoTumaco"],
-    contenido: [
-      { tipo: "parrafo", texto: "En colaboración entre la Policía Nacional, el Ejército Nacional y ASEGURAR LTDA., se logró recuperar el vehículo asaltado en la ruta de Pasto a Tumaco, sector de CHUCUNES." },
-      { tipo: "parrafo", texto: "El trabajo conjunto entre las fuerzas de seguridad colombianas y el personal de ASEGURAR fue fundamental para el éxito de esta operación." },
-      { tipo: "parrafo", texto: "La recuperación del vehículo es un ejemplo tangible de los esfuerzos continuos que se están realizando para garantizar la seguridad en las carreteras colombianas." },
-      { tipo: "parrafo", texto: "¡Sigamos adelante juntos! En ASEGURAR siempre estaremos dispuestos a atender todas sus dudas." },
-      { tipo: "imagen", url: chucunesinseguro, alt: "Sector Chucunes", caption: "Operativo de recuperación en el sector Chucunes." },
-    ],
-  },
-];
-
 const comentarios = [
   { nombreCliente: "COOPSETRANS", comentario: "La plataforma CELLVI nos ha permitido el control de nuestra flota y el cumplimiento oportuno de reportes.", foto: fotoCliente1 },
   { nombreCliente: "IPS SAMYSALUD SAS", comentario: "ASEGURAR presta excelente servicio con responsabilidad y confianza.", foto: fotoCliente2 },
   { nombreCliente: "Lácteos Santa María", comentario: "ASEGURAR nos permite viajar seguros, con un servicio eficiente y efectivo.", foto: fotoCliente3 },
 ];
 
-const CATEGORIAS = ["Todas", "Caso de éxito", "Seguridad vial", "Empresarial", "Tutorial"];
+/**
+ * Convierte una entrada del blog de la API (creada en /rndc/estudio) a la
+ * estructura que espera el renderizador de noticias.
+ */
+const mapApiPost = (p) => {
+  // Contenido: bloques ricos si existen; si no, párrafos desde el texto plano
+  let contenido = Array.isArray(p.contenido) && p.contenido.length > 0 ? p.contenido : null;
+  if (!contenido) {
+    const parrafos = (p.cuerpo || "")
+      .split(/\n\s*\n/)
+      .map((t) => t.trim())
+      .filter(Boolean)
+      .map((texto) => ({ tipo: "parrafo", texto }));
+    const galeria =
+      p.imagenes && p.imagenes.length > 0
+        ? [
+            {
+              tipo: "galeria",
+              imagenes: p.imagenes.map((img) => ({
+                url: img.url,
+                alt: img.alt || p.titulo,
+                caption: img.alt || "",
+              })),
+            },
+          ]
+        : [];
+    contenido = [...parrafos, ...galeria];
+  }
+  const palabras = (p.cuerpo || "").split(/\s+/).length;
+  return {
+    id: p.slug,
+    categoria: p.categoria || "Noticias",
+    titulo: (p.titulo || "").toUpperCase(),
+    titulo2: p.titulo2 || "",
+    fecha: p.fechaPublicacion
+      ? new Date(p.fechaPublicacion).toLocaleDateString("es-CO", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })
+      : "",
+    lectura: p.lectura || `${Math.max(1, Math.round(palabras / 200))} min`,
+    creador: p.autor || "Asegurar Ltda.",
+    minifoto: p.portada?.url || p.imagenes?.[0]?.url || fotoApp,
+    portada: p.portada?.url || p.imagenes?.[0]?.url,
+    resumen1: p.resumen || "",
+    tags: p.tags?.length ? p.tags : [p.categoria].filter(Boolean),
+    contenido,
+  };
+};
 
 export default function Blog() {
   const [blog, setBlog] = useState(0);
@@ -414,6 +212,27 @@ export default function Blog() {
   const [scrollTo, setScrollTo] = useState(false);
   const [categoria, setCategoria] = useState("Todas");
   const [busqueda, setBusqueda] = useState("");
+  const [noticiasApi, setNoticiasApi] = useState([]);
+  const [estadoCarga, setEstadoCarga] = useState("cargando"); // cargando | ok | error
+
+  // El blog es 100% administrado desde /utilidades (API); las noticias
+  // históricas también viven allí desde la migración a S3/Mongo
+  useEffect(() => {
+    RndcService.contenido
+      .getBlogPublico()
+      .then((res) => {
+        setNoticiasApi((res.data || []).map(mapApiPost));
+        setEstadoCarga("ok");
+      })
+      .catch(() => setEstadoCarga("error"));
+  }, []);
+
+  const noticia = noticiasApi;
+
+  const CATEGORIAS = useMemo(
+    () => ["Todas", ...new Set(noticia.map((n) => n.categoria).filter(Boolean))],
+    [noticia],
+  );
 
   useEffect(() => {
     if (scrollTo && articleRef) { articleRef.scrollIntoView({ behavior: "smooth" }); setScrollTo(false); }
@@ -435,7 +254,7 @@ export default function Blog() {
           (n.tags || []).some((t) => t.toLowerCase().includes(q));
         return okCat && okBusq;
       });
-  }, [categoria, busqueda]);
+  }, [noticia, categoria, busqueda]);
 
   const destacado = filtrados[0];
   const secundarios = filtrados.slice(1, 4);
@@ -531,7 +350,22 @@ export default function Blog() {
             <div className="blog-layout" ref={(r) => setArticleRef(r)}>
               {/* Article */}
               <div className="blog-article-card">
-                <Noticia noticia={noticia[blog]} onClick={() => {}} />
+                {estadoCarga === "cargando" && (
+                  <div className="blog-empty">
+                    <i className="pi pi-spin pi-spinner" style={{ fontSize: 28 }} />
+                    <p>Cargando noticias…</p>
+                  </div>
+                )}
+                {estadoCarga === "error" && (
+                  <div className="blog-empty">
+                    <i className="pi pi-exclamation-circle" style={{ fontSize: 28 }} />
+                    <p>No fue posible cargar las noticias en este momento. Intente de nuevo más tarde.</p>
+                  </div>
+                )}
+                {estadoCarga === "ok" && !noticia[blog] && (
+                  <div className="blog-empty"><p>Aún no hay noticias publicadas.</p></div>
+                )}
+                {noticia[blog] && <Noticia noticia={noticia[blog]} onClick={() => {}} />}
                 <div className="blog-nav-row">
                   <button className="blog-nav-btn" onClick={() => go(blog - 1)} disabled={blog === 0}>
                     <i className="pi pi-arrow-left me-1" /> Anterior

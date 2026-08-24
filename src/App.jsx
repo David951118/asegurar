@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { PrimeReactProvider } from "primereact/api";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
-import { useRoutes, BrowserRouter, useLocation } from "react-router-dom";
+import { useRoutes, BrowserRouter, useLocation, Navigate } from "react-router-dom";
+import { RNDC_EXPEDICION_HABILITADA } from "./config/featureFlags";
 import { AsegurarProvider } from "./Context"; //Contexto de la aplicacion, sirve para tranferir info entre componentes
 import { AuthProvider } from "./Context/AuthContext";
 import { InventarioAuthProvider } from "./Context/InventarioAuthContext";
@@ -19,6 +20,7 @@ import Pse from "./Pages/Pse";
 import Rndc from "./Pages/Rndc";
 import DashboardRndc from "./Pages/Rndc/Dashboard";
 import ExpedicionRndc from "./Pages/Rndc/Expedicion";
+import Utilidades from "./Pages/Utilidades";
 import Pesv from "./Pages/Pesv/index";
 import Navbar from "./Pages/Navbar";
 import Footer from "./Components/footer";
@@ -82,7 +84,18 @@ const AppRoutes = () => {
     { path: "/politica-de-privacidad", element: <PrivacyPolicy /> },
     { path: "/rndc", element: <Rndc /> },
     { path: "/rndc/dashboard", element: <DashboardRndc /> },
-    { path: "/rndc/expedicion", element: <ExpedicionRndc /> },
+    // Expedición: deshabilitada temporalmente (ver src/config/featureFlags.js);
+    // quien llegue por la ruta directa vuelve al dashboard.
+    {
+      path: "/rndc/expedicion",
+      element: RNDC_EXPEDICION_HABILITADA ? (
+        <ExpedicionRndc />
+      ) : (
+        <Navigate to="/rndc/dashboard" replace />
+      ),
+    },
+    // Utilidades internas (sin enlaces): login propio + estudio de contenido, solo ADMIN
+    { path: "/utilidades", element: <Utilidades /> },
     { path: "/pesv", element: <Pesv /> },
     { path: "/inventario", element: <InventarioLogin /> },
     { path: "/inventario/dashboard", element: <InventarioDashboard /> },

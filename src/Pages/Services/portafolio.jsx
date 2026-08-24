@@ -7,6 +7,9 @@ import sercicio4 from "../../Assets/Tarjetas de servicios/4.jpg";
 import sercicio5 from "../../Assets/Tarjetas de servicios/5.jpg";
 import sercicio6 from "../../Assets/Tarjetas de servicios/6.jpg";
 import Carrusel from "./Carrusel";
+import PesvPromo from "./PesvPromo";
+import RndcPromo from "./RndcPromo";
+import CellviPromo from "./CellviPromo";
 
 const styles = `
   /* ── Hero portafolio ── */
@@ -231,6 +234,11 @@ export default function Portafolio() {
     <>
       <style>{styles}</style>
 
+      {/* Plataformas digitales: PESV, RNDC y Cellvi (cada una con diseño propio) */}
+      <PesvPromo />
+      <RndcPromo />
+      <CellviPromo />
+
       {/* Hero con carrusel */}
       <section className="port-hero">
         <div className="container">
@@ -280,6 +288,7 @@ export default function Portafolio() {
           </div>
         </div>
       </section>
+
     </>
   );
 }

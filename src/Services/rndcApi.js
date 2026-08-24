@@ -31,6 +31,8 @@ rndcBackend.interceptors.response.use(
       const path = typeof window !== "undefined" ? window.location.pathname : "/";
       if (path.startsWith("/rndc")) {
         window.location.href = "/rndc";
+      } else if (path.startsWith("/utilidades")) {
+        window.location.href = "/utilidades"; // recarga → muestra el login
       }
     }
     return Promise.reject(error);
@@ -241,6 +243,16 @@ const RndcService = {
         )
       ).data,
 
+    // Flota y conductores desde la bd (Mongo), acotados a la empresa del usuario
+    getVehiculosEmpresa: async () =>
+      (await rndcBackend.get("/vehiculos/list", { params: { limit: 500 } })).data,
+    getConductores: async () =>
+      (
+        await rndcBackend.get("/terceros/list", {
+          params: { rol: "CONDUCTOR", limit: 500 },
+        })
+      ).data,
+
     // Consumo (monetización)
     getConsumo: async () => (await rndcBackend.get("/expedicion/consumo")).data,
     getResumenConsumos: async (periodo) =>
@@ -249,6 +261,99 @@ const RndcService = {
           params: periodo ? { periodo } : {},
         })
       ).data,
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // CONTENIDO: blog del sitio + publicaciones Instagram (/rndc/estudio)
+  // Solo rol ADMIN — el backend rechaza al resto (403)
+  // ═══════════════════════════════════════════════════════════════
+
+  contenido: {
+    /**
+     * Sube una imagen vía backend (base64 → S3) y devuelve { key, url }.
+     * Antes comprime en el navegador (máx 1920px, JPEG) para subir rápido;
+     * la subida directa a S3 está bloqueada por CORS del bucket.
+     */
+    subirImagen: async (file) => {
+      const dataBase64 = await new Promise((resolve, reject) => {
+        const img = new Image();
+        const objectUrl = URL.createObjectURL(file);
+        img.onload = () => {
+          try {
+            const MAX = 1920;
+            const escala = Math.min(1, MAX / Math.max(img.width, img.height));
+            const canvas = document.createElement("canvas");
+            canvas.width = Math.round(img.width * escala);
+            canvas.height = Math.round(img.height * escala);
+            canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+            resolve(canvas.toDataURL("image/jpeg", 0.87));
+          } catch (e) {
+            reject(e);
+          } finally {
+            URL.revokeObjectURL(objectUrl);
+          }
+        };
+        img.onerror = () => {
+          URL.revokeObjectURL(objectUrl);
+          reject(new Error("No se pudo leer la imagen"));
+        };
+        img.src = objectUrl;
+      });
+
+      const { data } = await rndcBackend.post(
+        "/contenido/subir-imagen",
+        {
+          fileName: file.name.replace(/\.[^.]+$/, "") + ".jpg",
+          mimeType: "image/jpeg",
+          dataBase64,
+        },
+        { timeout: 120000 },
+      );
+      return data.data; // { key, url }
+    },
+
+    // Borra de S3 imágenes subidas que no se llegaron a usar
+    descartarImagenes: async (keys) =>
+      (await rndcBackend.post("/contenido/descartar-imagenes", { keys })).data,
+
+    // Blog (admin)
+    getBlog: async () => (await rndcBackend.get("/contenido/blog")).data,
+    disenarBlog: async (payload) =>
+      (
+        await rndcBackend.post("/contenido/blog/disenar", payload, {
+          timeout: 180000, // Gemini analiza texto + fotos; puede tardar
+        })
+      ).data,
+    crearBlog: async (payload) =>
+      (await rndcBackend.post("/contenido/blog", payload)).data,
+    actualizarBlog: async (id, payload) =>
+      (await rndcBackend.put(`/contenido/blog/${id}`, payload)).data,
+    eliminarBlog: async (id) =>
+      (await rndcBackend.delete(`/contenido/blog/${id}`)).data,
+
+    // Blog (público, para la página)
+    getBlogPublico: async () =>
+      (await rndcBackend.get("/contenido/blog/public")).data,
+
+    // Publicaciones Instagram
+    getSocial: async () => (await rndcBackend.get("/contenido/social")).data,
+    generarSocial: async (payload) =>
+      (
+        await rndcBackend.post("/contenido/social/generar", payload, {
+          timeout: 180000, // la generación con Gemini puede tardar >1 min
+        })
+      ).data,
+    descargarImagenSocial: async (id) =>
+      (
+        await rndcBackend.get(`/contenido/social/${id}/imagen`, {
+          responseType: "blob",
+          timeout: 60000,
+        })
+      ).data,
+    marcarSocialPublicada: async (id) =>
+      (await rndcBackend.post(`/contenido/social/${id}/publicada`)).data,
+    eliminarSocial: async (id) =>
+      (await rndcBackend.delete(`/contenido/social/${id}`)).data,
   },
 };
 
