@@ -8,7 +8,7 @@ const PERIODOS = [
   { value: "hoy", label: "Hoy" },
   { value: "semanal", label: "Última semana" },
   { value: "quincenal", label: "Últimos 15 días" },
-  { value: "mensual", label: "Último mes" },
+  { value: "mes", label: "Mensual (mes completo)" },
   { value: "trimestral", label: "Último trimestre" },
   { value: "semestral", label: "Último semestre" },
   { value: "anual", label: "Último año" },
@@ -42,7 +42,8 @@ function DashboardContent() {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const [periodo, setPeriodo] = useState("mensual");
+  const [periodo, setPeriodo] = useState("mes");
+  const [mes, setMes] = useState(mesActual());
   const [desde, setDesde] = useState("");
   const [hasta, setHasta] = useState("");
   const [loading, setLoading] = useState(false);
@@ -55,6 +56,8 @@ function DashboardContent() {
       if (periodo === "personalizado") {
         if (desde) params.desde = desde;
         if (hasta) params.hasta = hasta;
+      } else if (periodo === "mes") {
+        params.mes = mes;
       } else {
         params.periodo = periodo;
       }
@@ -71,7 +74,7 @@ function DashboardContent() {
   useEffect(() => {
     if (periodo !== "personalizado") fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [periodo]);
+  }, [periodo, mes]);
 
   const kpis = data?.kpis || {};
   const actividades = data?.actividadesPeriodo || {};
@@ -101,6 +104,12 @@ function DashboardContent() {
             ))}
           </select>
         </div>
+        {periodo === "mes" && (
+          <div className="inv-field">
+            <label>Mes</label>
+            <input type="month" className="inv-input" value={mes} max={mesActual()} onChange={(e) => e.target.value && setMes(e.target.value)} />
+          </div>
+        )}
         {periodo === "personalizado" && (
           <>
             <div className="inv-field">
@@ -304,4 +313,9 @@ function Kpi({ label, value, hint, variant, children }) {
       {children}
     </div>
   );
+}
+
+function mesActual() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
 }

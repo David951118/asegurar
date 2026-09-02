@@ -7,7 +7,7 @@ const PERIODOS = [
   { value: "hoy", label: "Hoy" },
   { value: "semanal", label: "Última semana" },
   { value: "quincenal", label: "Últimos 15 días" },
-  { value: "mensual", label: "Último mes" },
+  { value: "mes", label: "Mensual (mes completo)" },
   { value: "trimestral", label: "Último trimestre" },
   { value: "semestral", label: "Último semestre" },
   { value: "anual", label: "Último año" },
@@ -39,7 +39,8 @@ export default function Movimientos() {
 
 function Content() {
   const toast = useToast();
-  const [periodo, setPeriodo] = useState("mensual");
+  const [periodo, setPeriodo] = useState("mes");
+  const [mes, setMes] = useState(mesActual());
   const [desde, setDesde] = useState("");
   const [hasta, setHasta] = useState("");
   const [data, setData] = useState(null);
@@ -52,6 +53,8 @@ function Content() {
       if (periodo === "personalizado") {
         if (desde) params.desde = desde;
         if (hasta) params.hasta = hasta;
+      } else if (periodo === "mes") {
+        params.mes = mes;
       } else {
         params.periodo = periodo;
       }
@@ -67,7 +70,7 @@ function Content() {
   useEffect(() => {
     if (periodo !== "personalizado") cargar();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [periodo]);
+  }, [periodo, mes]);
 
   const num = (v) => v ?? 0;
   // El backend agrupa los totales bajo `data.resumen`.
@@ -87,6 +90,12 @@ function Content() {
           <label>Período</label>
           <InvSelect value={periodo} options={PERIODOS} onChange={setPeriodo} isClearable={false} />
         </div>
+        {periodo === "mes" && (
+          <div className="inv-field">
+            <label>Mes</label>
+            <input type="month" className="inv-input" value={mes} max={mesActual()} onChange={(e) => e.target.value && setMes(e.target.value)} />
+          </div>
+        )}
         {periodo === "personalizado" && (
           <>
             <div className="inv-field">
@@ -223,4 +232,9 @@ function Kpi({ label, value, hint, variant }) {
       {hint && <span className="hint">{hint}</span>}
     </div>
   );
+}
+
+function mesActual() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
 }
