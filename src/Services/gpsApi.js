@@ -165,6 +165,30 @@ export const ReportesService = {
   dashboard: (params) => get("/gps/dashboard", params),
 };
 
+/* ─── Cámaras ─── */
+export const CamarasService = {
+  resumen: () => get("/gps/camaras/resumen"),
+  list: (params) => getList("/gps/camaras", params),
+  get: (id) => get(`/gps/camaras/${id}`),
+  create: (body) => post("/gps/camaras", body),
+  update: (id, body) => put(`/gps/camaras/${id}`, body),
+  remove: (id) => del(`/gps/camaras/${id}`),
+  instalar: (id, body) => post(`/gps/camaras/${id}/instalar`, body),
+  retirar: (id, body) => post(`/gps/camaras/${id}/retirar`, body),
+  descartar: (id, body) => post(`/gps/camaras/${id}/descartar`, body),
+  reingresar: (id, body) => post(`/gps/camaras/${id}/reingresar`, body),
+
+  listMarcas: (params) => getList("/gps/camaras/marcas", params),
+  createMarca: (body) => post("/gps/camaras/marcas", body),
+  updateMarca: (id, body) => put(`/gps/camaras/marcas/${id}`, body),
+  removeMarca: (id) => del(`/gps/camaras/marcas/${id}`),
+
+  listModelos: (params) => getList("/gps/camaras/modelos", params),
+  createModelo: (body) => post("/gps/camaras/modelos", body),
+  updateModelo: (id, body) => put(`/gps/camaras/modelos/${id}`, body),
+  removeModelo: (id) => del(`/gps/camaras/modelos/${id}`),
+};
+
 /* ─── Compatibilidad: API plana legacy (lo que ya usaba el módulo) ─── */
 const GpsService = {
   buscarEquipo: EquiposService.buscar,

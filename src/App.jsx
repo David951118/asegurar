@@ -45,6 +45,7 @@ import ActividadesList from "./Pages/Inventario/Actividades";
 import ActividadForm from "./Pages/Inventario/ActividadForm";
 import ActividadDetalle from "./Pages/Inventario/ActividadDetalle";
 import Devueltos from "./Pages/Inventario/Devueltos";
+import Camaras from "./Pages/Inventario/Camaras";
 import Equipos from "./Pages/Inventario/Equipos";
 import EquipoForm from "./Pages/Inventario/EquipoForm";
 import EquipoDetalle from "./Pages/Inventario/EquipoDetalle";
@@ -114,6 +115,7 @@ const AppRoutes = () => {
     { path: "/inventario/reportes/general", element: <ReporteGeneral /> },
     { path: "/inventario/reportes/movimientos", element: <Movimientos /> },
     { path: "/inventario/reportes/inventario-por-ciudad", element: <InventarioPorCiudad /> },
+    { path: "/inventario/camaras", element: <Camaras /> },
     { path: "/inventario/devueltos", element: <Devueltos /> },
     { path: "/inventario/papelera", element: <Papelera /> },
     { path: "/*", element: <OopsPage /> },

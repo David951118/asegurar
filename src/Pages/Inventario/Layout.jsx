@@ -10,6 +10,7 @@ const NAV = [
   { to: "/inventario/equipos/inventario-central", label: "Inventario central", icon: Icon.box },
   { to: "/inventario/equipos/traslado", label: "Traslado de equipos", icon: Icon.refresh },
   { to: "/inventario/actividades", label: "Actividades", icon: Icon.list, end: true },
+  { to: "/inventario/camaras", label: "Cámaras", icon: Icon.box, end: true },
   { to: "/inventario/catalogos/marcas-modelos", label: "Marcas y modelos", icon: Icon.list },
   { to: "/inventario/catalogos/ciudades", label: "Ciudades", icon: Icon.list },
   { to: "/inventario/catalogos/tecnicos", label: "Técnicos", icon: Icon.user },
