@@ -4,6 +4,7 @@ import { ReportesService } from "../../../Services/gpsApi";
 import { Icon, InvSelect, InvTable, InvTag, useToast } from "../components";
 import { generarPdfReporte } from "./generarPdf";
 import { generarExcelReporte } from "./generarExcel";
+import OpcionesInformeModal from "./OpcionesInformeModal";
 
 const PERIODOS = [
   { value: "hoy", label: "Hoy" },
@@ -96,6 +97,8 @@ function Content() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [openTecnicos, setOpenTecnicos] = useState({}); // accordion expand state
+  // Popup de secciones antes de generar el informe: "pdf" | "excel" | null
+  const [modalInforme, setModalInforme] = useState(null);
 
   const cargar = async () => {
     setLoading(true);
@@ -133,23 +136,22 @@ function Content() {
     }
   };
 
-  const exportPDF = () => {
-    if (!data) return;
-    try {
-      generarPdfReporte(data, { usuarioGenerador: obtenerUsuario() });
-    } catch (err) {
-      console.error("Error generando PDF:", err);
-      toast.error("Error", "No se pudo generar el PDF");
-    }
-  };
+  // Los botones abren el popup; el archivo se genera al confirmar con las
+  // secciones elegidas (las desmarcadas no salen en el resultado).
+  const exportPDF = () => data && setModalInforme("pdf");
+  const exportExcel = () => data && setModalInforme("excel");
 
-  const exportExcel = () => {
-    if (!data) return;
+  const generarInforme = ({ secciones, excluirInstalados }) => {
+    if (!data || !modalInforme) return;
+    const formato = modalInforme;
+    const opciones = { usuarioGenerador: obtenerUsuario(), secciones, excluirInstalados };
     try {
-      generarExcelReporte(data, { usuarioGenerador: obtenerUsuario() });
+      if (formato === "pdf") generarPdfReporte(data, opciones);
+      else generarExcelReporte(data, opciones);
+      setModalInforme(null);
     } catch (err) {
-      console.error("Error generando Excel:", err);
-      toast.error("Error", "No se pudo generar el Excel");
+      console.error(`Error generando ${formato}:`, err);
+      toast.error("Error", `No se pudo generar el ${formato === "pdf" ? "PDF" : "Excel"}`);
     }
   };
 
@@ -165,6 +167,13 @@ function Content() {
 
   return (
     <>
+      <OpcionesInformeModal
+        open={!!modalInforme}
+        formato={modalInforme}
+        onCancel={() => setModalInforme(null)}
+        onConfirm={generarInforme}
+      />
+
       {/* Filtros */}
       <div className="inv-filters">
         <div className="inv-field" style={{ minWidth: 180 }}>
