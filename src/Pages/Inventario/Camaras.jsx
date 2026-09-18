@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import InventarioLayout from "./Layout";
 import { CamarasService } from "../../Services/gpsApi";
+import { generarPdfCamaras } from "./reportes/generarPdfCamaras";
 import {
   ConfirmModal,
   Icon,
@@ -61,6 +62,8 @@ function Content() {
   const [showCatalogo, setShowCatalogo] = useState(false);
   const [accion, setAccion] = useState(null); // { tipo: "instalar"|"retirar"|"descartar", camara }
   const [histCamara, setHistCamara] = useState(null);
+  const [editCamara, setEditCamara] = useState(null);
+  const [exportando, setExportando] = useState(false);
   const [confirmar, setConfirmar] = useState(null); // { titulo, mensaje, onConfirm, danger }
 
   const cargarCatalogos = async () => {
@@ -113,6 +116,28 @@ function Content() {
     () => marcas.map((m) => ({ value: m._id, label: m.nombre })),
     [marcas],
   );
+
+  // Consolidado PDF con TODAS las cámaras (ignora los filtros de pantalla)
+  const exportarPdf = async () => {
+    setExportando(true);
+    try {
+      const [todas, kpis] = await Promise.all([
+        CamarasService.list({}),
+        CamarasService.resumen(),
+      ]);
+      generarPdfCamaras({
+        camaras: Array.isArray(todas) ? todas : [],
+        resumen: kpis || {},
+        usuarioGenerador: obtenerUsuario(),
+      });
+      toast.success("Listo", "Consolidado de cámaras generado en PDF");
+    } catch (err) {
+      console.error(err);
+      toast.error("Error", err.response?.data?.message || "No se pudo generar el consolidado");
+    } finally {
+      setExportando(false);
+    }
+  };
 
   const ejecutarAccion = async (tipo, camara, body) => {
     try {
@@ -167,6 +192,14 @@ function Content() {
         </div>
         <button className="inv-btn" onClick={cargar}>{Icon.search} Buscar</button>
         <div className="spacer" />
+        <button
+          className="inv-btn inv-btn-outline"
+          onClick={exportarPdf}
+          disabled={exportando}
+          title="Descargar consolidado en PDF con todas las cámaras y su estado"
+        >
+          {exportando ? <span className="inv-spinner" /> : Icon.grid} Consolidado PDF
+        </button>
         <button className="inv-btn inv-btn-outline" onClick={() => setShowCatalogo(true)}>
           {Icon.list} Marcas y modelos
         </button>
@@ -271,6 +304,13 @@ function Content() {
                         Reingresar
                       </button>
                     )}
+                    <button
+                      className="inv-btn inv-btn-sm inv-btn-outline"
+                      title="Editar serial, marca/modelo, condición u observaciones"
+                      onClick={() => setEditCamara(r)}
+                    >
+                      Editar
+                    </button>
                     <button className="inv-btn inv-btn-sm inv-btn-outline" onClick={() => setHistCamara(r)}>
                       Historial
                     </button>
@@ -335,6 +375,19 @@ function Content() {
       )}
 
       {histCamara && <HistorialModal camara={histCamara} onClose={() => setHistCamara(null)} />}
+
+      {editCamara && (
+        <EditarCamaraModal
+          camara={editCamara}
+          marcas={marcas}
+          modelos={modelos}
+          onClose={() => setEditCamara(null)}
+          onSaved={() => {
+            setEditCamara(null);
+            cargar();
+          }}
+        />
+      )}
 
       <ConfirmModal
         open={!!confirmar}
@@ -447,6 +500,108 @@ function CrearCamarasModal({ marcas, modelos, onClose, onCreated }) {
       <div className="inv-field">
         <label>Observaciones (opcional)</label>
         <input className="inv-input" value={observaciones} onChange={(e) => setObservaciones(e.target.value)} />
+      </div>
+    </Modal>
+  );
+}
+
+function EditarCamaraModal({ camara, marcas, modelos, onClose, onSaved }) {
+  const toast = useToast();
+  const [serial, setSerial] = useState(camara.serial || "");
+  const [marca, setMarca] = useState(camara.marca?._id || camara.marca || null);
+  const [modelo, setModelo] = useState(camara.modelo?._id || camara.modelo || null);
+  const [condicion, setCondicion] = useState(camara.condicion || "NUEVA");
+  const [observaciones, setObservaciones] = useState(camara.observaciones || "");
+  const [motivoEdicion, setMotivoEdicion] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  const modelosDeMarca = useMemo(
+    () => modelos.filter((m) => (m.marca?._id || m.marca) === marca),
+    [modelos, marca],
+  );
+
+  const serialLimpio = serial.trim().toUpperCase();
+  const valido = serialLimpio.length > 0 && !!marca && !!modelo;
+
+  const guardar = async () => {
+    if (!valido) return;
+    setSaving(true);
+    try {
+      await CamarasService.update(camara._id, {
+        serial: serialLimpio,
+        marca,
+        modelo,
+        condicion,
+        observaciones: observaciones || "",
+        motivoEdicion: motivoEdicion || undefined,
+      });
+      toast.success("Listo", `Cámara ${serialLimpio} actualizada`);
+      onSaved();
+    } catch (err) {
+      toast.error("Error", err.response?.data?.message || "No se pudo actualizar la cámara");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <Modal title={`Editar cámara ${camara.serial}`} onClose={onClose}
+      footer={
+        <>
+          <button className="inv-btn inv-btn-outline" onClick={onClose}>Cancelar</button>
+          <button className="inv-btn" disabled={saving || !valido} onClick={guardar}>
+            {saving ? <span className="inv-spinner" /> : null}
+            Guardar
+          </button>
+        </>
+      }
+    >
+      <div className="inv-field">
+        <label>Serial</label>
+        <input
+          className="inv-input"
+          value={serial}
+          onChange={(e) => setSerial(e.target.value.toUpperCase())}
+          placeholder="Serial de la cámara"
+        />
+        <small style={{ color: "var(--text-muted)" }}>Debe ser único en el inventario.</small>
+      </div>
+      <div className="inv-field">
+        <label>Marca</label>
+        <InvSelect
+          value={marca}
+          options={marcas.map((m) => ({ value: m._id, label: m.nombre }))}
+          onChange={(v) => { setMarca(v); setModelo(null); }}
+          isClearable={false}
+        />
+      </div>
+      <div className="inv-field">
+        <label>Modelo</label>
+        <InvSelect
+          value={modelo}
+          options={modelosDeMarca.map((m) => ({ value: m._id, label: m.nombre }))}
+          onChange={setModelo}
+          placeholder={marca ? "Seleccione el modelo" : "Seleccione primero la marca"}
+          isDisabled={!marca}
+          isClearable={false}
+        />
+      </div>
+      <div className="inv-field">
+        <label>Condición</label>
+        <InvSelect
+          value={condicion}
+          options={[{ value: "NUEVA", label: "Nueva" }, { value: "SEGUNDA", label: "Segunda" }]}
+          onChange={setCondicion}
+          isClearable={false}
+        />
+      </div>
+      <div className="inv-field">
+        <label>Observaciones</label>
+        <input className="inv-input" value={observaciones} onChange={(e) => setObservaciones(e.target.value)} />
+      </div>
+      <div className="inv-field">
+        <label>Motivo de la edición (opcional, queda en el historial)</label>
+        <input className="inv-input" value={motivoEdicion} onChange={(e) => setMotivoEdicion(e.target.value)} placeholder="Corrección de serial, cambio de modelo, etc." />
       </div>
     </Modal>
   );
@@ -738,6 +893,15 @@ function Kpi({ label, value, hint, variant }) {
       {hint && <span className="hint">{hint}</span>}
     </div>
   );
+}
+
+function obtenerUsuario() {
+  try {
+    const u = JSON.parse(localStorage.getItem("inv_user") || "{}");
+    return u.persona || u.username || "Admin";
+  } catch (_) {
+    return "Admin";
+  }
 }
 
 function fmtFecha(iso) {
