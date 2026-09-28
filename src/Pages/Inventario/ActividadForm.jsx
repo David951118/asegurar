@@ -43,9 +43,17 @@ const initialForm = {
   numeroSim: "",
   tipoPropiedad: "COMODATO",
   propietarioNombre: "ASEGURAR LTDA",
-  fechaActividad: new Date().toISOString().slice(0, 10), // hoy YYYY-MM-DD
+  fechaActividad: "", // se completa con hoyLocal() al montar el formulario
   observaciones: "",
 };
+
+// Fecha de hoy en la zona horaria del navegador (YYYY-MM-DD). toISOString()
+// devuelve la fecha UTC: después de las 7 p. m. en Colombia ya es "mañana".
+function hoyLocal() {
+  const d = new Date();
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
 
 export default function ActividadForm() {
   return (
@@ -62,7 +70,7 @@ function FormContent() {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const [form, setForm] = useState(initialForm);
+  const [form, setForm] = useState(() => ({ ...initialForm, fechaActividad: hoyLocal() }));
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [verificando, setVerificando] = useState(false);
