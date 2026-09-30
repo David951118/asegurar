@@ -13,122 +13,212 @@ import lactiosSantaMaria from "../../Assets/iconsEnter/Lacteos Santa Maria png.p
 import coopsetrans from "../../Assets/iconsEnter/Coopsetrans.png";
 import nuevoMilenio from "../../Assets/iconsEnter/Nuevo Milenio.png";
 import sammiSaludsas from "../../Assets/iconsEnter/Samy-Salud-png.png";
+import heroBg from "../../Assets/Portada 2026/hero-bg.jpg";
+import heroBgSm from "../../Assets/Portada 2026/hero-bg-sm.jpg";
 
 const styles = `
-  /* ── Hero ── */
+  /* ── Hero (portada 2026: fondo = parte 01 del diseño) ── */
   .home-hero {
-    background: linear-gradient(135deg, #0a2d6e 0%, #1565c0 60%, #1e88e5 100%);
-    min-height: 88vh;
-    display: flex;
-    align-items: center;
+    --hero-yellow: #ffdd0e;
+    --hero-navy: #12308a;
     position: relative;
     overflow: hidden;
+    font-family: "Montserrat", Roboto, "Segoe UI", sans-serif;
+    color: #fff;
+    background: #0d3f8f url(${heroBg}) right bottom / cover no-repeat;
+    /* La imagen es 2400x1050: con este alto mínimo siempre cubre el
+       100% de la altura, así la franja inferior del arte queda alineada
+       con la barra de características. */
+    min-height: max(600px, calc(100vw * 1050 / 2400));
+    display: flex;
+    flex-direction: column;
   }
-  .home-hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: url('/fondo.png') center/cover no-repeat;
-    opacity: 0.08;
-  }
-  .hero-content {
+  .hero-inner {
     position: relative;
     z-index: 2;
-    color: #fff;
-    max-width: 700px;
-  }
-  .hero-badge {
-    display: inline-block;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 999px;
-    padding: 6px 18px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    color: #fff;
-  }
-  .hero-title {
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    color: #fff;
-  }
-  .hero-title span {
-    color: #ffd54f;
-  }
-  .hero-desc {
-    font-size: 1.15rem;
-    color: rgba(255,255,255,0.85);
-    margin-bottom: 36px;
-    line-height: 1.7;
-  }
-  .hero-cta-group {
+    flex: 1;
     display: flex;
+    align-items: center;
+    /* deja libre la franja inferior (14.3% del alto) para la barra */
+    padding-block: 32px calc(max(600px, 100vw * 1050 / 2400) * 0.143 + 12px);
+  }
+  .hero-content { max-width: min(980px, 64vw); }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
     gap: 14px;
-    flex-wrap: wrap;
-  }
-  .btn-hero-primary {
-    background: #ffd54f;
-    color: #0a2d6e;
-    font-weight: 800;
-    padding: 14px 32px;
-    border-radius: 50px;
-    border: none;
-    font-size: 1rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .btn-hero-primary:hover {
-    background: #ffca28;
-    color: #0a2d6e;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-  }
-  .btn-hero-outline {
-    background: transparent;
-    color: #fff;
+    border: 2px solid var(--hero-yellow);
+    border-radius: 999px;
+    padding: 8px 26px 8px 20px;
+    font-size: clamp(0.8rem, 1.05vw, 1rem);
     font-weight: 700;
-    padding: 14px 32px;
-    border-radius: 50px;
-    border: 2px solid rgba(255,255,255,0.6);
-    font-size: 1rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: clamp(16px, 2vw, 28px);
+    background: rgba(10, 35, 100, 0.25);
   }
-  .btn-hero-outline:hover {
-    background: rgba(255,255,255,0.12);
+  .hero-badge i { color: var(--hero-yellow); font-size: 1.2em; }
+  .hero-badge .sep { width: 1px; height: 1.2em; background: rgba(255,255,255,0.6); }
+  .hero-title {
+    font-size: clamp(2.1rem, 3.7vw, 4.4rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -1px;
+    margin: 0 0 clamp(18px, 2vw, 30px);
     color: #fff;
-    border-color: #fff;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.18);
   }
-  .hero-decoration {
-    position: absolute;
-    right: -80px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 520px;
-    height: 520px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.04);
-    border: 2px solid rgba(255,255,255,0.08);
-    z-index: 1;
+  .hero-title .hl {
+    display: block;
+    width: fit-content;
+    color: var(--hero-yellow);
+    font-weight: 900;
+    position: relative;
   }
-  .hero-decoration::after {
+  .hero-title .hl::after {
     content: "";
     position: absolute;
-    inset: 40px;
+    left: 0.02em;
+    bottom: -0.16em;
+    width: 1.05em;
+    height: 0.11em;
+    border-radius: 999px;
+    background: var(--hero-yellow);
+  }
+  .hero-desc {
+    font-size: clamp(0.98rem, 1.2vw, 1.2rem);
+    color: rgba(255,255,255,0.95);
+    line-height: 1.6;
+    max-width: 620px;
+    margin-bottom: clamp(22px, 2.4vw, 36px);
+  }
+  .hero-desc strong { font-weight: 800; color: #fff; }
+  .hero-cta-group { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-hero-primary,
+  .btn-hero-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 30px;
+    border-radius: 999px;
+    font-size: clamp(0.95rem, 1.15vw, 1.15rem);
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .btn-hero-primary {
+    background: var(--hero-yellow);
+    color: var(--hero-navy);
+    border: 2px solid var(--hero-yellow);
+  }
+  .btn-hero-primary:hover {
+    color: var(--hero-navy);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.28);
+  }
+  .btn-hero-outline {
+    background: rgba(10, 35, 100, 0.2);
+    color: #fff;
+    border: 2px solid #fff;
+  }
+  .btn-hero-outline:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.14);
+    transform: translateY(-2px);
+  }
+  .btn-hero-primary .pi-angle-right,
+  .btn-hero-outline .pi-angle-right { font-size: 1.1em; margin-left: 4px; }
+
+  /* Barra de características: se superpone a la franja azul del arte
+     (85.7% → 99.1% del alto de la imagen). */
+  .hero-features {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    top: 85.7%;
+    bottom: 0.9%;
+    display: flex;
+    align-items: center;
+  }
+  .hero-features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    max-width: 72%;
+  }
+  .hero-feature {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 clamp(14px, 2.2vw, 40px);
+    border-left: 1px solid rgba(255,255,255,0.45);
+  }
+  .hero-feature:first-child { border-left: none; padding-left: 0; }
+  .hero-feature-icon {
+    width: clamp(40px, 3.6vw, 64px);
+    height: clamp(40px, 3.6vw, 64px);
+    flex-shrink: 0;
     border-radius: 50%;
-    background: rgba(255,255,255,0.04);
-    border: 2px solid rgba(255,255,255,0.08);
+    border: 2px solid var(--hero-yellow);
+    color: var(--hero-yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1.1rem, 1.7vw, 1.8rem);
+  }
+  .hero-feature-text {
+    font-size: clamp(0.8rem, 1.05vw, 1.05rem);
+    line-height: 1.3;
+    color: #fff;
+  }
+  .hero-feature-text { white-space: nowrap; }
+  .hero-feature-text strong { display: block; font-weight: 700; }
+
+  .hero-desc { text-shadow: 0 1px 8px rgba(8,30,90,0.45); }
+  @media (max-width: 1279.98px) {
+    .home-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(13,52,130,0.7) 0%, rgba(13,52,130,0.45) 45%, transparent 70%);
+    }
+  }
+  @media (max-width: 991.98px) {
+    .home-hero { min-height: 0; background-image: url(${heroBgSm}); background-position: 72% bottom; }
+    .home-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(90deg, rgba(13,52,130,0.96) 0%, rgba(13,52,130,0.82) 55%, rgba(13,52,130,0.35) 100%);
+    }
+    .hero-inner { padding-block: 48px 36px; }
+    .hero-content { max-width: 100%; }
+    .hero-features {
+      position: relative;
+      top: auto;
+      bottom: auto;
+      background: rgba(10, 38, 110, 0.92);
+      border-top: 3px solid var(--hero-yellow);
+      padding-block: 20px;
+    }
+    .hero-features-grid {
+      max-width: 100%;
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 18px;
+    }
+    .hero-feature,
+    .hero-feature:first-child { border-left: none; padding: 0 8px; }
+    .hero-feature-text { white-space: normal; }
+  }
+  @media (max-width: 420px) {
+    .hero-badge { gap: 10px; padding: 6px 16px; }
+    .btn-hero-primary, .btn-hero-outline { width: 100%; justify-content: center; }
   }
 
   /* ── Stats ── */
@@ -483,6 +573,13 @@ const styles = `
   .client-logo-card:hover img { filter: grayscale(0%); }
 `;
 
+const heroFeatures = [
+  { icon: "pi-map-marker", title: "Ubicación", sub: "en tiempo real" },
+  { icon: "pi-phone", title: "Teléfono", sub: "y soporte 24/7" },
+  { icon: "pi-shield", title: "Mayor", sub: "seguridad" },
+  { icon: "pi-sliders-h", title: "Control", sub: "total de su flota" },
+];
+
 const empleados = [
   {
     name: "Rómulo Exmeling Bolaños Escobar",
@@ -563,27 +660,52 @@ export default function Home() {
 
       {/* ── HERO ── */}
       <section className="home-hero">
-        <div className="hero-decoration" />
-        <div className="container">
-          <div className="hero-content">
-            <span className="hero-badge">Asegurar Limitada · Pasto, Nariño</span>
-            <h1 className="hero-title">
-              Tecnología al servicio de la <span>seguridad vial</span>
-            </h1>
-            <p className="hero-desc">
-              Somos una empresa nariñense con más de 23 años de trayectoria en
-              telecomunicaciones y monitoreo vehicular. Nuestra plataforma CELLVI
-              opera 24/7 para mantener su flota conectada y segura.
-            </p>
-            <div className="hero-cta-group">
-              <NavLink to="/contacto" className="btn-hero-primary">
-                <i className="pi pi-envelope" />
-                Contáctenos
-              </NavLink>
-              <NavLink to="/cellvi" className="btn-hero-outline">
+        <div className="hero-inner">
+          <div className="container">
+            <div className="hero-content">
+              <span className="hero-badge">
                 <i className="pi pi-map-marker" />
-                Rastrea tu activo
-              </NavLink>
+                Asegurar Ltda.
+                <span className="sep" />
+                Pasto, Nariño
+              </span>
+              <h1 className="hero-title">
+                Tecnología al servicio de <span className="hl">la seguridad vial</span>
+              </h1>
+              <p className="hero-desc">
+                Somos una empresa nariñense con más de 26 años de trayectoria en
+                telecomunicaciones y monitoreo vehicular. Nuestra plataforma{" "}
+                <strong>CELLVI</strong> opera <strong>24/7</strong> para mantener
+                su flota conectada y segura.
+              </p>
+              <div className="hero-cta-group">
+                <NavLink to="/contacto" className="btn-hero-primary">
+                  <i className="pi pi-envelope" />
+                  Contáctenos
+                  <i className="pi pi-angle-right" />
+                </NavLink>
+                <NavLink to="/cellvi" className="btn-hero-outline">
+                  <i className="pi pi-map-marker" />
+                  Rastrea tu activo
+                  <i className="pi pi-angle-right" />
+                </NavLink>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="hero-features">
+          <div className="container">
+            <div className="hero-features-grid">
+              {heroFeatures.map((f) => (
+                <div key={f.title} className="hero-feature">
+                  <span className="hero-feature-icon"><i className={`pi ${f.icon}`} /></span>
+                  <span className="hero-feature-text">
+                    <strong>{f.title}</strong>
+                    {f.sub}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -593,7 +715,7 @@ export default function Home() {
       <section className="stats-section">
         <div className="stats-bar">
           <div className="stat-item">
-            <div className="stat-number">23+</div>
+            <div className="stat-number">26+</div>
             <div className="stat-label">Años de experiencia</div>
           </div>
           <div className="stat-item">

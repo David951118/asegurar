@@ -383,7 +383,7 @@ export default function Blog() {
               <div className="blog-sidebar">
                 <div className="blog-sidebar-card">
                   <h4><i className="pi pi-building me-2" style={{ color: "#1565c0" }} />Asegurar Ltda.</h4>
-                  <p>Empresa líder en tecnología y telecomunicaciones en la región nariñense, con más de 23 años de experiencia en monitoreo satelital y seguridad del transporte.</p>
+                  <p>Empresa líder en tecnología y telecomunicaciones en la región nariñense, con más de 26 años de experiencia en monitoreo satelital y seguridad del transporte.</p>
                 </div>
 
                 <div className="blog-sidebar-card blog-cta-card">

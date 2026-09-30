@@ -15,7 +15,7 @@ const styles = `
   /* ── Hero portafolio ── */
   .port-hero {
     background: linear-gradient(135deg, #0a2d6e 0%, #1565c0 60%, #42a5f5 100%);
-    padding: 80px 0 48px;
+    padding: 80px 0 72px;
     text-align: center;
     color: #fff;
     position: relative;
@@ -65,6 +65,27 @@ const styles = `
   }
   .port-carousel-wrap img {
     border-radius: 0 !important;
+  }
+
+  .port-btn-pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    background: #ffdd0e;
+    color: #12308a;
+    font-weight: 800;
+    padding: 12px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    position: relative;
+    z-index: 1;
+  }
+  .port-btn-pdf:hover {
+    color: #12308a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.25);
   }
 
   /* ── Services grid ── */
@@ -251,6 +272,14 @@ export default function Portafolio() {
           <div className="port-carousel-wrap">
             <Carrusel />
           </div>
+          <a
+            href="/portafolio-asegurar-ltda.pdf"
+            className="port-btn-pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="pi pi-file-pdf" /> Ver portafolio completo (PDF)
+          </a>
         </div>
       </section>
 

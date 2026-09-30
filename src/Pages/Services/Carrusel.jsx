@@ -1,24 +1,11 @@
-import item2 from "../../Assets/Portafolio Asegurar imagenes/Portafolio1.jpeg";
-import item3 from "../../Assets/Portafolio Asegurar imagenes/Portafolio2.jpeg";
-import item4 from "../../Assets/Portafolio Asegurar imagenes/Portafolio3.jpeg";
-import item5 from "../../Assets/Portafolio Asegurar imagenes/Portafolio4.jpeg";
-import item6 from "../../Assets/Portafolio Asegurar imagenes/Portafolio5.jpeg";
-import item7 from "../../Assets/Portafolio Asegurar imagenes/Portafolio6.jpeg";
-import item8 from "../../Assets/Portafolio Asegurar imagenes/Portafolio7.jpeg";
-import item9 from "../../Assets/Portafolio Asegurar imagenes/Portafolio8.jpeg";
+// Páginas del portafolio vigente (PDF "Portafolio ASEGURAR LTDA DEF.",
+// septiembre 2026) exportadas a JPG. Para actualizarlo basta con reemplazar
+// los archivos de la carpeta: se cargan en orden por nombre.
+const paginasCtx = require.context("../../Assets/Portafolio 2026", false, /\.jpg$/);
+const paginas = paginasCtx.keys().sort().map((k) => paginasCtx(k));
 
 export default function Carrusel() {
-  const items = [
-    // { foto: item1 },
-    { foto: item2 },
-    { foto: item3 },
-    { foto: item4 },
-    { foto: item5 },
-    { foto: item6 },
-    { foto: item7 },
-    { foto: item8 },
-    { foto: item9 },
-  ];
+  const items = paginas.map((foto) => ({ foto }));
 
   return (
     <div className="container">
@@ -37,7 +24,8 @@ export default function Carrusel() {
               <img
                 src={item.foto}
                 className="d-block w-100 rounded"
-                alt={`Slide ${index + 1}`}
+                alt={`Portafolio Asegurar Ltda. - página ${index + 1}`}
+                loading={index === 0 ? "eager" : "lazy"}
                 style={{ width: "auto", height: "auto" }}
               />
             </div>
