@@ -673,7 +673,7 @@ export default function Home() {
                 Tecnología al servicio de <span className="hl">la seguridad vial</span>
               </h1>
               <p className="hero-desc">
-                Somos una empresa nariñense con más de 26 años de trayectoria en
+                Somos una empresa nariñense con más de 25 años de trayectoria en
                 telecomunicaciones y monitoreo vehicular. Nuestra plataforma{" "}
                 <strong>CELLVI</strong> opera <strong>24/7</strong> para mantener
                 su flota conectada y segura.
@@ -715,7 +715,7 @@ export default function Home() {
       <section className="stats-section">
         <div className="stats-bar">
           <div className="stat-item">
-            <div className="stat-number">26+</div>
+            <div className="stat-number">25+</div>
             <div className="stat-label">Años de experiencia</div>
           </div>
           <div className="stat-item">

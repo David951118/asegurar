@@ -169,7 +169,7 @@ const contentInfo = {
     paragraphs: [
       "Es una Red de Telecomunicaciones en la modalidad de Valor Agregado y Telemático, autorizada por el Ministerio de las Tecnologías de la Información y las Telecomunicaciones TIC., mediante Resolución No. 000656 de mayo del 2002 y, Registro TIC. No. 96000876 del 27 de octubre de 2011; para la prestación de servicios de tele acción: servicio básico de tele alarmas y telemáticos, satisfaciendo necesidades específicas de telecomunicaciones relacionadas con el monitoreo, la medición y la vigilancia.",
       "Proveedores de servicios GPS para maquinaria amarilla autorizados por la Oficina de Telemática de la Dirección General de la Policía Nacional de Colombia e, inscritos como prestadores de servicios ante el RUNT.",
-      "Experiencia de 26 años en el ramo de las telecomunicaciones con domicilio principal en la ciudad de San Juan de Pasto – Nariño. Somos marca registrada. Prestamos servicios de monitoreo remoto de activos fijos y, móviles a través de nuestra plataforma tecnológica de telecomunicaciones CELLVI: (Central Especializada de Logística y Localización Vehicular Internacional).",
+      "Experiencia de 25 años en el ramo de las telecomunicaciones con domicilio principal en la ciudad de San Juan de Pasto – Nariño. Somos marca registrada. Prestamos servicios de monitoreo remoto de activos fijos y, móviles a través de nuestra plataforma tecnológica de telecomunicaciones CELLVI: (Central Especializada de Logística y Localización Vehicular Internacional).",
     ],
     image: fotoAboutus,
   },
@@ -229,7 +229,7 @@ export default function AboutUs() {
         <div className="about-hero-overlay">
           <div className="about-hero-text">
             <h1>Acerca de Nosotros</h1>
-            <p>Más de 26 años al servicio de la seguridad y las telecomunicaciones</p>
+            <p>Más de 25 años al servicio de la seguridad y las telecomunicaciones</p>
           </div>
         </div>
       </div>

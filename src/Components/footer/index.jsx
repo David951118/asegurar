@@ -204,7 +204,7 @@ export default function Footer() {
                 <p>
                   Empresa nariñense autorizada por el Ministerio de Comunicaciones
                   de Colombia para operar nuestra red de telecomunicaciones.
-                  Más de 26 años al servicio de la seguridad y el monitoreo vehicular.
+                  Más de 25 años al servicio de la seguridad y el monitoreo vehicular.
                 </p>
               </div>
 
