@@ -15,6 +15,11 @@ import nuevoMilenio from "../../Assets/iconsEnter/Nuevo Milenio.png";
 import sammiSaludsas from "../../Assets/iconsEnter/Samy-Salud-png.png";
 import heroBg from "../../Assets/Portada 2026/hero-bg.jpg";
 import heroBgSm from "../../Assets/Portada 2026/hero-bg-sm.jpg";
+import platBg from "../../Assets/Portada 2026/plataformas-bg.jpg";
+import platBgSm from "../../Assets/Portada 2026/plataformas-bg-sm.jpg";
+import cardCellvi from "../../Assets/Portada 2026/card-cellvi.jpg";
+import cardPesv from "../../Assets/Portada 2026/card-pesv.jpg";
+import cardRndc from "../../Assets/Portada 2026/card-rndc.jpg";
 
 const styles = `
   /* ── Hero (portada 2026: fondo = parte 01 del diseño) ── */
@@ -221,52 +226,278 @@ const styles = `
     .btn-hero-primary, .btn-hero-outline { width: 100%; justify-content: center; }
   }
 
-  /* ── Stats ── */
-  .stats-section {
-    background: #fff;
-    padding: 0;
-    margin-top: -1px;
-  }
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    border-top: 4px solid #1565c0;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.08);
-  }
-  .stat-item {
-    padding: 32px 24px;
-    text-align: center;
-    border-right: 1px solid #e8eef5;
-  }
-  .stat-item:last-child { border-right: none; }
-  .stat-number {
-    font-size: 2.6rem;
-    font-weight: 900;
-    color: #1565c0;
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-  .stat-label {
-    font-size: 0.9rem;
-    color: #666;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  @media (max-width: 768px) {
-    .stats-bar { grid-template-columns: repeat(2, 1fr); }
-    .stat-item:nth-child(2) { border-right: none; }
-  }
-  @media (max-width: 480px) {
-    .stats-bar { grid-template-columns: 1fr; }
-    .stat-item { border-right: none; border-bottom: 1px solid #e8eef5; }
+  /* ── Plataformas (diseño 2026: fondo = parte 2-05 del diseño) ── */
+  .plat-section {
+    --plat-yellow: #ffdd0e;
+    --plat-navy: #12308a;
+    --plat-blue: #1a5aa8;
+    position: relative;
+    overflow: hidden;
+    font-family: "Montserrat", Roboto, "Segoe UI", sans-serif;
+    background: var(--plat-blue);
+    color: #fff;
   }
 
-  /* ── Servicios ── */
-  .services-section {
-    padding: 80px 0;
-    background: #f8fafc;
+  /* Franja de cifras */
+  .plat-stats {
+    position: relative;
+    z-index: 3;
+    background: linear-gradient(180deg, #fff 0%, #eef3fa 100%);
+    box-shadow: 0 6px 24px rgba(8, 30, 90, 0.18);
   }
+  .plat-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    padding-block: clamp(16px, 1.8vw, 26px);
+  }
+  .plat-stat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(12px, 1.2vw, 20px);
+    padding: 4px 12px;
+    border-left: 2px solid #d4dbe6;
+  }
+  .plat-stat:first-child { border-left: none; }
+  .plat-stat-icon i,
+  .plat-card-icon i,
+  .rndc2-icon > i,
+  .rndc2-icon-badge i { font-size: inherit; }
+  .plat-stat-icon {
+    width: clamp(48px, 4.4vw, 70px);
+    height: clamp(48px, 4.4vw, 70px);
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #2a63c4 0%, #12308a 100%);
+    box-shadow: 0 4px 12px rgba(18, 48, 138, 0.35);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1.2rem, 1.8vw, 1.8rem);
+  }
+  .plat-stat-number {
+    font-size: clamp(1.5rem, 2.4vw, 2.4rem);
+    font-weight: 900;
+    color: var(--plat-navy);
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+  .plat-stat-label {
+    margin-top: 4px;
+    font-size: clamp(0.66rem, 0.85vw, 0.85rem);
+    font-weight: 600;
+    color: #4a5568;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+
+  /* Escena con vehículos */
+  .plat-scene {
+    position: relative;
+    background: url(${platBg}) center bottom / cover no-repeat;
+    /* La imagen es 2400x696 */
+    min-height: max(420px, calc(100vw * 696 / 2400));
+  }
+  .plat-scene::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 22%;
+    background: linear-gradient(180deg, rgba(26,90,168,0) 0%, var(--plat-blue) 100%);
+    pointer-events: none;
+  }
+  .plat-intro {
+    position: relative;
+    z-index: 2;
+    padding-top: clamp(28px, 4.6vw, 80px);
+    max-width: min(900px, 56vw);
+  }
+  .plat-tag {
+    display: inline-block;
+    border: 2px solid var(--plat-yellow);
+    border-radius: 999px;
+    padding: 8px 30px;
+    font-size: clamp(0.8rem, 1.05vw, 1.05rem);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: rgba(10, 35, 100, 0.22);
+    margin-bottom: clamp(14px, 2vw, 30px);
+  }
+  .plat-title {
+    font-size: clamp(1.6rem, 2.9vw, 3.3rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.5px;
+    margin: 0 0 clamp(10px, 1.2vw, 18px);
+    color: #fff;
+    text-shadow: 0 2px 14px rgba(8, 30, 90, 0.35);
+  }
+  .plat-title .nw { white-space: nowrap; }
+  .plat-title .hl {
+    display: block;
+    color: var(--plat-yellow);
+    font-size: 1.7em;
+    line-height: 1;
+  }
+  .plat-desc {
+    font-size: clamp(0.95rem, 1.2vw, 1.2rem);
+    line-height: 1.45;
+    max-width: 470px;
+    margin: 0;
+    color: rgba(255,255,255,0.96);
+    text-shadow: 0 1px 8px rgba(8, 30, 90, 0.55);
+  }
+  .plat-desc-line {
+    display: block;
+    width: 74px;
+    height: 8px;
+    margin-top: clamp(14px, 1.6vw, 26px);
+    border-radius: 999px;
+    background: var(--plat-yellow);
+  }
+
+  /* Tarjetas */
+  .plat-cards {
+    position: relative;
+    z-index: 2;
+    margin-top: calc(-1 * clamp(10px, 1.5vw, 28px));
+    padding-bottom: clamp(48px, 5vw, 80px);
+  }
+  .plat-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2vw, 32px);
+  }
+  .plat-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(40,110,200,0.92) 0%, rgba(22,80,160,0.96) 100%);
+    border: 1.5px solid rgba(140, 200, 255, 0.7);
+    box-shadow: 0 0 18px rgba(90, 180, 255, 0.35), inset 0 0 24px rgba(120, 190, 255, 0.18);
+    padding: 14px 14px 0;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .plat-card:hover {
+    color: #fff;
+    transform: translateY(-6px);
+    box-shadow: 0 0 28px rgba(110, 195, 255, 0.6), inset 0 0 24px rgba(120, 190, 255, 0.22);
+  }
+  .plat-card-head {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .plat-card-icon {
+    width: clamp(64px, 5.4vw, 86px);
+    flex-shrink: 0;
+    align-self: center;
+    aspect-ratio: 1;
+    border-radius: 16px;
+    background: linear-gradient(145deg, rgba(110,175,245,0.55) 0%, rgba(30,95,185,0.75) 100%);
+    border: 1px solid rgba(190, 225, 255, 0.6);
+    box-shadow: 0 4px 14px rgba(5, 30, 90, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1.7rem, 2.6vw, 2.5rem);
+  }
+  .plat-card-img {
+    flex: 1;
+    min-width: 0;
+    border-radius: 10px;
+    object-fit: cover;
+    width: 100%;
+    aspect-ratio: 800 / 243;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%);
+            mask-image: linear-gradient(90deg, transparent 0%, #000 22%);
+  }
+  .plat-card-body {
+    flex: 1;
+    padding: clamp(14px, 1.6vw, 22px) clamp(10px, 1.6vw, 26px) 0;
+  }
+  .plat-card h3 {
+    font-size: clamp(1.05rem, 1.35vw, 1.35rem);
+    font-weight: 800;
+    line-height: 1.25;
+    margin: 0 0 12px;
+    color: #fff;
+  }
+  .plat-card h3 span { color: var(--plat-yellow); }
+  .plat-card p {
+    font-size: clamp(0.88rem, 0.98vw, 0.98rem);
+    line-height: 1.5;
+    color: rgba(255,255,255,0.92);
+    margin: 0;
+  }
+  .plat-card-btn {
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin: 20px 0 -20px;
+    padding: 9px 30px;
+    border-radius: 999px;
+    background: var(--plat-yellow);
+    color: var(--plat-navy);
+    font-size: clamp(0.9rem, 1.05vw, 1.05rem);
+    font-weight: 800;
+    box-shadow: 0 6px 16px rgba(5, 25, 80, 0.35);
+    white-space: nowrap;
+  }
+  .plat-card-btn i { font-size: 0.85em; }
+  .plat-corner {
+    position: absolute;
+    right: -40px;
+    bottom: -10px;
+    width: 140px;
+    height: 120px;
+    background: var(--plat-yellow);
+    clip-path: polygon(62% 0, 100% 0, 100% 100%, 0 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  @media (max-width: 1199.98px) {
+    .plat-scene::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(90deg, rgba(13,52,130,0.75) 0%, rgba(13,52,130,0.4) 50%, transparent 72%);
+    }
+    .plat-intro { max-width: min(620px, 60vw); }
+  }
+  @media (max-width: 991.98px) {
+    .plat-stats-grid { grid-template-columns: repeat(2, 1fr); row-gap: 18px; }
+    .plat-stat { justify-content: flex-start; }
+    .plat-stat:nth-child(3) { border-left: none; }
+    .plat-scene { background-image: url(${platBgSm}); background-position: 70% bottom; min-height: 480px; }
+    .plat-intro { max-width: 100%; }
+    .plat-title .nw { white-space: normal; }
+    .plat-cards-grid { grid-template-columns: 1fr; max-width: 620px; margin: 0 auto; gap: 44px; }
+    .plat-cards { margin-top: -30px; }
+  }
+  @media (max-width: 575.98px) {
+    .plat-stats-grid { column-gap: 8px; }
+    .plat-stat { border-left: none; padding: 4px 0; gap: 10px; }
+    .plat-stat-icon { width: 42px; height: 42px; font-size: 1.1rem; }
+    .plat-stat-label { white-space: normal; }
+    .plat-scene { min-height: 440px; }
+    .plat-scene::before { background: linear-gradient(180deg, rgba(13,52,130,0.85) 0%, rgba(13,52,130,0.55) 55%, rgba(13,52,130,0.1) 80%); }
+    .plat-card-btn { padding-inline: 22px; }
+  }
+
+  /* Bloques de títulos reutilizados por Equipo y Clientes */
   .section-tag {
     display: inline-block;
     background: #e3f0ff;
@@ -293,175 +524,301 @@ const styles = `
     margin: 0 auto 48px;
     line-height: 1.7;
   }
-  .service-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 36px 28px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-    transition: all 0.3s ease;
-    height: 100%;
-    border-top: 4px solid transparent;
-    text-decoration: none;
-    color: inherit;
-    display: block;
+
+  /* ── RNDC integrado (diseño 2026) ── */
+  .rndc2-section {
+    --plat-yellow: #ffdd0e;
+    --plat-navy: #12308a;
+    position: relative;
+    overflow: hidden;
+    font-family: "Montserrat", Roboto, "Segoe UI", sans-serif;
+    padding: clamp(40px, 4.5vw, 72px) 0 clamp(48px, 5vw, 80px);
+    background:
+      linear-gradient(180deg, rgba(240,247,255,0.84) 0%, rgba(240,247,255,0.93) 45%, #f0f6ff 100%),
+      url(${platBg}) center top / cover no-repeat;
+    color: #1d2b4f;
   }
-  .service-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 40px rgba(21,101,192,0.15);
-    border-top-color: #1565c0;
-    color: inherit;
-    text-decoration: none;
-  }
-  .service-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-  }
-  .service-icon.blue { background: #e3f0ff; color: #1565c0; }
-  .service-icon.green { background: #e8f5e9; color: #2e7d32; }
-  .service-icon.orange { background: #fff3e0; color: #e65100; }
-  .service-card h3 {
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: #0a2d6e;
-    margin-bottom: 10px;
-  }
-  .service-card p {
-    color: #666;
-    font-size: 0.95rem;
-    line-height: 1.65;
-    margin: 0;
-  }
-  .service-link {
+  .rndc2-head { text-align: center; margin-bottom: clamp(26px, 3vw, 44px); }
+  .rndc2-tag {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    color: #1565c0;
-    font-weight: 700;
-    font-size: 0.9rem;
-    margin-top: 18px;
-    text-decoration: none;
+    gap: clamp(14px, 2vw, 30px);
+    margin-bottom: clamp(14px, 1.6vw, 22px);
   }
-
-  /* ── RNDC Info ── */
-  .rndc-section {
-    padding: 80px 0;
-    background: linear-gradient(135deg, #0a2d6e 0%, #1565c0 100%);
+  .rndc2-tag::before,
+  .rndc2-tag::after {
+    content: "";
+    width: clamp(36px, 4.5vw, 72px);
+    height: 4px;
+    border-radius: 999px;
+    background: var(--plat-yellow);
+  }
+  .rndc2-tag span {
+    background: linear-gradient(180deg, #1d4aa8 0%, #12308a 100%);
     color: #fff;
+    border-radius: 999px;
+    padding: 9px clamp(18px, 2vw, 30px);
+    font-size: clamp(0.82rem, 1.1vw, 1.1rem);
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 14px rgba(18, 48, 138, 0.3);
   }
-  .rndc-section .section-title { color: #fff; }
-  .rndc-section .section-sub { color: rgba(255,255,255,0.75); }
-  .rndc-section .section-tag {
-    background: rgba(255,255,255,0.15);
-    color: #ffd54f;
+  .rndc2-title {
+    font-size: clamp(1.9rem, 3.6vw, 3.6rem);
+    font-weight: 900;
+    color: var(--plat-navy);
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin: 0 0 clamp(12px, 1.4vw, 20px);
   }
-  .rndc-module-card {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 16px;
-    padding: 32px 28px;
-    height: 100%;
-    transition: all 0.3s ease;
+  .rndc2-title .hl {
+    display: inline-block;
+    background: var(--plat-yellow);
+    border-radius: 12px;
+    padding: 0 0.2em 0.06em;
+    color: var(--plat-navy);
   }
-  .rndc-module-card:hover {
-    background: rgba(255,255,255,0.14);
+  .rndc2-sub {
+    max-width: 680px;
+    margin: 0 auto;
+    font-size: clamp(0.98rem, 1.25vw, 1.25rem);
+    line-height: 1.5;
+    color: #26375f;
+  }
+  .rndc2-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(16px, 2vw, 30px);
+  }
+  .rndc2-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.86);
+    border: 1px solid rgba(255,255,255,0.95);
+    box-shadow: 0 12px 34px rgba(18, 60, 140, 0.16);
+    backdrop-filter: blur(6px);
+    padding: clamp(20px, 2vw, 30px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .rndc2-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 48%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--plat-yellow), rgba(255,221,14,0));
+  }
+  .rndc2-card:hover {
     transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(18, 60, 140, 0.22);
   }
-  .rndc-module-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 14px;
-    background: rgba(255,213,79,0.2);
-    border: 1px solid rgba(255,213,79,0.3);
+  .rndc2-card-head {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(14px, 1.6vw, 22px);
+    margin-bottom: 18px;
+  }
+  .rndc2-icon {
+    position: relative;
+    width: clamp(64px, 6vw, 96px);
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #2f72d6 0%, #12308a 100%);
+    box-shadow: 0 6px 16px rgba(18, 48, 138, 0.35);
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.6rem;
-    color: #ffd54f;
-    margin-bottom: 18px;
+    font-size: clamp(1.7rem, 2.6vw, 2.6rem);
   }
-  .rndc-module-card h3 {
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: #fff;
-    margin-bottom: 10px;
-  }
-  .rndc-module-card p {
-    color: rgba(255,255,255,0.75);
-    font-size: 0.95rem;
-    line-height: 1.65;
-    margin-bottom: 16px;
-  }
-  .rndc-step {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.8);
-  }
-  .rndc-step-num {
-    width: 22px;
-    height: 22px;
+  .rndc2-icon-badge {
+    position: absolute;
+    right: -6px;
+    bottom: -6px;
+    width: 42%;
+    aspect-ratio: 1;
     border-radius: 50%;
-    background: #ffd54f;
-    color: #0a2d6e;
-    font-size: 0.75rem;
+    background: var(--plat-yellow);
+    color: var(--plat-navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.42em;
+    font-weight: 900;
+    border: 3px solid #fff;
+  }
+  .rndc2-card h3 {
+    font-size: clamp(1.2rem, 1.75vw, 1.75rem);
+    font-weight: 900;
+    color: var(--plat-navy);
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .rndc2-card h3 span { color: #f2b600; }
+  .rndc2-card-head p {
+    margin: 0;
+    font-size: clamp(0.88rem, 0.98vw, 0.98rem);
+    line-height: 1.55;
+    color: #2b3a5e;
+  }
+  .rndc2-body {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .rndc2-steps {
+    position: relative;
+    z-index: 1;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 22px;
+    max-width: 58%;
+  }
+  .rndc2-steps li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+    font-size: clamp(0.88rem, 0.98vw, 0.98rem);
+    color: #23345d;
+  }
+  .rndc2-steps strong { color: var(--plat-navy); font-weight: 800; }
+  .rndc2-step-num {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--plat-yellow);
+    color: var(--plat-navy);
     font-weight: 900;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
+    box-shadow: 0 3px 8px rgba(200, 160, 0, 0.35);
   }
-  .btn-rndc-access {
-    background: #ffd54f;
-    color: #0a2d6e;
-    font-weight: 800;
-    padding: 12px 26px;
-    border-radius: 50px;
-    border: none;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
+  .rndc2-btn {
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+    align-self: flex-start;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 10px;
-  }
-  .btn-rndc-access:hover {
-    background: #ffca28;
-    color: #0a2d6e;
-    transform: translateY(-2px);
-  }
-  .rndc-integration-note {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,213,79,0.3);
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-top: 40px;
-    display: flex;
-    align-items: flex-start;
     gap: 14px;
+    padding: 13px 34px 13px 28px;
+    border-radius: 999px;
+    background: var(--plat-yellow);
+    color: var(--plat-navy);
+    font-size: clamp(0.98rem, 1.2vw, 1.2rem);
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(200, 160, 0, 0.35);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
-  .rndc-integration-note i {
-    font-size: 1.4rem;
-    color: #ffd54f;
+  .rndc2-btn:hover {
+    color: var(--plat-navy);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(200, 160, 0, 0.45);
+  }
+  .rndc2-photo {
+    position: absolute;
+    top: 0;
+    right: calc(-1 * clamp(20px, 2vw, 30px));
+    width: 50%;
+    height: calc(100% + clamp(20px, 2vw, 30px));
+    object-fit: cover;
+    object-position: 70% center;
+    border-top-left-radius: 24px;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 38%), linear-gradient(180deg, transparent 0%, #000 22%);
+    -webkit-mask-composite: source-in;
+            mask-image: linear-gradient(90deg, transparent 0%, #000 38%), linear-gradient(180deg, transparent 0%, #000 22%);
+            mask-composite: intersect;
+  }
+  .rndc2-note {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 2vw, 26px);
+    margin-top: clamp(22px, 2.6vw, 36px);
+    padding: clamp(14px, 1.6vw, 22px) clamp(18px, 2vw, 30px);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.9);
+    border-left: 6px solid var(--plat-yellow);
+    box-shadow: 0 8px 26px rgba(18, 60, 140, 0.12);
+  }
+  .rndc2-note-icon {
+    width: clamp(48px, 4.2vw, 64px);
+    aspect-ratio: 1;
     flex-shrink: 0;
-    margin-top: 2px;
+    border-radius: 50%;
+    background: var(--plat-navy);
+    border: 4px solid var(--plat-yellow);
+    color: var(--plat-yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1.3rem, 1.8vw, 1.8rem);
+    font-weight: 900;
+    font-family: Georgia, serif;
   }
-  .rndc-integration-note p {
+  .rndc2-note p {
     margin: 0;
-    color: rgba(255,255,255,0.85);
-    font-size: 0.95rem;
+    font-size: clamp(0.88rem, 0.98vw, 0.98rem);
     line-height: 1.6;
+    color: #2b3a5e;
   }
-  .rndc-integration-note strong { color: #ffd54f; }
+  .rndc2-note strong {
+    color: var(--plat-navy);
+    font-size: 1.12em;
+    font-weight: 800;
+    padding-right: 12px;
+    margin-right: 12px;
+    border-right: 2px solid #9aa8c3;
+  }
+  .rndc2-note a { color: #1d4aa8; font-weight: 800; }
+  @media (max-width: 991.98px) {
+    .rndc2-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 575.98px) {
+    .rndc2-tag::before, .rndc2-tag::after { display: none; }
+    .rndc2-card-head { flex-direction: column; }
+    .rndc2-steps { max-width: 100%; }
+    .rndc2-photo { display: none; }
+    .rndc2-btn { align-self: stretch; justify-content: center; }
+    .rndc2-note { flex-direction: column; align-items: flex-start; }
+    .rndc2-note strong { display: block; border-right: none; padding-right: 0; margin-bottom: 4px; }
+  }
+
+  /* Modo oscuro */
+  [data-theme="dark"] .plat-stats { background: var(--card-bg, #1b2433); }
+  [data-theme="dark"] .plat-stat { border-left-color: rgba(255,255,255,0.15); }
+  [data-theme="dark"] .plat-stat-number { color: #ffd54f; }
+  [data-theme="dark"] .plat-stat-label { color: var(--text-secondary, #b4bfd0); }
+  [data-theme="dark"] .rndc2-section {
+    background:
+      linear-gradient(180deg, rgba(12,22,42,0.88) 0%, rgba(12,22,42,0.94) 45%, #0c162a 100%),
+      url(${platBg}) center top / cover no-repeat;
+    color: var(--text-primary, #e6ecf5);
+  }
+  [data-theme="dark"] .rndc2-title,
+  [data-theme="dark"] .rndc2-card h3,
+  [data-theme="dark"] .rndc2-steps strong,
+  [data-theme="dark"] .rndc2-note strong { color: #fff; }
+  [data-theme="dark"] .rndc2-sub,
+  [data-theme="dark"] .rndc2-card-head p,
+  [data-theme="dark"] .rndc2-steps li,
+  [data-theme="dark"] .rndc2-note p { color: var(--text-secondary, #b4bfd0); }
+  [data-theme="dark"] .rndc2-card,
+  [data-theme="dark"] .rndc2-note {
+    background: rgba(27, 36, 51, 0.9);
+    border-color: rgba(255,255,255,0.08);
+  }
+  [data-theme="dark"] .rndc2-note a { color: #ffd54f; }
 
   /* ── Equipo ── */
   .team-section {
@@ -646,6 +1003,72 @@ const empleados = [
   },
 ];
 
+const platStats = [
+  { icon: "pi-user", number: "25+", label: "Años de experiencia" },
+  { icon: "pi-desktop", number: "24/7", label: "Central de monitoreo" },
+  { icon: "pi-shield", number: "100%", label: "Cobertura nacional" },
+  { icon: "pi-cloud", number: "CELLVI", label: "Plataforma propia" },
+];
+
+const platCards = [
+  {
+    to: "/cellvi",
+    icon: "pi-map-marker",
+    img: cardCellvi,
+    sigla: "CELLVI",
+    nombre: "Monitoreo Vehicular",
+    desc: "Central Especializada de Logística y Localización Vehicular Internacional. Rastree su flota en tiempo real, 24/7, desde cualquier dispositivo.",
+    cta: "Ingresar a CELLVI",
+  },
+  {
+    to: "/pesv",
+    icon: "pi-verified",
+    img: cardPesv,
+    sigla: "PESV",
+    nombre: "Plan Estratégico de Seguridad Vial",
+    desc: "Gestione su Plan Estratégico de Seguridad Vial. Cumpla con la normativa colombiana y registre sus formularios preoperativos de manera digital.",
+    cta: "Ir al PESV",
+  },
+  {
+    to: "/rndc",
+    icon: "pi-truck",
+    img: cardRndc,
+    sigla: "RNDC",
+    nombre: "Registro Nacional de Despacho de Carga",
+    desc: "Portal integrado para la gestión de manifiestos de carga (preoperativas) y creación de contratos FUEC. Todo desde un mismo acceso.",
+    cta: "Ingresar al RNDC",
+  },
+];
+
+const rndcModulos = [
+  {
+    numero: 1,
+    icon: "pi-file-edit",
+    badge: "pi-plus",
+    img: cardPesv,
+    nombre: "Preoperativas y Manifiestos",
+    desc: "Registro y seguimiento de manifiestos de carga (preoperativas) antes de cada despacho. Gestione, consulte y elimine manifiestos desde nuestra plataforma conectada al sistema RNDC.",
+    pasos: [
+      "Ingrese con sus credenciales CELLVI al portal RNDC",
+      <>Seleccione la pestaña <strong>Manifiestos</strong></>,
+      "Consulte, registre o actualice sus preoperativas",
+    ],
+  },
+  {
+    numero: 2,
+    icon: "pi-file",
+    badge: "pi-truck",
+    img: cardCellvi,
+    nombre: "Contratos FUEC",
+    desc: "El Formato Único de Extracto de Contrato (FUEC) es el documento obligatorio para el transporte especial. Desde nuestro portal puede crear y gestionar sus contratos FUEC de manera ágil.",
+    pasos: [
+      "Ingrese al portal RNDC con sus credenciales",
+      <>Seleccione la pestaña <strong>Contratos FUEC</strong></>,
+      "Complete los datos y genere su contrato en PDF",
+    ],
+  },
+];
+
 const aliados = [
   { src: lactiosSantaMaria, title: "Lacteos Santa Maria", link: "https://lacteossantamaria.com/" },
   { src: coopsetrans, title: "Coopsetrans", link: "https://coopsetrans.org/" },
@@ -711,179 +1134,118 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── STATS BAR ── */}
-      <section className="stats-section">
-        <div className="stats-bar">
-          <div className="stat-item">
-            <div className="stat-number">25+</div>
-            <div className="stat-label">Años de experiencia</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-number">24/7</div>
-            <div className="stat-label">Central de monitoreo</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-number">100%</div>
-            <div className="stat-label">Cobertura nacional</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-number">CELLVI</div>
-            <div className="stat-label">Plataforma propia</div>
+      {/* ── PLATAFORMAS (cifras + tarjetas) ── */}
+      <section className="plat-section">
+        <div className="plat-stats">
+          <div className="container">
+            <div className="plat-stats-grid">
+              {platStats.map((s) => (
+                <div key={s.number} className="plat-stat">
+                  <span className="plat-stat-icon"><i className={`pi ${s.icon}`} /></span>
+                  <div>
+                    <div className="plat-stat-number">{s.number}</div>
+                    <div className="plat-stat-label">{s.label}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </section>
 
-      {/* ── SERVICIOS ── */}
-      <section className="services-section">
-        <div className="container">
-          <div className="text-center mb-2">
-            <span className="section-tag">Nuestras plataformas</span>
-          </div>
-          <h2 className="section-title text-center">Soluciones integradas para el transporte</h2>
-          <p className="section-sub text-center">
-            Acceda a nuestros tres sistemas especializados desde un solo lugar.
-          </p>
-          <div className="row g-4">
-            <div className="col-md-4">
-              <NavLink to="/cellvi" className="service-card">
-                <div className="service-icon blue">
-                  <i className="pi pi-map-marker" />
-                </div>
-                <h3>CELLVI – Monitoreo Vehicular</h3>
-                <p>
-                  Central Especializada de Logística y Localización Vehicular
-                  Internacional. Rastree su flota en tiempo real, 24/7, desde
-                  cualquier dispositivo.
-                </p>
-                <span className="service-link">
-                  Ingresar a CELLVI <i className="pi pi-arrow-right" />
-                </span>
-              </NavLink>
-            </div>
-            <div className="col-md-4">
-              <NavLink to="/pesv" className="service-card">
-                <div className="service-icon green">
-                  <i className="pi pi-shield" />
-                </div>
-                <h3>PESV – Plan Estratégico de Seguridad Vial</h3>
-                <p>
-                  Gestione su Plan Estratégico de Seguridad Vial. Cumpla con la
-                  normativa colombiana y registre sus formularios preoperativos
-                  de manera digital.
-                </p>
-                <span className="service-link">
-                  Ir a PESV <i className="pi pi-arrow-right" />
-                </span>
-              </NavLink>
-            </div>
-            <div className="col-md-4">
-              <NavLink to="/rndc" className="service-card">
-                <div className="service-icon orange">
-                  <i className="pi pi-truck" />
-                </div>
-                <h3>RNDC – Registro Nacional de Despacho de Carga</h3>
-                <p>
-                  Portal integrado para la gestión de manifiestos de carga
-                  (preoperativas) y creación de contratos FUEC. Todo desde un
-                  mismo acceso.
-                </p>
-                <span className="service-link">
-                  Ingresar al RNDC <i className="pi pi-arrow-right" />
-                </span>
-              </NavLink>
+        <div className="plat-scene">
+          <div className="container">
+            <div className="plat-intro">
+              <span className="plat-tag">Nuestras plataformas</span>
+              <h2 className="plat-title">
+                <span className="nw">Soluciones integrales para el</span>{" "}
+                <span className="hl">transporte</span>
+              </h2>
+              <p className="plat-desc">
+                Acceda a nuestros tres sistemas especializados desde un solo lugar.
+              </p>
+              <span className="plat-desc-line" />
             </div>
           </div>
         </div>
+
+        <div className="plat-cards">
+          <div className="container">
+            <div className="plat-cards-grid">
+              {platCards.map((c) => (
+                <NavLink key={c.to} to={c.to} className="plat-card">
+                  <div className="plat-card-head">
+                    <span className="plat-card-icon"><i className={`pi ${c.icon}`} /></span>
+                    <img className="plat-card-img" src={c.img} alt="" />
+                  </div>
+                  <div className="plat-card-body">
+                    <h3>{c.sigla} - <span>{c.nombre}</span></h3>
+                    <p>{c.desc}</p>
+                  </div>
+                  <span className="plat-card-btn">
+                    {c.cta} <i className="pi pi-angle-double-right" />
+                  </span>
+                </NavLink>
+              ))}
+            </div>
+          </div>
+        </div>
+        <span className="plat-corner" />
       </section>
 
       {/* ── RNDC INTEGRACIÓN INFO ── */}
-      <section className="rndc-section">
+      <section className="rndc2-section">
         <div className="container">
-          <div className="text-center mb-2">
-            <span className="section-tag">Sistema RNDC integrado</span>
-          </div>
-          <h2 className="section-title text-center">
-            Dos módulos, un solo ingreso
-          </h2>
-          <p className="section-sub text-center">
-            Nuestro portal RNDC integra los dos procesos que exige el sistema
-            nacional de carga en Colombia.
-          </p>
-
-          <div className="row g-4">
-            {/* Módulo 1: Preoperativas / Manifiestos */}
-            <div className="col-md-6">
-              <div className="rndc-module-card">
-                <div className="rndc-module-icon">
-                  <i className="pi pi-file-edit" />
-                </div>
-                <h3>Módulo 1 – Preoperativas y Manifiestos</h3>
-                <p>
-                  Registro y seguimiento de manifiestos de carga (preoperativas)
-                  antes de cada despacho. Gestione, consulte y elimine
-                  manifiestos desde nuestra plataforma conectada al sistema RNDC.
-                </p>
-                <div className="rndc-step">
-                  <span className="rndc-step-num">1</span>
-                  <span>Ingrese con sus credenciales CELLVI al portal RNDC</span>
-                </div>
-                <div className="rndc-step">
-                  <span className="rndc-step-num">2</span>
-                  <span>Seleccione la pestaña <strong style={{color:"#ffd54f"}}>Manifiestos</strong></span>
-                </div>
-                <div className="rndc-step">
-                  <span className="rndc-step-num">3</span>
-                  <span>Consulte, registre o actualice sus preoperativas</span>
-                </div>
-                <NavLink to="/rndc" className="btn-rndc-access">
-                  <i className="pi pi-sign-in" /> Acceder al módulo
-                </NavLink>
-              </div>
-            </div>
-
-            {/* Módulo 2: Contratos FUEC */}
-            <div className="col-md-6">
-              <div className="rndc-module-card">
-                <div className="rndc-module-icon">
-                  <i className="pi pi-file" />
-                </div>
-                <h3>Módulo 2 – Contratos FUEC</h3>
-                <p>
-                  El Formato Único de Extracto de Contrato (FUEC) es el documento
-                  obligatorio para el transporte especial. Desde nuestro portal
-                  puede crear y gestionar sus contratos FUEC de manera ágil.
-                </p>
-                <div className="rndc-step">
-                  <span className="rndc-step-num">1</span>
-                  <span>Ingrese al portal RNDC con sus credenciales</span>
-                </div>
-                <div className="rndc-step">
-                  <span className="rndc-step-num">2</span>
-                  <span>Seleccione la pestaña <strong style={{color:"#ffd54f"}}>Contratos FUEC</strong></span>
-                </div>
-                <div className="rndc-step">
-                  <span className="rndc-step-num">3</span>
-                  <span>Complete los datos y genere su contrato en PDF</span>
-                </div>
-                <NavLink to="/rndc" className="btn-rndc-access">
-                  <i className="pi pi-sign-in" /> Acceder al módulo
-                </NavLink>
-              </div>
-            </div>
+          <div className="rndc2-head">
+            <div className="rndc2-tag"><span>Sistema RNDC integrado</span></div>
+            <h2 className="rndc2-title">
+              Dos módulos, <span className="hl">un solo ingreso</span>
+            </h2>
+            <p className="rndc2-sub">
+              Nuestro portal RNDC integra los dos procesos que exige el sistema
+              nacional de carga en Colombia.
+            </p>
           </div>
 
-          <div className="rndc-integration-note">
-            <i className="pi pi-info-circle" />
+          <div className="rndc2-grid">
+            {rndcModulos.map((m) => (
+              <div key={m.numero} className="rndc2-card">
+                <div className="rndc2-card-head">
+                  <span className="rndc2-icon">
+                    <i className={`pi ${m.icon}`} />
+                    <span className="rndc2-icon-badge"><i className={`pi ${m.badge}`} /></span>
+                  </span>
+                  <div>
+                    <h3>Módulo {m.numero} – <span>{m.nombre}</span></h3>
+                    <p>{m.desc}</p>
+                  </div>
+                </div>
+                <div className="rndc2-body">
+                  <img className="rndc2-photo" src={m.img} alt="" />
+                  <ol className="rndc2-steps">
+                    {m.pasos.map((p, i) => (
+                      <li key={i}>
+                        <span className="rndc2-step-num">{i + 1}</span>
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ol>
+                  <NavLink to="/rndc" className="rndc2-btn">
+                    <i className="pi pi-arrow-right" /> Acceder al módulo
+                  </NavLink>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="rndc2-note">
+            <span className="rndc2-note-icon">i</span>
             <p>
-              <strong>¿Cómo funciona la integración?</strong> Ambos módulos
-              comparten el mismo login con sus credenciales CELLVI. No necesita
-              cuentas separadas: un solo usuario y contraseña le da acceso a
-              preoperativas y contratos FUEC dentro del portal RNDC de Asegurar.
-              Si aún no tiene credenciales,{" "}
-              <NavLink to="/contacto" style={{ color: "#ffd54f", fontWeight: 700 }}>
-                contáctenos
-              </NavLink>{" "}
-              para registrarse.
+              <strong>¿Cómo funciona la integración?</strong>
+              Ambos módulos comparten el mismo login con sus credenciales CELLVI.
+              No necesita cuentas separadas: un solo usuario y contraseña le da
+              acceso a preoperativas y contratos FUEC dentro del portal RNDC de
+              Asegurar. Si aún no tiene credenciales,{" "}
+              <NavLink to="/contacto">contáctenos</NavLink> para registrarse.
             </p>
           </div>
         </div>
